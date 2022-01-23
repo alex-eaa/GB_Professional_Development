@@ -24,7 +24,7 @@
     </style>
 
     <style name="TextViewButtonStyle" parent="BaseTextStyle">
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">@color/button_search_selector</item>
     </style>
 
     <style name="BaseEditTextStyle">

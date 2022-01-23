@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import com.elchaninov.gbprofessionaldevelopment.databinding.BottomSheetDialogLayoutBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -53,8 +54,20 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.searchButtonTextview.isEnabled = false
         binding.searchButtonTextview.setOnClickListener(onSearchButtonClickListener)
         binding.searchEditText.addTextChangedListener(textWatcher)
+
+        binding.searchEditText.setOnEditorActionListener{ v, actionId, event ->
+            var handled = false
+            if (actionId == EditorInfo.IME_ACTION_SEND || actionId == EditorInfo.IME_ACTION_SEARCH) {
+                onSearchClickListener?.onClick(binding.searchEditText.text.toString())
+                dismiss()
+                handled = true
+            }
+            handled
+        }
+
         addOnClearClickListener()
     }
 
