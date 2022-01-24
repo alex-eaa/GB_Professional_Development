@@ -3,7 +3,7 @@ package com.elchaninov.gbprofessionaldevelopment.view
 import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 import com.elchaninov.gbprofessionaldevelopment.model.repository.Repository
-import com.elchaninov.gbprofessionaldevelopment.presenter.Interactor
+import com.elchaninov.gbprofessionaldevelopment.viewmodel.Interactor
 import io.reactivex.rxjava3.core.Observable
 
 class MainInteractor(

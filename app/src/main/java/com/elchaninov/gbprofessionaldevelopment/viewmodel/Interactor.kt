@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment.presenter
+package com.elchaninov.gbprofessionaldevelopment.viewmodel
 
 import io.reactivex.rxjava3.core.Observable
 
