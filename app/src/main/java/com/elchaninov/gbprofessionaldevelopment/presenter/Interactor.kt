@@ -1,6 +1,7 @@
 package com.elchaninov.gbprofessionaldevelopment.presenter
 
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
+
 
 //  Ещё выше стоит интерактор. Здесь уже чистая бизнес-логика
 interface Interactor<T> {

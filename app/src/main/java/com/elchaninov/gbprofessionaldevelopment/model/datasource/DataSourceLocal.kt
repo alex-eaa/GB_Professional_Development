@@ -1,7 +1,7 @@
 package com.elchaninov.gbprofessionaldevelopment.model.datasource
 
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
 
 class DataSourceLocal(
     private val remoteProvider: RoomDataBaseImplementation = RoomDataBaseImplementation()

@@ -4,7 +4,7 @@ import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 import com.elchaninov.gbprofessionaldevelopment.model.repository.Repository
 import com.elchaninov.gbprofessionaldevelopment.presenter.Interactor
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
 
 class MainInteractor(
     private val remoteRepository: Repository<List<DataModel>>,

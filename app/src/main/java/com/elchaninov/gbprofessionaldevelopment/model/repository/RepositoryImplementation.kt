@@ -2,7 +2,7 @@ package com.elchaninov.gbprofessionaldevelopment.model.repository
 
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.DataSource
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
 
 class RepositoryImplementation(
     private val dataSource: DataSource<List<DataModel>>

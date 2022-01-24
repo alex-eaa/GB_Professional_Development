@@ -1,6 +1,6 @@
 package com.elchaninov.gbprofessionaldevelopment.model.datasource
 
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
 
 //  Источник данных для репозитория (Интернет, БД и т. п.)
 interface DataSource<T> {

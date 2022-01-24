@@ -11,8 +11,8 @@ import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 import com.elchaninov.gbprofessionaldevelopment.presenter.Presenter
 import com.elchaninov.gbprofessionaldevelopment.view.adapter.MainAdapter
-import com.elchaninov.gbprofessionaldevelopment.view.base.BaseActivity
 import com.elchaninov.gbprofessionaldevelopment.view.base.AppView
+import com.elchaninov.gbprofessionaldevelopment.view.base.BaseActivity
 
 class MainActivity : BaseActivity<AppState>() {
 

@@ -2,8 +2,8 @@ package com.elchaninov.gbprofessionaldevelopment.model.datasource
 
 import com.elchaninov.gbprofessionaldevelopment.model.api.ApiService
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import io.reactivex.Observable
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
+import io.reactivex.rxjava3.core.Observable
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -23,7 +23,7 @@ class RetrofitImplementation : DataSource<List<DataModel>> {
         return Retrofit.Builder()
             .baseUrl(BASE_URL_LOCATIONS)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .client(createOkHttpClient(interceptor))
             .build()
     }
