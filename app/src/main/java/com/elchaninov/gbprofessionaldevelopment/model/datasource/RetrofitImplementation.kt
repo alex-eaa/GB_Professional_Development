@@ -2,12 +2,12 @@ package com.elchaninov.gbprofessionaldevelopment.model.datasource
 
 import com.elchaninov.gbprofessionaldevelopment.model.api.ApiService
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
-import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import io.reactivex.rxjava3.core.Observable
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitImplementation : DataSource<List<DataModel>> {

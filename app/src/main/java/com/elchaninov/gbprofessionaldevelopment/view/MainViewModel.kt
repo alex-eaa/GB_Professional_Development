@@ -2,18 +2,12 @@ package com.elchaninov.gbprofessionaldevelopment.view
 
 import androidx.lifecycle.LiveData
 import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
-import com.elchaninov.gbprofessionaldevelopment.model.datasource.DataSourceLocal
-import com.elchaninov.gbprofessionaldevelopment.model.datasource.DataSourceRemote
-import com.elchaninov.gbprofessionaldevelopment.model.repository.RepositoryImplementation
 import com.elchaninov.gbprofessionaldevelopment.viewmodel.BaseViewModel
 import io.reactivex.rxjava3.observers.DisposableObserver
+import javax.inject.Inject
 
-class MainViewModel(
-    private val interactor: MainInteractor = MainInteractor(
-        RepositoryImplementation(DataSourceRemote()),
-        RepositoryImplementation(DataSourceLocal())
-    )
-) : BaseViewModel<AppState>() {
+class MainViewModel @Inject constructor(private val interactor: MainInteractor) :
+    BaseViewModel<AppState>() {
 
     // В этой переменной хранится последнее состояние Activity
     private var appState: AppState? = null
