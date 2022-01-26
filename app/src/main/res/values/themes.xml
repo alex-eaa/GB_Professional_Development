@@ -1,13 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="AppTheme" parent="AppTheme.Day"/>
+
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="AppTheme.Day" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryDark</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -45,7 +47,7 @@
     </style>
 
     <style name="AppModalStyle" parent="Widget.MaterialComponents.BottomSheet.Modal">
-<!--        <item name="android:background">@drawable/bottom_sheet_dialog_background</item>-->
+        <item name="android:background">@drawable/bottom_sheet_dialog_background</item>
     </style>
 
 </resources>
