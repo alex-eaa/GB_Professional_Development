@@ -47,12 +47,14 @@ class MainActivity : BaseActivity<AppState>() {
 
         model = viewModelFactory.create(MainViewModel::class.java)
 
+        model.getLiveDataToObserve().observe(this@MainActivity, observer)
+
         binding.searchFab.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.newInstance()
             searchDialogFragment.setOnSearchClickListener(
                 object : SearchDialogFragment.OnSearchClickListener {
                     override fun onClick(searchWord: String) {
-                        model.getData(searchWord, isOnline(applicationContext)).observe(this@MainActivity, observer)
+                        model.getData(searchWord, isOnline(applicationContext))
                     }
                 })
             searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
@@ -98,7 +100,7 @@ class MainActivity : BaseActivity<AppState>() {
         showViewError()
         binding.errorTextview.text = error ?: getString(R.string.undefined_error)
         binding.reloadButton.setOnClickListener {
-            model.getData("hi", isOnline(applicationContext)).observe(this@MainActivity, observer)
+            model.getData("hi", isOnline(applicationContext))
         }
 
     }
