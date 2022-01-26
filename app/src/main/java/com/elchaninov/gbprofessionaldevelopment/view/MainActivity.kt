@@ -11,7 +11,6 @@ import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityMainBinding
 import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
-import com.elchaninov.gbprofessionaldevelopment.utils.network.isOnline
 import com.elchaninov.gbprofessionaldevelopment.view.adapter.MainAdapter
 import com.elchaninov.gbprofessionaldevelopment.view.base.BaseActivity
 import dagger.android.AndroidInjection
@@ -54,7 +53,7 @@ class MainActivity : BaseActivity<AppState>() {
             searchDialogFragment.setOnSearchClickListener(
                 object : SearchDialogFragment.OnSearchClickListener {
                     override fun onClick(searchWord: String) {
-                        model.getData(searchWord, isOnline(applicationContext))
+                        model.getData(searchWord, isOnline)
                     }
                 })
             searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
@@ -100,9 +99,8 @@ class MainActivity : BaseActivity<AppState>() {
         showViewError()
         binding.errorTextview.text = error ?: getString(R.string.undefined_error)
         binding.reloadButton.setOnClickListener {
-            model.getData("hi", isOnline(applicationContext))
+            model.getData("hi", isOnline)
         }
-
     }
 
     private fun showViewSuccess() {
