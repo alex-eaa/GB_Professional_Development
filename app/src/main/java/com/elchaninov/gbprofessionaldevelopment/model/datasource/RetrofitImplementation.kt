@@ -10,7 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitImplementation : DataSource<List<DataModel>> {
+class RetrofitImplementation : DataSourceRemote<List<DataModel>> {
     override fun getData(word: String): Observable<List<DataModel>> {
         return getService(BaseInterceptor.interceptor).search(word)
     }

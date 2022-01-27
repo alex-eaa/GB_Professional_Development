@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class RoomDataBaseImplementation @Inject constructor(
     private val translationDao: TranslationDao
-) : LocalDataSource<List<DataModel>> {
+) : DataSourceLocal<List<DataModel>> {
 
     override fun getData(word: String): Observable<List<DataModel>> {
         return translationDao.getTranslation(word)

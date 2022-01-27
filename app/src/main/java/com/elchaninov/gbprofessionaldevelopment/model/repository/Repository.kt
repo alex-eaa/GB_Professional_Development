@@ -1,5 +1,6 @@
 package com.elchaninov.gbprofessionaldevelopment.model.repository
 
+import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 import io.reactivex.rxjava3.core.Observable
 
 
@@ -8,4 +9,6 @@ import io.reactivex.rxjava3.core.Observable
 interface Repository<T> {
 
     fun getData(word: String): Observable<T>
+
+    fun saveData(ataModels: List<DataModel>)
 }

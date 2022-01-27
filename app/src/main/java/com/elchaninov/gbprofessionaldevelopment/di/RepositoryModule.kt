@@ -11,6 +11,7 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Named
 import javax.inject.Singleton
+import javax.sql.DataSource
 
 @Module
 class RepositoryModule {
