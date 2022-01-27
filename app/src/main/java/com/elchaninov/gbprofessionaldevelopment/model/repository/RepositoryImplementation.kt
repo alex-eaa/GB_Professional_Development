@@ -10,4 +10,8 @@ class RepositoryImplementation(private val dataSource: DataSource<List<DataModel
     override fun getData(word: String): Observable<List<DataModel>> {
         return dataSource.getData(word)
     }
+
+    override fun saveData(ataModels: List<DataModel>) {
+        TODO("Not yet implemented")
+    }
 }

@@ -3,6 +3,7 @@ package com.elchaninov.gbprofessionaldevelopment.view
 import androidx.lifecycle.LiveData
 import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.viewmodel.BaseViewModel
+import com.elchaninov.gbprofessionaldevelopment.viewmodel.MainInteractor
 import io.reactivex.rxjava3.observers.DisposableObserver
 import javax.inject.Inject
 

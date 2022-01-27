@@ -1,8 +1,10 @@
 package com.elchaninov.gbprofessionaldevelopment.di
 
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
+import com.elchaninov.gbprofessionaldevelopment.model.datasource.DataSourceLocal
+import com.elchaninov.gbprofessionaldevelopment.model.datasource.DataSourceRemote
 import com.elchaninov.gbprofessionaldevelopment.model.repository.Repository
-import com.elchaninov.gbprofessionaldevelopment.view.MainInteractor
+import com.elchaninov.gbprofessionaldevelopment.viewmodel.MainInteractor
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named
@@ -12,7 +14,7 @@ class InteractorModule {
 
     @Provides
     internal fun provideInteractor(
-        @Named(NAME_REMOTE) repositoryRemote: Repository<List<DataModel>>,
-        @Named(NAME_LOCAL) repositoryLocal: Repository<List<DataModel>>
+        repositoryRemote: DataSourceRemote<List<DataModel>>,
+        repositoryLocal: DataSourceLocal<List<DataModel>>
     ) = MainInteractor(repositoryRemote, repositoryLocal)
 }

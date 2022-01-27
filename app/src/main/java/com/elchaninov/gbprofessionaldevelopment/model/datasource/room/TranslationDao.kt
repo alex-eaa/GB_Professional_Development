@@ -10,9 +10,12 @@ import io.reactivex.rxjava3.core.Single
 @Dao
 interface TranslationDao {
 
-    @Query("SELECT * FROM TranslationTable WHERE text = :word")
-    fun getTranslation(word: String): Observable<List<TranslationEntity>>
+    @Insert(onConflict = REPLACE)
+    fun saveTranslation(translations: List<EntityTranslation>)
 
     @Insert(onConflict = REPLACE)
-    fun saveTranslation(translations: List<TranslationEntity>)
+    fun saveMeaning(meaning: List<EntityMeaning>)
+
+    @Query("SELECT * FROM TranslationTable WHERE text LIKE :word")
+    fun getTranslationWhitsMeaning(word: String): Observable<List<TranslationWhitsMeaning>>
 }

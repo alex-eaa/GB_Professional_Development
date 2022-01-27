@@ -1,26 +1,21 @@
 package com.elchaninov.gbprofessionaldevelopment.model.datasource.room
 
 import androidx.room.ColumnInfo
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.elchaninov.gbprofessionaldevelopment.model.data.Meanings
+import com.elchaninov.gbprofessionaldevelopment.model.data.Translation
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "TranslationTable")
-data class TranslationEntity(
+data class EntityTranslation(
     @PrimaryKey
     @ColumnInfo
     @SerializedName("id")
-    val id: String,
+    val id: Long?,
 
     @ColumnInfo
     @SerializedName("text")
     val text: String?,
-
-    @ColumnInfo
-    @SerializedName("translation")
-    val translation: String? = null,
-
-    @ColumnInfo
-    @SerializedName("imageUrl")
-    val imageUrl: String? = null,
 )

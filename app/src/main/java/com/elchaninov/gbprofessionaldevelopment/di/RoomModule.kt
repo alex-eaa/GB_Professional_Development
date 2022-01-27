@@ -14,7 +14,7 @@ class RoomModule {
     @Singleton
     @Provides
     fun provideDatabase(app: Context): DBStorage =
-        Room.databaseBuilder(app, DBStorage::class.java, "github.db")
+        Room.databaseBuilder(app, DBStorage::class.java, "translate.db")
             .build()
 
     @Singleton
