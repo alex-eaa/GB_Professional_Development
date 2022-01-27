@@ -44,7 +44,8 @@ class MainActivity : BaseActivity<AppState>() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        model = viewModelFactory.create(MainViewModel::class.java)
+        model = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
+
 
         model.getLiveDataToObserve().observe(this@MainActivity, observer)
 
