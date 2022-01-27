@@ -27,6 +27,7 @@ class MainActivity : BaseActivity<AppState>() {
 
     private lateinit var binding: ActivityMainBinding
     private var adapter: MainAdapter? = null
+    private var searchWord = ""
 
     private val onListItemClickListener: MainAdapter.OnListItemClickListener =
         object : MainAdapter.OnListItemClickListener {
@@ -44,7 +45,8 @@ class MainActivity : BaseActivity<AppState>() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        model = viewModelFactory.create(MainViewModel::class.java)
+        model = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
+
 
         model.getLiveDataToObserve().observe(this@MainActivity, observer)
 
@@ -99,7 +101,7 @@ class MainActivity : BaseActivity<AppState>() {
         showViewError()
         binding.errorTextview.text = error ?: getString(R.string.undefined_error)
         binding.reloadButton.setOnClickListener {
-            model.getData("hi", isOnline)
+            model.getData(searchWord, isOnline)
         }
     }
 
