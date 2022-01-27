@@ -4,6 +4,7 @@ import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.DataSource
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.RetrofitImplementation
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.RoomDataBaseImplementation
+import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.TranslationDao
 import com.elchaninov.gbprofessionaldevelopment.model.repository.Repository
 import com.elchaninov.gbprofessionaldevelopment.model.repository.RepositoryImplementation
 import dagger.Module
@@ -34,5 +35,6 @@ class RepositoryModule {
     @Provides
     @Singleton
     @Named(NAME_LOCAL)
-    fun provideDataSourceLocal(): DataSource<List<DataModel>> = RoomDataBaseImplementation()
+    fun provideDataSourceLocal(translationDao: TranslationDao): DataSource<List<DataModel>> =
+        RoomDataBaseImplementation(translationDao)
 }

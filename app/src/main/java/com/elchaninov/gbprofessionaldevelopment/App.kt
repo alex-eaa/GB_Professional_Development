@@ -21,6 +21,7 @@ class App : Application(), HasAndroidInjector {
         super.onCreate()
         DaggerAppComponent.builder()
             .application(this)
+            .setContext(this)
             .build()
             .inject(this)
     }
