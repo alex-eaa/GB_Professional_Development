@@ -67,7 +67,8 @@ class MainActivity : BaseActivity<AppState>() {
             is AppState.Success -> {
                 val dataModel = appState.data
                 if (dataModel == null || dataModel.isEmpty()) {
-                    showErrorScreen(getString(R.string.empty_server_response_on_success))
+                    if (isOnline) showErrorScreen(getString(R.string.empty_server_response_on_success))
+                    else showErrorScreen(getString(R.string.empty_cash_response_on_success))
                 } else {
                     showViewSuccess()
                     if (adapter == null) {
@@ -109,18 +110,26 @@ class MainActivity : BaseActivity<AppState>() {
         binding.successLinearLayout.visibility = VISIBLE
         binding.loadingFrameLayout.visibility = GONE
         binding.errorLinearLayout.visibility = GONE
+        showViewNotInternetConnection()
     }
 
     private fun showViewLoading() {
         binding.successLinearLayout.visibility = GONE
         binding.loadingFrameLayout.visibility = VISIBLE
         binding.errorLinearLayout.visibility = GONE
+        binding.notConnectionMessage.visibility = GONE
     }
 
     private fun showViewError() {
         binding.successLinearLayout.visibility = GONE
         binding.loadingFrameLayout.visibility = GONE
         binding.errorLinearLayout.visibility = VISIBLE
+        binding.notConnectionMessage.visibility = GONE
+    }
+
+    private fun showViewNotInternetConnection() {
+        if (isOnline) binding.notConnectionMessage.visibility = GONE
+        else binding.notConnectionMessage.visibility = VISIBLE
     }
 
     companion object {

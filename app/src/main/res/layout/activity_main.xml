@@ -10,10 +10,25 @@
         android:layout_height="match_parent"
         android:gravity="center">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/main_activity_recyclerview"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/not_connection_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_error"
+                android:gravity="center"
+                android:text="Отсутствует интернет. Показанные данные взяты из кеша."
+                android:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/main_activity_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/search_fab"
