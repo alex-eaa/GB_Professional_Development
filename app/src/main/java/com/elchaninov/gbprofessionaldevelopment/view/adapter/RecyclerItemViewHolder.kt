@@ -13,7 +13,9 @@ class RecyclerItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             itemView.findViewById<TextView>(R.id.header_textview_recycler_item).text = data.text
 
             itemView.findViewById<TextView>(R.id.description_textview_recycler_item).text =
-                data.meanings?.get(0)?.translation?.translation
+                if (data.meanings?.size != 0) data.meanings?.get(0)?.translation?.translation
+                else ""
+
 
             itemView.setOnClickListener { onItemClickListener.onItemClick(data) }
         }

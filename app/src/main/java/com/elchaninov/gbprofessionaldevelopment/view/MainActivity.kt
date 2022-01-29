@@ -27,7 +27,6 @@ class MainActivity : BaseActivity<AppState>() {
 
     private lateinit var binding: ActivityMainBinding
     private var adapter: MainAdapter? = null
-    private var searchWord = ""
 
     private val onListItemClickListener: MainAdapter.OnListItemClickListener =
         object : MainAdapter.OnListItemClickListener {
@@ -46,7 +45,6 @@ class MainActivity : BaseActivity<AppState>() {
         setContentView(binding.root)
 
         model = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
-
 
         model.getLiveDataToObserve().observe(this@MainActivity, observer)
 
@@ -67,8 +65,9 @@ class MainActivity : BaseActivity<AppState>() {
             is AppState.Success -> {
                 val dataModel = appState.data
                 if (dataModel == null || dataModel.isEmpty()) {
-                    if (isOnline) showErrorScreen(getString(R.string.empty_server_response_on_success))
-                    else showErrorScreen(getString(R.string.empty_cash_response_on_success))
+                    if (isOnline)
+                        showErrorScreen(getString(R.string.empty_server_response_on_success), false)
+                    else showErrorScreen(getString(R.string.empty_cash_response_on_success), true)
                 } else {
                     showViewSuccess()
                     if (adapter == null) {
@@ -93,43 +92,50 @@ class MainActivity : BaseActivity<AppState>() {
                 }
             }
             is AppState.Error -> {
-                showErrorScreen(appState.error.message)
+                showErrorScreen(appState.error.message, true)
             }
         }
     }
 
-    private fun showErrorScreen(error: String?) {
-        showViewError()
+    private fun showErrorScreen(error: String?, withButton: Boolean) {
         binding.errorTextview.text = error ?: getString(R.string.undefined_error)
-        binding.reloadButton.setOnClickListener {
-            model.getData(searchWord, isOnline)
+
+        binding.reloadButton.apply {
+            setOnClickListener { model.getData(isOnline = isOnline) }
+            visibility = if (withButton) VISIBLE else GONE
         }
+
+        showViewError()
     }
 
     private fun showViewSuccess() {
         binding.successLinearLayout.visibility = VISIBLE
         binding.loadingFrameLayout.visibility = GONE
         binding.errorLinearLayout.visibility = GONE
-        showViewNotInternetConnection()
+        showViewMessageNoConnection(true)
     }
 
     private fun showViewLoading() {
         binding.successLinearLayout.visibility = GONE
         binding.loadingFrameLayout.visibility = VISIBLE
         binding.errorLinearLayout.visibility = GONE
-        binding.notConnectionMessage.visibility = GONE
+        showViewMessageNoConnection()
     }
 
     private fun showViewError() {
         binding.successLinearLayout.visibility = GONE
         binding.loadingFrameLayout.visibility = GONE
         binding.errorLinearLayout.visibility = VISIBLE
-        binding.notConnectionMessage.visibility = GONE
+        showViewMessageNoConnection()
     }
 
-    private fun showViewNotInternetConnection() {
-        if (isOnline) binding.notConnectionMessage.visibility = GONE
-        else binding.notConnectionMessage.visibility = VISIBLE
+    private fun showViewMessageNoConnection(isExtendedMessage: Boolean = false) {
+        if (isExtendedMessage) {
+            binding.sideMessageNoConnection.text =
+                getString(R.string.message_is_offline_and_show_cache)
+        }
+
+        binding.sideMessageNoConnection.visibility = if (isOnline) GONE else VISIBLE
     }
 
     companion object {

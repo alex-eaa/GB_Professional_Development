@@ -4,14 +4,14 @@ import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.EntityMeaning
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.TranslationDao
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.map
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 class RoomDataBaseImplementation @Inject constructor(
     private val translationDao: TranslationDao,
 ) : DataSourceLocal<List<DataModel>> {
 
-    override fun getData(word: String): Observable<List<DataModel>> {
+    override fun getData(word: String): Single<List<DataModel>> {
         return translationDao.getTranslationWhitsMeaning("$word%")
             .map {
                 it.map { translationWhitsMeaning ->
