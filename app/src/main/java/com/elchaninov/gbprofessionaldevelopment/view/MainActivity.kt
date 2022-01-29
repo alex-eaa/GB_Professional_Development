@@ -5,7 +5,6 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityMainBinding
@@ -13,13 +12,9 @@ import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 import com.elchaninov.gbprofessionaldevelopment.view.adapter.MainAdapter
 import com.elchaninov.gbprofessionaldevelopment.view.base.BaseActivity
-import dagger.android.AndroidInjection
-import javax.inject.Inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<AppState>() {
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override lateinit var model: MainViewModel
 
@@ -38,15 +33,17 @@ class MainActivity : BaseActivity<AppState>() {
             }
         }
 
+    private fun iniViewModel() {
+        val viewModel: MainViewModel by viewModel()
+        model = viewModel
+        model.getLiveDataToObserve().observe(this@MainActivity, observer)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
+        iniViewModel()
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        model = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
-
-        model.getLiveDataToObserve().observe(this@MainActivity, observer)
 
         binding.searchFab.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.newInstance()

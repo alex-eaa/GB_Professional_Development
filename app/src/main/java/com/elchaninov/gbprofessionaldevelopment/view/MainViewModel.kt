@@ -4,10 +4,8 @@ import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.viewmodel.BaseViewModel
 import com.elchaninov.gbprofessionaldevelopment.viewmodel.MainInteractor
 import io.reactivex.rxjava3.observers.DisposableSingleObserver
-import javax.inject.Inject
 
-class MainViewModel @Inject constructor(private val interactor: MainInteractor) :
-    BaseViewModel<AppState>() {
+class MainViewModel(private val interactor: MainInteractor) : BaseViewModel<AppState>() {
 
     // В этой переменной хранится последнее состояние Activity
     private var appState: AppState? = null

@@ -5,11 +5,9 @@ import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.EntityMean
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.TranslationDao
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.map
 import io.reactivex.rxjava3.core.Single
-import javax.inject.Inject
 
-class RoomDataBaseImplementation @Inject constructor(
-    private val translationDao: TranslationDao,
-) : DataSourceLocal<List<DataModel>> {
+class RoomDataBaseImplementation(private val translationDao: TranslationDao) :
+    DataSourceLocal<List<DataModel>> {
 
     override fun getData(word: String): Single<List<DataModel>> {
         return translationDao.getTranslationWhitsMeaning("$word%")

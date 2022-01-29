@@ -5,9 +5,8 @@ import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.DataSourceLocal
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.DataSourceRemote
 import io.reactivex.rxjava3.core.Single
-import javax.inject.Inject
 
-class MainInteractor @Inject constructor(
+class MainInteractor (
     private val remoteRepository: DataSourceRemote<List<DataModel>>,
     private val localRepository: DataSourceLocal<List<DataModel>>
 ) : Interactor<AppState> {
