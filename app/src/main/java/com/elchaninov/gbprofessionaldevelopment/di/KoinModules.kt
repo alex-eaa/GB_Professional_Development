@@ -10,6 +10,7 @@ import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.DBStorage
 import com.elchaninov.gbprofessionaldevelopment.view.MainViewModel
 import com.elchaninov.gbprofessionaldevelopment.viewmodel.MainInteractor
 import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 // Для удобства создадим две переменные: в одной находятся зависимости,
@@ -26,5 +27,5 @@ val application = module {
 
 val mainScreen = module {
     factory { MainInteractor(get(), get()) }
-    factory { MainViewModel(get()) }
+    viewModel { MainViewModel(get()) }
 }

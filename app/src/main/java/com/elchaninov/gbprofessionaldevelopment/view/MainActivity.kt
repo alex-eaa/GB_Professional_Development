@@ -16,7 +16,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<AppState>() {
 
-    override lateinit var model: MainViewModel
+    override val model: MainViewModel by viewModel()
 
     private val observer = Observer<AppState> { renderData(it) }
 
@@ -33,17 +33,12 @@ class MainActivity : BaseActivity<AppState>() {
             }
         }
 
-    private fun iniViewModel() {
-        val viewModel: MainViewModel by viewModel()
-        model = viewModel
-        model.getLiveDataToObserve().observe(this@MainActivity, observer)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
-        iniViewModel()
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        model.getLiveDataToObserve().observe(this@MainActivity, observer)
 
         binding.searchFab.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.newInstance()
