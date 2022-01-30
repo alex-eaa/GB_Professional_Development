@@ -11,17 +11,22 @@ class MainViewModel @Inject constructor(private val interactor: MainInteractor) 
 
     // В этой переменной хранится последнее состояние Activity
     private var appState: AppState? = null
+    private var searchWord: String? = null
 
-    override fun getData(word: String, isOnline: Boolean): LiveData<AppState> {
-        compositeDisposable.add(
-            interactor.getData(word, isOnline)
-                .subscribeOn(schedulerProvider.io())
-                .observeOn(schedulerProvider.ui())
-                .doOnSubscribe {
-                    liveDataForViewToObserve.value = AppState.Loading(null)
-                }
-                .subscribeWith(getObserver())
-        )
+    override fun getData(word: String?, isOnline: Boolean): LiveData<AppState> {
+        if (word != null) searchWord = word
+
+        searchWord?.let {
+            compositeDisposable.add(
+                interactor.getData(it, isOnline)
+                    .subscribeOn(schedulerProvider.io())
+                    .observeOn(schedulerProvider.ui())
+                    .doOnSubscribe {
+                        liveDataForViewToObserve.value = AppState.Loading(null)
+                    }
+                    .subscribeWith(getObserver())
+            )
+        }
         return super.getData(word, isOnline)
     }
 
