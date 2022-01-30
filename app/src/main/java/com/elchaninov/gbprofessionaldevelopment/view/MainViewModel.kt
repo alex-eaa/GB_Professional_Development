@@ -2,6 +2,7 @@ package com.elchaninov.gbprofessionaldevelopment.view
 
 import androidx.lifecycle.viewModelScope
 import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
+import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 import com.elchaninov.gbprofessionaldevelopment.viewmodel.BaseViewModel
 import com.elchaninov.gbprofessionaldevelopment.viewmodel.MainInteractor
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -23,7 +24,11 @@ class MainViewModel(private val interactor: MainInteractor) : BaseViewModel<AppS
 
     private suspend fun startInteractor(word: String, isOnline: Boolean) =
         withContext(Dispatchers.IO) {
-            _liveDataForViewToObserve.postValue(interactor.getData(word, isOnline))
+            _liveDataForViewToObserve.postValue(
+                parseSearchResult(
+                    interactor.getData(word, isOnline)
+                )
+            )
         }
 
     override val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
@@ -33,4 +38,10 @@ class MainViewModel(private val interactor: MainInteractor) : BaseViewModel<AppS
     override fun handleError(error: Throwable) {
         _liveDataForViewToObserve.value = AppState.Error(error)
     }
+
+    private fun parseSearchResult(dataModel: List<DataModel>): AppState =
+        if (dataModel.isNullOrEmpty()) AppState.Empty
+        else if (dataModel[0].text.isNullOrEmpty() || dataModel[0].meanings.isNullOrEmpty()) AppState.Empty
+        else AppState.Success(dataModel)
+
 }

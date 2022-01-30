@@ -55,22 +55,22 @@ class MainActivity : BaseActivity<AppState>() {
     override fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Success -> {
-                val dataModel = appState.data
-                if (dataModel == null || dataModel.isEmpty()) {
-                    if (isOnline)
-                        showErrorScreen(getString(R.string.empty_server_response_on_success), false)
-                    else showErrorScreen(getString(R.string.empty_cash_response_on_success), true)
+                showViewSuccess()
+                if (adapter == null) {
+                    binding.mainActivityRecyclerview.layoutManager =
+                        LinearLayoutManager(applicationContext)
+                    binding.mainActivityRecyclerview.adapter =
+                        MainAdapter(onListItemClickListener, appState.data)
                 } else {
-                    showViewSuccess()
-                    if (adapter == null) {
-                        binding.mainActivityRecyclerview.layoutManager =
-                            LinearLayoutManager(applicationContext)
-                        binding.mainActivityRecyclerview.adapter =
-                            MainAdapter(onListItemClickListener, dataModel)
-                    } else {
-                        adapter!!.setData(dataModel)
-                    }
+                    adapter!!.setData(appState.data)
                 }
+            }
+            is AppState.Empty -> {
+                showViewSuccess()
+                if (isOnline)
+                    showErrorScreen(getString(R.string.empty_server_response_on_success), false)
+                else
+                    showErrorScreen(getString(R.string.empty_cash_response_on_success), true)
             }
             is AppState.Loading -> {
                 showViewLoading()
