@@ -4,33 +4,26 @@ import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.EntityMeaning
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.TranslationDao
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.map
-import io.reactivex.rxjava3.core.Single
 
 class RoomDataBaseImplementation(private val translationDao: TranslationDao) :
     DataSourceLocal<List<DataModel>> {
 
-    override fun getData(word: String): Single<List<DataModel>> {
-        return translationDao.getTranslationWhitsMeaning("$word%")
-            .map {
-                it.map { translationWhitsMeaning ->
-                    map(translationWhitsMeaning)
-                }
+    override suspend fun getData(word: String): List<DataModel> =
+        translationDao.getTranslationWhitsMeaning("$word%").map { translationWhitsMeaning ->
+                map(translationWhitsMeaning)
             }
-    }
 
     override fun saveData(list: List<DataModel>) {
         translationDao.saveTranslation(list.map { map(it) })
 
         list.map { dataModel ->
-            val list: MutableList<EntityMeaning> = mutableListOf()
+            val listForSave: MutableList<EntityMeaning> = mutableListOf()
 
             dataModel.meanings?.let {
-                list.addAll(it.map { meaning ->
-                    map(meaning, dataModel)
-                })
+                listForSave.addAll(it.map { meaning -> map(meaning, dataModel) })
             }
 
-            translationDao.saveMeaning(list)
+            translationDao.saveMeaning(listForSave)
         }
     }
 }

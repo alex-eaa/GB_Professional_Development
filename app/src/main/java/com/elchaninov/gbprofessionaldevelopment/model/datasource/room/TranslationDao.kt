@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
-import io.reactivex.rxjava3.core.Single
 
 @Dao
 interface TranslationDao {
@@ -16,5 +15,5 @@ interface TranslationDao {
     fun saveMeaning(meaning: List<EntityMeaning>)
 
     @Query("SELECT * FROM TranslationTable WHERE text LIKE :word ORDER BY text ASC")
-    fun getTranslationWhitsMeaning(word: String): Single<List<TranslationWhitsMeaning>>
+    suspend fun getTranslationWhitsMeaning(word: String): List<TranslationWhitsMeaning>
 }

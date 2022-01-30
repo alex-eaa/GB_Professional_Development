@@ -38,7 +38,7 @@ class MainActivity : BaseActivity<AppState>() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        model.getLiveDataToObserve().observe(this@MainActivity, observer)
+        model.liveDataForViewToObserve.observe(this@MainActivity, observer)
 
         binding.searchFab.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.newInstance()

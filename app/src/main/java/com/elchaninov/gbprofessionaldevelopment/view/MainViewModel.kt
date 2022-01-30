@@ -3,40 +3,29 @@ package com.elchaninov.gbprofessionaldevelopment.view
 import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.viewmodel.BaseViewModel
 import com.elchaninov.gbprofessionaldevelopment.viewmodel.MainInteractor
-import io.reactivex.rxjava3.observers.DisposableSingleObserver
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainViewModel(private val interactor: MainInteractor) : BaseViewModel<AppState>() {
 
-    // В этой переменной хранится последнее состояние Activity
-    private var appState: AppState? = null
     private var searchWord: String? = null
 
     override fun getData(word: String?, isOnline: Boolean) {
         if (word != null) searchWord = word
-
         searchWord?.let {
-            compositeDisposable.add(
-                interactor.getData(it, isOnline)
-                    .subscribeOn(schedulerProvider.io())
-                    .observeOn(schedulerProvider.ui())
-                    .doOnSubscribe {
-                        liveDataForViewToObserve.value = AppState.Loading(null)
-                    }
-                    .subscribeWith(getSingleObserver())
-            )
+            _liveDataForViewToObserve.postValue(AppState.Loading(null))
+            cancelJob()
+            viewModelCoroutineScope.launch { startInteractor(it, isOnline) }
         }
     }
 
-    private fun getSingleObserver(): DisposableSingleObserver<AppState> {
-        return object : DisposableSingleObserver<AppState>() {
-            override fun onSuccess(state: AppState) {
-                appState = state
-                liveDataForViewToObserve.value = state
-            }
-
-            override fun onError(e: Throwable) {
-                liveDataForViewToObserve.value = AppState.Error(e)
-            }
+    private suspend fun startInteractor(word: String, isOnline: Boolean) =
+        withContext(Dispatchers.IO) {
+            _liveDataForViewToObserve.postValue(interactor.getData(word, isOnline))
         }
+
+    override fun handleError(error: Throwable) {
+        _liveDataForViewToObserve.value = AppState.Error(error)
     }
 }
