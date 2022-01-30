@@ -14,7 +14,7 @@ import com.elchaninov.gbprofessionaldevelopment.view.adapter.MainAdapter
 import com.elchaninov.gbprofessionaldevelopment.view.base.BaseActivity
 import com.elchaninov.gbprofessionaldevelopment.view.base.AppView
 
-class MainActivity : BaseActivity<AppState>() {
+class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClickListener {
 
     private lateinit var binding: ActivityMainBinding
     private var adapter: MainAdapter? = null
@@ -40,12 +40,6 @@ class MainActivity : BaseActivity<AppState>() {
 
         binding.searchFab.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.newInstance()
-            searchDialogFragment.setOnSearchClickListener(
-                object : SearchDialogFragment.OnSearchClickListener {
-                    override fun onClick(searchWord: String) {
-                        presenter.getData(searchWord, true)
-                    }
-                })
             searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
         }
     }
@@ -110,6 +104,10 @@ class MainActivity : BaseActivity<AppState>() {
         binding.successLinearLayout.visibility = GONE
         binding.loadingFrameLayout.visibility = GONE
         binding.errorLinearLayout.visibility = VISIBLE
+    }
+
+    override fun onClick(searchWord: String) {
+        presenter.getData(searchWord, true)
     }
 
     companion object {

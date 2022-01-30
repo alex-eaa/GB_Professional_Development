@@ -16,7 +16,7 @@ class MainPresenterImpl<T : AppState, V : AppView>(
         RepositoryImplementation(DataSourceLocal())
     ),
     protected val compositeDisposable: CompositeDisposable = CompositeDisposable(),
-    protected val schedulerProvider: SchedulerProvider = SchedulerProvider()
+    protected val schedulerProvider: SchedulerProvider = SchedulerProvider(),
 ) : Presenter<T, V> {
 
     // Ссылка на View, никакого контекста
