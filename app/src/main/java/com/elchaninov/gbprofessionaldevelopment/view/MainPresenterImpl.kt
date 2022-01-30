@@ -1,17 +1,14 @@
 package com.elchaninov.gbprofessionaldevelopment.view
 
-import android.util.Log
 import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.DataSourceLocal
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.DataSourceRemote
 import com.elchaninov.gbprofessionaldevelopment.model.repository.RepositoryImplementation
 import com.elchaninov.gbprofessionaldevelopment.presenter.Presenter
+import com.elchaninov.gbprofessionaldevelopment.rx.SchedulerProvider
 import com.elchaninov.gbprofessionaldevelopment.view.base.AppView
-import io.reactivex.Scheduler
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
-import io.reactivex.schedulers.Schedulers
 
 class MainPresenterImpl<T : AppState, V : AppView>(
     private val interactor: MainInteractor = MainInteractor(
