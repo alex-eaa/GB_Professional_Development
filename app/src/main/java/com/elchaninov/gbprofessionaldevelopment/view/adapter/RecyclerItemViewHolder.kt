@@ -1,21 +1,18 @@
 package com.elchaninov.gbprofessionaldevelopment.view.adapter
 
-import android.view.View
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.elchaninov.gbprofessionaldevelopment.R
+import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityMainRecyclerviewItemBinding
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 
-class RecyclerItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class RecyclerItemViewHolder(private val viewBinding: ActivityMainRecyclerviewItemBinding) :
+    RecyclerView.ViewHolder(viewBinding.root) {
 
-    fun bind(data: DataModel, onItemClickListener: MainAdapter.OnListItemClickListener) {
+    fun bind(data: DataModel) {
         if (layoutPosition != RecyclerView.NO_POSITION) {
-            itemView.findViewById<TextView>(R.id.header_textview_recycler_item).text = data.text
+            viewBinding.headerTextviewRecyclerItem.text = data.text
 
-            itemView.findViewById<TextView>(R.id.description_textview_recycler_item).text =
+            viewBinding.descriptionTextviewRecyclerItem.text =
                 data.meanings?.get(0)?.translation?.translation
-
-            itemView.setOnClickListener { onItemClickListener.onItemClick(data) }
         }
     }
 }

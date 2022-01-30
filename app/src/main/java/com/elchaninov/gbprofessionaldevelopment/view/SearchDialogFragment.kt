@@ -1,12 +1,11 @@
 package com.elchaninov.gbprofessionaldevelopment.view
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.core.widget.doOnTextChanged
 import com.elchaninov.gbprofessionaldevelopment.databinding.BottomSheetDialogLayoutBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -16,31 +15,13 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
     private val binding get() = _binding!!
     private var onSearchClickListener: OnSearchClickListener? = null
 
-    private val textWatcher = object : TextWatcher {
-        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-            if (binding.searchEditText.text != null &&
-                binding.searchEditText.text.toString().isNotEmpty()
-            ) {
-                binding.searchButtonTextview.isEnabled = true
-                binding.clearTextImageview.visibility = View.VISIBLE
-            } else {
-                binding.searchButtonTextview.isEnabled = false
-                binding.clearTextImageview.visibility = View.GONE
-            }
-        }
-
-        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-        override fun afterTextChanged(s: Editable) {}
-    }
-
     private val onSearchButtonClickListener = View.OnClickListener {
         onSearchClickListener?.onClick(binding.searchEditText.text.toString())
         dismiss()
     }
 
     internal fun setOnSearchClickListener(listener: OnSearchClickListener) {
-        onSearchClickListener = listener
+        onSearchClickListener = listener //TODO
     }
 
     override fun onCreateView(
@@ -56,7 +37,19 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.searchButtonTextview.isEnabled = false
         binding.searchButtonTextview.setOnClickListener(onSearchButtonClickListener)
-        binding.searchEditText.addTextChangedListener(textWatcher)
+
+        binding.searchEditText.doOnTextChanged { _, _, _, _ ->
+            if (binding.searchEditText.text != null &&
+                binding.searchEditText.text.toString().isNotEmpty()
+            ) {
+                binding.searchButtonTextview.isEnabled = true
+                binding.clearTextImageview.visibility = View.VISIBLE
+            } else {
+                binding.searchButtonTextview.isEnabled = false
+                binding.clearTextImageview.visibility = View.GONE
+            }
+
+        }
 
         binding.searchEditText.setOnEditorActionListener{ v, actionId, event ->
             var handled = false
