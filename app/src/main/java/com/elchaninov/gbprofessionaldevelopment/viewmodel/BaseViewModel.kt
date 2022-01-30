@@ -14,23 +14,9 @@ abstract class BaseViewModel<T : AppState>(
 
     val liveDataForViewToObserve: LiveData<T> get() = _liveDataForViewToObserve
 
-    protected val viewModelCoroutineScope = CoroutineScope(
-        Dispatchers.Main
-                + SupervisorJob()
-                + CoroutineExceptionHandler { _, throwable ->
-            handleError(throwable)
-        }
-    )
+    abstract val exceptionHandler : CoroutineExceptionHandler
 
     abstract fun getData(word: String? = null, isOnline: Boolean)
 
     abstract fun handleError(error: Throwable)
-
-    protected fun cancelJob() {
-        viewModelCoroutineScope.coroutineContext.cancelChildren()
-    }
-
-    override fun onCleared() {
-        cancelJob()
-    }
 }
