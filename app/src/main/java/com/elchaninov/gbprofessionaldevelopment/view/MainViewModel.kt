@@ -9,8 +9,6 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(private val interactor: MainInteractor) :
     BaseViewModel<AppState>() {
 
-    // В этой переменной хранится последнее состояние Activity
-    private var appState: AppState? = null
     private var searchWord: String? = null
 
     override fun getData(word: String?, isOnline: Boolean): LiveData<AppState> {
@@ -33,7 +31,6 @@ class MainViewModel @Inject constructor(private val interactor: MainInteractor) 
     private fun getObserver(): DisposableObserver<AppState> {
         return object : DisposableObserver<AppState>() {
             override fun onNext(state: AppState) {
-                appState = state
                 liveDataForViewToObserve.value = state
             }
 
