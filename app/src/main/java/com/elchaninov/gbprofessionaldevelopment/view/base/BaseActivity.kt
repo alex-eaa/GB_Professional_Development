@@ -1,34 +1,19 @@
 package com.elchaninov.gbprofessionaldevelopment.view.base
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
-import com.elchaninov.gbprofessionaldevelopment.presenter.Presenter
+import com.elchaninov.gbprofessionaldevelopment.utils.network.isOnline
+import com.elchaninov.gbprofessionaldevelopment.viewmodel.BaseViewModel
 
-abstract class BaseActivity<T : AppState> : AppCompatActivity(), AppView {
+abstract class BaseActivity<T : AppState> : AppCompatActivity() {
 
-    // Храним ссылку на презентер
-    protected lateinit var presenter: Presenter<T, AppView>
+    // В каждой Активити будет своя ViewModel, которая наследуется от BaseViewModel
+    abstract val model: BaseViewModel<T>
 
-    protected abstract fun createPresenter(): Presenter<T, AppView>
+    // Каждая Активити будет отображать какие-то данные в соответствующем состоянии
+    abstract fun renderData(appState: T)
 
-    abstract override fun renderData(appState: AppState)
+    protected val isOnline: Boolean
+        get() = isOnline(applicationContext)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        presenter = createPresenter()
-    }
-
-//  Когда View готова отображать данные, передаём ссылку на View в презентер
-    override fun onStart() {
-        super.onStart()
-        presenter.attachView(this)
-    }
-
-//  При пересоздании или уничтожении View удаляем ссылку, иначе в презентере
-//  будет ссылка на несуществующую View
-    override fun onStop() {
-        super.onStop()
-        presenter.detachView(this)
-    }
 }
