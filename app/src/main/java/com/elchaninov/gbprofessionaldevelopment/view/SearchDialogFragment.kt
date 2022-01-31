@@ -1,5 +1,6 @@
 package com.elchaninov.gbprofessionaldevelopment.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,8 +21,9 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
         dismiss()
     }
 
-    internal fun setOnSearchClickListener(listener: OnSearchClickListener) {
-        onSearchClickListener = listener
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        onSearchClickListener = context as OnSearchClickListener
     }
 
     override fun onCreateView(

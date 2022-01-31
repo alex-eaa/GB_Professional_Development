@@ -16,7 +16,7 @@ import com.elchaninov.gbprofessionaldevelopment.view.base.BaseActivity
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
-class MainActivity : BaseActivity<AppState>() {
+class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClickListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -51,12 +51,6 @@ class MainActivity : BaseActivity<AppState>() {
 
         binding.searchFab.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.newInstance()
-            searchDialogFragment.setOnSearchClickListener(
-                object : SearchDialogFragment.OnSearchClickListener {
-                    override fun onClick(searchWord: String) {
-                        model.getData(searchWord, isOnline)
-                    }
-                })
             searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
         }
     }
@@ -120,6 +114,10 @@ class MainActivity : BaseActivity<AppState>() {
         binding.successLinearLayout.visibility = GONE
         binding.loadingFrameLayout.visibility = GONE
         binding.errorLinearLayout.visibility = VISIBLE
+    }
+
+    override fun onClick(searchWord: String) {
+        model.getData(searchWord, isOnline)
     }
 
     companion object {
