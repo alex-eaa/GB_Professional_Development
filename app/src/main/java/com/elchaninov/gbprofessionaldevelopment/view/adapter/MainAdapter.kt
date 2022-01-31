@@ -8,8 +8,8 @@ import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 
 
 class MainAdapter(
-    private var onListItemClickListener: OnListItemClickListener,
-    private var data: List<DataModel>
+    private var data: List<DataModel>,
+    private var onListItemClickListener: (DataModel) -> Unit,
 ) :
     RecyclerView.Adapter<RecyclerItemViewHolder>() {
 
@@ -26,7 +26,7 @@ class MainAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerItemViewHolder, position: Int) {
-        holder.itemView.setOnClickListener { onListItemClickListener.onItemClick(data[position]) }
+        holder.itemView.setOnClickListener { onListItemClickListener(data[position]) }
         holder.bind(data[position])
     }
 
@@ -35,10 +35,6 @@ class MainAdapter(
     }
 
     private fun openInNewWindow(listItemData: DataModel) {
-        onListItemClickListener.onItemClick(listItemData)
-    }
-
-    interface OnListItemClickListener {
-        fun onItemClick(data: DataModel)
+        onListItemClickListener(listItemData)
     }
 }

@@ -23,15 +23,9 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
     private lateinit var binding: ActivityMainBinding
     private var adapter: MainAdapter? = null
 
-    private val onListItemClickListener: MainAdapter.OnListItemClickListener =
-        object : MainAdapter.OnListItemClickListener {
-            override fun onItemClick(data: DataModel) {
-                Toast.makeText(
-                    this@MainActivity, data.text,
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
+    private val onListItemClickListener: (DataModel) -> Unit = {
+        Toast.makeText(this@MainActivity, it.text, Toast.LENGTH_SHORT).show()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +48,7 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
                     binding.mainActivityRecyclerview.layoutManager =
                         LinearLayoutManager(applicationContext)
                     binding.mainActivityRecyclerview.adapter =
-                        MainAdapter(onListItemClickListener, appState.data)
+                        MainAdapter(appState.data) { onListItemClickListener(it) }
                 } else {
                     adapter!!.setData(appState.data)
                 }
