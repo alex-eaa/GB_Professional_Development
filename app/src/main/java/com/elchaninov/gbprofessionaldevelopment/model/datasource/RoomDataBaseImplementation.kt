@@ -13,7 +13,7 @@ class RoomDataBaseImplementation(private val translationDao: TranslationDao) :
                 map(translationWhitsMeaning)
             }
 
-    override fun saveData(list: List<DataModel>) {
+    override suspend fun saveData(list: List<DataModel>) {
         translationDao.saveTranslation(list.map { map(it) })
 
         list.map { dataModel ->

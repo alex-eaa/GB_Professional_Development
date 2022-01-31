@@ -9,10 +9,10 @@ import androidx.room.Query
 interface TranslationDao {
 
     @Insert(onConflict = REPLACE)
-    fun saveTranslation(translations: List<EntityTranslation>)
+    suspend fun saveTranslation(translations: List<EntityTranslation>)
 
     @Insert(onConflict = REPLACE)
-    fun saveMeaning(meaning: List<EntityMeaning>)
+    suspend fun saveMeaning(meaning: List<EntityMeaning>)
 
     @Query("SELECT * FROM TranslationTable WHERE text LIKE :word ORDER BY text ASC")
     suspend fun getTranslationWhitsMeaning(word: String): List<TranslationWhitsMeaning>

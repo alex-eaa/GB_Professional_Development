@@ -7,22 +7,25 @@ import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "MeaningTable",
+@Entity(
+    tableName = "MeaningTable",
     foreignKeys = [
         ForeignKey(
             entity = EntityTranslation::class,
             parentColumns = ["id"],
             childColumns = ["translationId"],
-            onDelete = CASCADE)])
+            onDelete = CASCADE
+        )]
+)
 data class EntityMeaning(
     @PrimaryKey
-    @SerializedName("id")
+    @ColumnInfo(name = "id")
     val id: Long?,
 
-    @SerializedName("text")
+    @ColumnInfo(name = "text")
     val text: String?,
 
-    @SerializedName("imageUrl")
+    @ColumnInfo(name = "imageUrl")
     val imageUrl: String? = null,
 
     @ColumnInfo(name = "translationId")

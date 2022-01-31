@@ -8,11 +8,9 @@ import com.google.gson.annotations.SerializedName
 @Entity(tableName = "TranslationTable")
 data class EntityTranslation(
     @PrimaryKey
-    @ColumnInfo
-    @SerializedName("id")
+    @ColumnInfo(name = "id")
     val id: Long?,
 
-    @ColumnInfo
-    @SerializedName("text")
+    @ColumnInfo(name = "text")
     val text: String?,
 )

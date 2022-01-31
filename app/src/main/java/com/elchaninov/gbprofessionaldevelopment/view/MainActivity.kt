@@ -14,7 +14,7 @@ import com.elchaninov.gbprofessionaldevelopment.view.adapter.MainAdapter
 import com.elchaninov.gbprofessionaldevelopment.view.base.BaseActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : BaseActivity<AppState>() {
+class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClickListener {
 
     override val model: MainViewModel by viewModel()
 
@@ -42,12 +42,6 @@ class MainActivity : BaseActivity<AppState>() {
 
         binding.searchFab.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.newInstance()
-            searchDialogFragment.setOnSearchClickListener(
-                object : SearchDialogFragment.OnSearchClickListener {
-                    override fun onClick(searchWord: String) {
-                        model.getData(searchWord, isOnline)
-                    }
-                })
             searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
         }
     }
@@ -128,6 +122,10 @@ class MainActivity : BaseActivity<AppState>() {
         }
 
         binding.sideMessageNoConnection.visibility = if (isOnline) GONE else VISIBLE
+    }
+
+    override fun onClick(searchWord: String) {
+        model.getData(searchWord, isOnline)
     }
 
     companion object {
