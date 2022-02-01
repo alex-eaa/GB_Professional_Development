@@ -7,6 +7,7 @@ import com.elchaninov.gbprofessionaldevelopment.model.datasource.DataSourceRemot
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.RetrofitImplementation
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.RoomDataBaseImplementation
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.DBStorage
+import com.elchaninov.gbprofessionaldevelopment.utils.network.StringProvider
 import com.elchaninov.gbprofessionaldevelopment.view.MainViewModel
 import com.elchaninov.gbprofessionaldevelopment.viewmodel.MainInteractor
 import org.koin.android.ext.koin.androidContext
@@ -23,6 +24,8 @@ val application = module {
     }
     single<DataSourceLocal<List<DataModel>>> { RoomDataBaseImplementation(get()) }
     single<DataSourceRemote<List<DataModel>>> { RetrofitImplementation() }
+
+    single { StringProvider(androidContext()) }
 }
 
 val mainScreen = module {
