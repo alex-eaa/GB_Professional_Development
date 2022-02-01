@@ -1,43 +1,47 @@
 package com.elchaninov.gbprofessionaldevelopment.view
 
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
 import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
+import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 import com.elchaninov.gbprofessionaldevelopment.viewmodel.BaseViewModel
-import io.reactivex.rxjava3.observers.DisposableObserver
-import javax.inject.Inject
+import com.elchaninov.gbprofessionaldevelopment.viewmodel.MainInteractor
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class MainViewModel @Inject constructor(private val interactor: MainInteractor) :
-    BaseViewModel<AppState>() {
+class MainViewModel(private val interactor: MainInteractor) : BaseViewModel<AppState>() {
 
-    // В этой переменной хранится последнее состояние Activity
-    private var appState: AppState? = null
+    private var searchWord: String? = null
 
-    override fun getData(word: String, isOnline: Boolean): LiveData<AppState> {
-        compositeDisposable.add(
-            interactor.getData(word, isOnline)
-                .subscribeOn(schedulerProvider.io())
-                .observeOn(schedulerProvider.ui())
-                .doOnSubscribe {
-                    liveDataForViewToObserve.value = AppState.Loading(null)
-                }
-                .subscribeWith(getObserver())
-        )
-        return super.getData(word, isOnline)
-    }
-
-    private fun getObserver(): DisposableObserver<AppState> {
-        return object : DisposableObserver<AppState>() {
-            override fun onNext(state: AppState) {
-                appState = state
-                liveDataForViewToObserve.value = state
-            }
-
-            override fun onError(e: Throwable) {
-                liveDataForViewToObserve.value = AppState.Error(e)
-            }
-
-            override fun onComplete() {
-            }
+    override fun getData(word: String?, isOnline: Boolean) {
+        if (word != null) searchWord = word
+        searchWord?.let {
+            _liveDataForViewToObserve.postValue(AppState.Loading(null))
+            viewModelScope.launch(exceptionHandler) { startInteractor(it, isOnline) }
         }
     }
+
+    private suspend fun startInteractor(word: String, isOnline: Boolean) =
+        withContext(Dispatchers.IO) {
+            _liveDataForViewToObserve.postValue(
+                parseSearchResult(
+                    interactor.getData(word, isOnline)
+                )
+            )
+        }
+
+    override val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        handleError(throwable)
+    }
+
+    override fun handleError(error: Throwable) {
+        _liveDataForViewToObserve.value = AppState.Error(error)
+    }
+
+    private fun parseSearchResult(dataModel: List<DataModel>): AppState =
+        if (dataModel.isNullOrEmpty()) AppState.Empty
+        else if (dataModel[0].text.isNullOrEmpty() || dataModel[0].meanings.isNullOrEmpty()) AppState.Empty
+        else AppState.Success(dataModel)
+
 }
