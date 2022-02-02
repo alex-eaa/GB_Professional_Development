@@ -14,8 +14,6 @@ abstract class BaseViewModel<T : AppState>(
 
     val liveDataForViewToObserve: LiveData<T> get() = _liveDataForViewToObserve
 
-    abstract val exceptionHandler : CoroutineExceptionHandler
-
     abstract fun getData(word: String? = null, isOnline: Boolean)
 
     abstract fun handleError(error: Throwable)
