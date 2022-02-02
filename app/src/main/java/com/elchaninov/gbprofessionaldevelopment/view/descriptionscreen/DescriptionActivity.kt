@@ -3,6 +3,7 @@ package com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
@@ -21,8 +22,25 @@ class DescriptionActivity : AppCompatActivity() {
         binding = ActivityDescriptionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setActionbarHomeButtonAsUp()
         binding.descriptionScreenSwipeRefreshLayout.setOnRefreshListener { startLoadingOrShowError() }
         setData()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun setActionbarHomeButtonAsUp() {
+        supportActionBar?.title = getString(R.string.title_description_activity)
+        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun setData() {
