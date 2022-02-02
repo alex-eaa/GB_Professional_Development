@@ -7,6 +7,9 @@ import com.elchaninov.gbprofessionaldevelopment.viewmodel.BaseViewModel
 import com.elchaninov.gbprofessionaldevelopment.viewmodel.MainInteractor
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -16,27 +19,30 @@ class MainViewModel(private val interactor: MainInteractor) : BaseViewModel<AppS
 
     override fun getData(word: String?, isOnline: Boolean) {
         if (word != null) searchWord = word
+
         searchWord?.let {
             _liveDataForViewToObserve.postValue(AppState.Loading(null))
-            viewModelScope.launch(exceptionHandler) { startInteractor(it, isOnline) }
+            viewModelScope.launch {
+                startInteractor(it, isOnline)
+                    .catch { e ->
+                        handleError(e)
+                    }
+                    .collect {
+                        _liveDataForViewToObserve.postValue(it)
+                    }
+            }
         }
     }
 
     private suspend fun startInteractor(word: String, isOnline: Boolean) =
-        withContext(Dispatchers.IO) {
-            _liveDataForViewToObserve.postValue(
-                parseSearchResult(
-                    interactor.getData(word, isOnline)
-                )
+        flow {
+            emit(
+                parseSearchResult(interactor.getData(word, isOnline))
             )
         }
 
-    override val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        handleError(throwable)
-    }
-
     override fun handleError(error: Throwable) {
-        _liveDataForViewToObserve.value = AppState.Error(error)
+        _liveDataForViewToObserve.postValue(AppState.Error(error))
     }
 
     private fun parseSearchResult(dataModel: List<DataModel>): AppState =

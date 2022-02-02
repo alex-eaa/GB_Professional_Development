@@ -9,17 +9,20 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.widget.doOnTextChanged
 import com.elchaninov.gbprofessionaldevelopment.databinding.BottomSheetDialogLayoutBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 class SearchDialogFragment : BottomSheetDialogFragment() {
+
+    private val job: Job = Job()
+    private val queryStateFlow = MutableStateFlow("")
 
     private var _binding: BottomSheetDialogLayoutBinding? = null
     private val binding get() = _binding!!
     private var onSearchClickListener: OnSearchClickListener? = null
-
-    private val onSearchButtonClickListener = View.OnClickListener {
-        onSearchClickListener?.onClick(binding.searchEditText.text.toString())
-        dismiss()
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -42,10 +45,24 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun initView() {
+        CoroutineScope(Dispatchers.Main + job).launch {
+            queryStateFlow.debounce(500)
+                .filter { query ->
+                    return@filter query.isNotEmpty()
+                }
+                .distinctUntilChanged()
+                .map { query ->
+                    onSearchClickListener?.onClick(query)
+                }
+                .collect()
+        }
+
         binding.searchButtonTextview.isEnabled = false
-        binding.searchButtonTextview.setOnClickListener(onSearchButtonClickListener)
+        binding.searchButtonTextview.setOnClickListener { executeSearch() }
 
         binding.searchEditText.doOnTextChanged { _, _, _, _ ->
+            queryStateFlow.value = binding.searchEditText.text.toString()
+
             if (binding.searchEditText.text != null &&
                 binding.searchEditText.text.toString().isNotEmpty()
             ) {
@@ -60,16 +77,21 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
         binding.searchEditText.setOnEditorActionListener { _, actionId, _ ->
             var handled = false
             if (actionId == EditorInfo.IME_ACTION_SEND || actionId == EditorInfo.IME_ACTION_SEARCH) {
-                onSearchClickListener?.onClick(binding.searchEditText.text.toString())
-                dismiss()
+                executeSearch()
                 handled = true
             }
             handled
         }
     }
 
+    private fun executeSearch() {
+        onSearchClickListener?.onClick(binding.searchEditText.text.toString())
+        dismiss()
+    }
+
     override fun onDestroyView() {
         onSearchClickListener = null
+        job.cancel()
         super.onDestroyView()
     }
 
