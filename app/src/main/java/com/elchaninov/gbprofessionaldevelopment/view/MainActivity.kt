@@ -89,12 +89,12 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
             is AppState.Loading -> {
                 showViewLoading()
                 if (appState.progress != null) {
-                    binding.progressBarHorizontal.visibility = VISIBLE
-                    binding.progressBarRound.visibility = GONE
-                    binding.progressBarHorizontal.progress = appState.progress
+                    binding.loading.progressBarHorizontal.visibility = VISIBLE
+                    binding.loading.loadingFrameLayout.visibility = GONE
+                    binding.loading.progressBarHorizontal.progress = appState.progress
                 } else {
-                    binding.progressBarHorizontal.visibility = GONE
-                    binding.progressBarRound.visibility = VISIBLE
+                    binding.loading.progressBarHorizontal.visibility = GONE
+                    binding.loading.progressBarRound.visibility = VISIBLE
                 }
             }
             is AppState.Error -> {
@@ -116,21 +116,21 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
 
     private fun showViewSuccess() {
         binding.successLinearLayout.visibility = VISIBLE
-        binding.loadingFrameLayout.visibility = GONE
+        binding.loading.loadingFrameLayout.visibility = GONE
         binding.errorLinearLayout.visibility = GONE
         showViewMessageNoConnection(true)
     }
 
     private fun showViewLoading() {
         binding.successLinearLayout.visibility = GONE
-        binding.loadingFrameLayout.visibility = VISIBLE
+        binding.loading.loadingFrameLayout.visibility = VISIBLE
         binding.errorLinearLayout.visibility = GONE
         showViewMessageNoConnection()
     }
 
     private fun showViewError() {
         binding.successLinearLayout.visibility = GONE
-        binding.loadingFrameLayout.visibility = GONE
+        binding.loading.loadingFrameLayout.visibility = GONE
         binding.errorLinearLayout.visibility = VISIBLE
         showViewMessageNoConnection()
     }

@@ -15,11 +15,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorError"
-            android:visibility="gone"
             android:gravity="center"
             android:padding="4dp"
             android:text="@string/message_is_offline"
-            android:textColor="?attr/colorOnError" />
+            android:textColor="?attr/colorOnError"
+            android:visibility="gone" />
 
         <FrameLayout
             android:id="@+id/success_linear_layout"
@@ -33,25 +33,9 @@
                 android:layout_height="match_parent" />
         </FrameLayout>
 
-        <FrameLayout
-            android:id="@+id/loading_frame_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone">
-
-            <ProgressBar
-                android:id="@+id/progress_bar_horizontal"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
-
-            <ProgressBar
-                android:id="@+id/progress_bar_round"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
-        </FrameLayout>
+        <include
+            android:id="@+id/loading"
+            layout="@layout/loading_frame_layout" />
 
         <LinearLayout
             android:id="@+id/error_linear_layout"
