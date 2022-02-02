@@ -33,8 +33,4 @@ class MainAdapter(
     override fun getItemCount(): Int {
         return data.size
     }
-
-    private fun openInNewWindow(listItemData: DataModel) {
-        onListItemClickListener(listItemData)
-    }
 }

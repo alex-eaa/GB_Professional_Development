@@ -3,15 +3,16 @@ package com.elchaninov.gbprofessionaldevelopment.view
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityMainBinding
 import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
+import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.convertMeaningsToString
 import com.elchaninov.gbprofessionaldevelopment.view.adapter.MainAdapter
 import com.elchaninov.gbprofessionaldevelopment.view.base.BaseActivity
+import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClickListener {
@@ -23,8 +24,15 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
     private lateinit var binding: ActivityMainBinding
     private var adapter: MainAdapter? = null
 
-    private val onListItemClickListener: (DataModel) -> Unit = {
-        Toast.makeText(this@MainActivity, it.text, Toast.LENGTH_SHORT).show()
+    private val onListItemClickListener: (DataModel) -> Unit = { data ->
+        startActivity(
+            DescriptionActivity.getIntent(
+                this@MainActivity,
+                data.text.toString(),
+                convertMeaningsToString(data.meanings),
+                data.meanings?.get(0)?.imageUrl
+            )
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
