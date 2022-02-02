@@ -20,4 +20,5 @@
     <string name="dialog_tittle_sorry">Sorry</string>
     <string name="menu_title_history">История переводов</string>
     <string name="title_description_activity">Описание</string>
+    <string name="title_main_activity">Переводчик</string>
 </resources>

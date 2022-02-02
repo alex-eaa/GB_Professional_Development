@@ -1,6 +1,8 @@
 package com.elchaninov.gbprofessionaldevelopment.view
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.lifecycle.Observer
@@ -45,6 +47,22 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
         binding.searchFab.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.newInstance()
             searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.action_bar_menu, menu)
+        supportActionBar?.title = getString(R.string.title_main_activity)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_history -> {
+                TODO()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
