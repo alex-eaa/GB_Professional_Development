@@ -1,34 +1,19 @@
 package com.elchaninov.gbprofessionaldevelopment.utils.ui
 
 import android.content.Context
-import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
 import com.elchaninov.gbprofessionaldevelopment.R
 
 fun getStubAlertDialog(context: Context): AlertDialog {
-    return getAlertDialog(context, null, null)
+    return getAlertDialog(context, null, null, null, null)
 }
 
-fun getAlertDialog(context: Context, title: String?, message: String?): AlertDialog {
-    val builder = AlertDialog.Builder(context)
-    var finalTitle: String? = context.getString(R.string.dialog_title_stub)
-    if (!title.isNullOrBlank()) {
-        finalTitle = title
-    }
-    builder.setTitle(finalTitle)
-    if (!message.isNullOrBlank()) {
-        builder.setMessage(message)
-    }
-    builder.setCancelable(true)
-    builder.setPositiveButton(R.string.dialog_button_cancel) { dialog, _ -> dialog.dismiss() }
-    return builder.create()
-}
-
-fun getAlertDialogWithTrayAgain(
+fun getAlertDialog(
     context: Context,
     title: String?,
     message: String?,
-    block: () -> Unit,
+    buttonTitle: String?,
+    onSearchClickListener: AlertDialogFragment.OnActionButtonClickListener?,
 ): AlertDialog {
     val builder = AlertDialog.Builder(context)
     builder.setTitle(
@@ -39,11 +24,13 @@ fun getAlertDialogWithTrayAgain(
         if (message.isNullOrBlank()) null
         else message
     )
-    builder.setCancelable(true)
-    builder.setNegativeButton(R.string.dialog_button_try_again) { dialog, _ ->
-        block()
-        dialog.dismiss()
+    if (onSearchClickListener != null && !buttonTitle.isNullOrBlank()) {
+        builder.setPositiveButton(buttonTitle) { dialog, _ ->
+            onSearchClickListener.onClickActionButton()
+            dialog.dismiss()
+        }
     }
-    builder.setPositiveButton(R.string.dialog_button_cancel) { dialog, _ -> dialog.dismiss() }
+    builder.setNegativeButton(R.string.dialog_button_cancel) { dialog, _ -> dialog.dismiss() }
+    builder.setCancelable(true)
     return builder.create()
 }

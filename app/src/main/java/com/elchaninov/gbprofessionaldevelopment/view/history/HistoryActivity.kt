@@ -8,8 +8,6 @@ import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityHistoryBindi
 import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.convertMeaningsToString
-import com.elchaninov.gbprofessionaldevelopment.utils.ui.AlertDialogFragment
-import com.elchaninov.gbprofessionaldevelopment.view.MainActivity
 import com.elchaninov.gbprofessionaldevelopment.view.SearchDialogFragment
 import com.elchaninov.gbprofessionaldevelopment.view.base.BaseActivity
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionActivity
@@ -103,11 +101,6 @@ class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchC
         showAlertDialog(getString(R.string.dialog_title_stub), message)
     }
 
-    private fun showAlertDialog(title: String?, message: String?) {
-        AlertDialogFragment.newInstance(title, message)
-            .show(supportFragmentManager, DIALOG_FRAGMENT_TAG)
-    }
-
     private fun setDataToAdapter(data: List<DataModel>) {
         adapter.setData(data)
     }
@@ -130,7 +123,6 @@ class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchC
     }
 
     companion object {
-        private const val DIALOG_FRAGMENT_TAG = "0c7dff51-9769-4f6d-bbee-a3896085e76e"
         private const val BOTTOM_SHEET_FRAGMENT_DIALOG_TAG =
             "74a54328-5d62-46bf-ab6b-cbf5fgt0-092395"
     }

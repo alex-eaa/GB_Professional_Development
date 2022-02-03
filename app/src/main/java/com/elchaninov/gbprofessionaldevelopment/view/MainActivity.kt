@@ -13,15 +13,15 @@ import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityMainBinding
 import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.convertMeaningsToString
-import com.elchaninov.gbprofessionaldevelopment.utils.ui.getAlertDialog
-import com.elchaninov.gbprofessionaldevelopment.utils.ui.getAlertDialogWithTrayAgain
+import com.elchaninov.gbprofessionaldevelopment.utils.ui.AlertDialogFragment
 import com.elchaninov.gbprofessionaldevelopment.view.adapter.MainAdapter
 import com.elchaninov.gbprofessionaldevelopment.view.base.BaseActivity
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionActivity
 import com.elchaninov.gbprofessionaldevelopment.view.history.HistoryActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClickListener {
+class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClickListener,
+    AlertDialogFragment.OnActionButtonClickListener {
 
     override val model: MainViewModel by viewModel()
 
@@ -87,18 +87,20 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
             }
             is AppState.Empty -> {
                 showViewSuccess()
-                val alertDialog = if (isOnline) {
-                    getAlertDialog(this, getString(R.string.dialog_title_empty),
-                        getString(R.string.empty_server_response_on_success))
-                } else {
-                    getAlertDialogWithTrayAgain(this,
-                        getString(R.string.dialog_title_empty),
-                        getString(R.string.empty_cash_response_on_success)) {
-                        model.getData(null, isOnline)
+                if (isEnableShowErrorIfEmpty) {
+                    if (isOnline) {
+                        showAlertDialog(
+                            getString(R.string.dialog_title_empty),
+                            getString(R.string.empty_cash_response_on_success)
+                        )
+                    } else {
+                        showAlertDialog(
+                            getString(R.string.dialog_title_empty),
+                            getString(R.string.empty_cash_response_on_success),
+                            getString(R.string.dialog_button_try_again),
+                        )
                     }
                 }
-
-                if (isEnableShowErrorIfEmpty) alertDialog.show()
             }
             is AppState.Loading -> {
                 showViewLoading()
@@ -113,9 +115,9 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
             }
             is AppState.Error -> {
                 showViewError()
-                getAlertDialog(this,
-                    getString(R.string.dialog_title_stub),
-                    appState.error.message).show()
+                showAlertDialog(
+                    getString(R.string.dialog_title_stub), appState.error.message
+                )
             }
         }
     }
@@ -152,6 +154,10 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
     override fun onFlowSearch(searchWord: String) {
         isEnableShowErrorIfEmpty = false
         model.getData(searchWord, isOnline)
+    }
+
+    override fun onClickActionButton() {
+        model.getData(null, isOnline)
     }
 
     companion object {
