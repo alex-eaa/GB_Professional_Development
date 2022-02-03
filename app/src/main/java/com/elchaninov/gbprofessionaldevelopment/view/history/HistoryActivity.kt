@@ -1,7 +1,9 @@
 package com.elchaninov.gbprofessionaldevelopment.view.history
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
+import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityHistoryBinding
 import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
@@ -39,6 +41,22 @@ class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchC
         model.liveDataForViewToObserve.observe(this@HistoryActivity) { renderData(it) }
 
         initViews()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun setActionbarHomeButtonAsUp() {
+        supportActionBar?.title = getString(R.string.title_history_activity)
+        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onResume() {
@@ -82,7 +100,7 @@ class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchC
 
     private fun showViewError(message: String?) {
         binding.loading.loadingFrameLayout.visibility = View.GONE
-        showAlertDialog("Ошибка", message)
+        showAlertDialog(getString(R.string.dialog_title_stub), message)
     }
 
     private fun showAlertDialog(title: String?, message: String?) {
@@ -95,6 +113,7 @@ class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchC
     }
 
     private fun initViews() {
+        setActionbarHomeButtonAsUp()
         binding.historyActivityRecyclerview.adapter = adapter
         binding.searchFab.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.newInstance()
