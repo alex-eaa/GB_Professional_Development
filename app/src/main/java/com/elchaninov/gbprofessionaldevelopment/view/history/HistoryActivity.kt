@@ -7,11 +7,13 @@ import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.convertMeaningsToString
 import com.elchaninov.gbprofessionaldevelopment.utils.ui.AlertDialogFragment
+import com.elchaninov.gbprofessionaldevelopment.view.MainActivity
+import com.elchaninov.gbprofessionaldevelopment.view.SearchDialogFragment
 import com.elchaninov.gbprofessionaldevelopment.view.base.BaseActivity
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HistoryActivity : BaseActivity<AppState>() {
+class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClickListener {
 
     override val model: HistoryViewModel by viewModel()
 
@@ -34,9 +36,7 @@ class HistoryActivity : BaseActivity<AppState>() {
         binding = ActivityHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        model.liveDataForViewToObserve.observe(this@HistoryActivity, {
-            renderData(it)
-        })
+        model.liveDataForViewToObserve.observe(this@HistoryActivity) { renderData(it) }
 
         initViews()
     }
@@ -96,9 +96,23 @@ class HistoryActivity : BaseActivity<AppState>() {
 
     private fun initViews() {
         binding.historyActivityRecyclerview.adapter = adapter
+        binding.searchFab.setOnClickListener {
+            val searchDialogFragment = SearchDialogFragment.newInstance()
+            searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
+        }
+    }
+
+    override fun onClick(searchWord: String) {
+        model.getData(searchWord, isOnline)
+    }
+
+    override fun onFlowSearch(searchWord: String) {
+        model.getData(searchWord, isOnline)
     }
 
     companion object {
         private const val DIALOG_FRAGMENT_TAG = "0c7dff51-9769-4f6d-bbee-a3896085e76e"
+        private const val BOTTOM_SHEET_FRAGMENT_DIALOG_TAG =
+            "74a54328-5d62-46bf-ab6b-cbf5fgt0-092395"
     }
 }
