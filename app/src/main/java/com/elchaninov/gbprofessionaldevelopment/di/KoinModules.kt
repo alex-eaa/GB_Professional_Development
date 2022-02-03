@@ -9,6 +9,8 @@ import com.elchaninov.gbprofessionaldevelopment.model.datasource.RoomDataBaseImp
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.DBStorage
 import com.elchaninov.gbprofessionaldevelopment.utils.network.StringProvider
 import com.elchaninov.gbprofessionaldevelopment.view.MainViewModel
+import com.elchaninov.gbprofessionaldevelopment.view.history.HistoryInteractor
+import com.elchaninov.gbprofessionaldevelopment.view.history.HistoryViewModel
 import com.elchaninov.gbprofessionaldevelopment.viewmodel.MainInteractor
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -31,4 +33,9 @@ val application = module {
 val mainScreen = module {
     factory { MainInteractor(get(), get()) }
     viewModel { MainViewModel(get()) }
+}
+
+val historyScreen = module {
+    factory { HistoryInteractor(get(), get()) }
+    viewModel { HistoryViewModel(get()) }
 }

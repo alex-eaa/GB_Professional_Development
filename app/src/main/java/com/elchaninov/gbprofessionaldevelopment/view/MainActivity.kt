@@ -1,5 +1,6 @@
 package com.elchaninov.gbprofessionaldevelopment.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -15,6 +16,7 @@ import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.convertMea
 import com.elchaninov.gbprofessionaldevelopment.view.adapter.MainAdapter
 import com.elchaninov.gbprofessionaldevelopment.view.base.BaseActivity
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionActivity
+import com.elchaninov.gbprofessionaldevelopment.view.history.HistoryActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClickListener {
@@ -59,7 +61,7 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_history -> {
-                TODO()
+                startActivity(Intent(this, HistoryActivity::class.java))
                 true
             }
             else -> super.onOptionsItemSelected(item)
