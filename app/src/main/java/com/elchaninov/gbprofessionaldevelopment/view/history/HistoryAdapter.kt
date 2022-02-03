@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityHistoryRecyclerviewItemBinding
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 
-class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.RecyclerItemViewHolder>() {
+class HistoryAdapter(
+    private var onListItemClickListener: (DataModel) -> Unit,
+) : RecyclerView.Adapter<HistoryAdapter.RecyclerItemViewHolder>() {
 
     private var data: List<DataModel> = arrayListOf()
 
@@ -24,6 +26,7 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.RecyclerItemViewHolde
     }
 
     override fun onBindViewHolder(holder: RecyclerItemViewHolder, position: Int) {
+        holder.itemView.setOnClickListener { onListItemClickListener(data[position]) }
         holder.bind(data[position])
     }
 
@@ -37,11 +40,6 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.RecyclerItemViewHolde
         fun bind(data: DataModel) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
                 binding.headerHistoryTextviewRecyclerItem.text = data.text
-
-                itemView.setOnClickListener {
-                    Toast.makeText(itemView.context, "on click: ${data.text}", Toast.LENGTH_SHORT)
-                        .show()
-                }
             }
         }
     }

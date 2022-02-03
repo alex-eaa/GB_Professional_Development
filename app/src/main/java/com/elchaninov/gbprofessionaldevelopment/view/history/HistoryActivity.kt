@@ -5,8 +5,10 @@ import android.view.View
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityHistoryBinding
 import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
+import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.convertMeaningsToString
 import com.elchaninov.gbprofessionaldevelopment.utils.ui.AlertDialogFragment
 import com.elchaninov.gbprofessionaldevelopment.view.base.BaseActivity
+import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HistoryActivity : BaseActivity<AppState>() {
@@ -14,7 +16,18 @@ class HistoryActivity : BaseActivity<AppState>() {
     override val model: HistoryViewModel by viewModel()
 
     private lateinit var binding: ActivityHistoryBinding
-    private val adapter: HistoryAdapter by lazy { HistoryAdapter() }
+    private val adapter: HistoryAdapter by lazy { HistoryAdapter(onListItemClickListener) }
+
+    private val onListItemClickListener: (DataModel) -> Unit = { data ->
+        startActivity(
+            DescriptionActivity.getIntent(
+                this@HistoryActivity,
+                data.text.toString(),
+                convertMeaningsToString(data.meanings),
+                data.meanings?.get(0)?.imageUrl
+            )
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
