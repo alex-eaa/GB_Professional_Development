@@ -8,10 +8,11 @@ import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 
 
 class MainAdapter(
-    private var data: List<DataModel>,
     private var onListItemClickListener: (DataModel) -> Unit,
 ) :
     RecyclerView.Adapter<RecyclerItemViewHolder>() {
+
+    private var data: List<DataModel> = arrayListOf()
 
     fun setData(data: List<DataModel>) {
         this.data = data

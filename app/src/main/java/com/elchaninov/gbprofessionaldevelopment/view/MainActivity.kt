@@ -2,6 +2,7 @@ package com.elchaninov.gbprofessionaldevelopment.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View.GONE
@@ -25,10 +26,8 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
 
     override val model: MainViewModel by viewModel()
 
-    private val observer = Observer<AppState> { renderData(it) }
-
     private lateinit var binding: ActivityMainBinding
-    private var adapter: MainAdapter? = null
+    private val adapter: MainAdapter by lazy { MainAdapter(onListItemClickListener) }
 
     private var isEnableShowErrorIfEmpty = true
 
@@ -48,8 +47,13 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        model.liveDataForViewToObserve.observe(this@MainActivity, observer)
+        model.liveDataForViewToObserve.observe(this@MainActivity) { renderData(it) }
 
+        initViews()
+    }
+
+    private fun initViews() {
+        binding.mainActivityRecyclerview.adapter = adapter
         binding.searchFab.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.newInstance()
             searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
@@ -76,14 +80,7 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
         when (appState) {
             is AppState.Success -> {
                 showViewSuccess()
-                if (adapter == null) {
-                    binding.mainActivityRecyclerview.layoutManager =
-                        LinearLayoutManager(applicationContext)
-                    binding.mainActivityRecyclerview.adapter =
-                        MainAdapter(appState.data) { onListItemClickListener(it) }
-                } else {
-                    adapter!!.setData(appState.data)
-                }
+                adapter.setData(appState.data)
             }
             is AppState.Empty -> {
                 showViewSuccess()
@@ -91,7 +88,8 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
                     if (isOnline) {
                         showAlertDialog(
                             getString(R.string.dialog_title_empty),
-                            getString(R.string.empty_cash_response_on_success)
+                            getString(R.string.empty_server_response_on_success),
+                            getString(R.string.dialog_button_try_again),
                         )
                     } else {
                         showAlertDialog(

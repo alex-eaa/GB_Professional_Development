@@ -9,23 +9,21 @@ import com.elchaninov.gbprofessionaldevelopment.viewmodel.BaseViewModel
 
 abstract class BaseActivity<T : AppState> : AppCompatActivity() {
 
-    // В каждой Активити будет своя ViewModel, которая наследуется от BaseViewModel
     abstract val model: BaseViewModel<T>
 
-    // Каждая Активити будет отображать какие-то данные в соответствующем состоянии
     abstract fun renderData(appState: T)
 
     protected val isOnline: Boolean
         get() = isOnline(applicationContext)
 
     protected fun showAlertDialog(title: String?, message: String?, buttonTitle: String? = null) {
-        if (isDialogNull()) {
+//        if (isDialogNull()) {
             AlertDialogFragment.newInstance(title, message, buttonTitle)
                 .show(supportFragmentManager, DIALOG_FRAGMENT_TAG)
-        }
+//        }
     }
 
-    protected fun isDialogNull(): Boolean {
+    private fun isDialogNull(): Boolean {
         return supportFragmentManager.findFragmentByTag(DIALOG_FRAGMENT_TAG) == null
     }
 

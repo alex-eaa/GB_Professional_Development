@@ -3,6 +3,7 @@ package com.elchaninov.gbprofessionaldevelopment.utils.ui
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatDialogFragment
 
 class AlertDialogFragment : AppCompatDialogFragment() {
@@ -26,6 +27,11 @@ class AlertDialogFragment : AppCompatDialogFragment() {
                 getAlertDialog(context, title, message, buttonTitle, onSearchClickListener)
         }
         return alertDialog
+    }
+
+    override fun onDestroyView() {
+        onSearchClickListener = null
+        super.onDestroyView()
     }
 
     interface OnActionButtonClickListener {
