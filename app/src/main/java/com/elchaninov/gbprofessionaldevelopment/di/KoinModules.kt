@@ -36,6 +36,6 @@ val mainScreen = module {
 }
 
 val historyScreen = module {
-    factory { HistoryInteractor(get(), get()) }
+    factory { HistoryInteractor(get()) }
     viewModel { HistoryViewModel(get()) }
 }
