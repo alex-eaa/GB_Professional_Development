@@ -1,6 +1,7 @@
 package com.elchaninov.gbprofessionaldevelopment.utils.ui
 
 import android.content.Context
+import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
 import com.elchaninov.gbprofessionaldevelopment.R
 
@@ -19,6 +20,30 @@ fun getAlertDialog(context: Context, title: String?, message: String?): AlertDia
         builder.setMessage(message)
     }
     builder.setCancelable(true)
+    builder.setPositiveButton(R.string.dialog_button_cancel) { dialog, _ -> dialog.dismiss() }
+    return builder.create()
+}
+
+fun getAlertDialogWithTrayAgain(
+    context: Context,
+    title: String?,
+    message: String?,
+    block: () -> Unit,
+): AlertDialog {
+    val builder = AlertDialog.Builder(context)
+    builder.setTitle(
+        if (title.isNullOrBlank()) context.getString(R.string.dialog_title_stub)
+        else title
+    )
+    builder.setMessage(
+        if (message.isNullOrBlank()) null
+        else message
+    )
+    builder.setCancelable(true)
+    builder.setNegativeButton(R.string.dialog_button_try_again) { dialog, _ ->
+        block()
+        dialog.dismiss()
+    }
     builder.setPositiveButton(R.string.dialog_button_cancel) { dialog, _ -> dialog.dismiss() }
     return builder.create()
 }

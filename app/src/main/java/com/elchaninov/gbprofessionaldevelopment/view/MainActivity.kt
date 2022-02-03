@@ -13,6 +13,8 @@ import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityMainBinding
 import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.convertMeaningsToString
+import com.elchaninov.gbprofessionaldevelopment.utils.ui.getAlertDialog
+import com.elchaninov.gbprofessionaldevelopment.utils.ui.getAlertDialogWithTrayAgain
 import com.elchaninov.gbprofessionaldevelopment.view.adapter.MainAdapter
 import com.elchaninov.gbprofessionaldevelopment.view.base.BaseActivity
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionActivity
@@ -84,9 +86,14 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
             is AppState.Empty -> {
                 showViewSuccess()
                 if (isOnline)
-                    showErrorScreen(getString(R.string.empty_server_response_on_success), false)
+                    getAlertDialog(this, getString(R.string.dialog_title_empty),
+                        getString(R.string.empty_server_response_on_success)).show()
                 else
-                    showErrorScreen(getString(R.string.empty_cash_response_on_success), true)
+                    getAlertDialogWithTrayAgain(this,
+                        getString(R.string.dialog_title_empty),
+                        getString(R.string.empty_cash_response_on_success)) {
+                        model.getData(null, isOnline)
+                    }.show()
             }
             is AppState.Loading -> {
                 showViewLoading()
@@ -100,40 +107,26 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
                 }
             }
             is AppState.Error -> {
-                showErrorScreen(appState.error.message, true)
+                showViewError()
+                getAlertDialog(this,
+                    getString(R.string.dialog_title_stub),
+                    appState.error.message).show()
             }
         }
     }
 
-    private fun showErrorScreen(error: String?, withButton: Boolean) {
-        binding.errorTextview.text = error ?: getString(R.string.undefined_error)
-
-        binding.reloadButton.apply {
-            setOnClickListener { model.getData(isOnline = isOnline) }
-            visibility = if (withButton) VISIBLE else GONE
-        }
-
-        showViewError()
-    }
-
     private fun showViewSuccess() {
-        binding.successLinearLayout.visibility = VISIBLE
         binding.loading.loadingFrameLayout.visibility = GONE
-        binding.errorLinearLayout.visibility = GONE
         showViewMessageNoConnection(true)
     }
 
     private fun showViewLoading() {
-        binding.successLinearLayout.visibility = GONE
         binding.loading.loadingFrameLayout.visibility = VISIBLE
-        binding.errorLinearLayout.visibility = GONE
         showViewMessageNoConnection()
     }
 
     private fun showViewError() {
-        binding.successLinearLayout.visibility = GONE
         binding.loading.loadingFrameLayout.visibility = GONE
-        binding.errorLinearLayout.visibility = VISIBLE
         showViewMessageNoConnection()
     }
 

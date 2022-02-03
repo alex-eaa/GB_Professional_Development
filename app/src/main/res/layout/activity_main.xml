@@ -21,44 +21,10 @@
             android:textColor="?attr/colorOnError"
             android:visibility="gone" />
 
-        <FrameLayout
-            android:id="@+id/success_linear_layout"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/main_activity_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/main_activity_recyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </FrameLayout>
-
-        <include
-            android:id="@+id/loading"
-            layout="@layout/loading_frame_layout" />
-
-        <LinearLayout
-            android:id="@+id/error_linear_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="30dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/error_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/error_textview_stub" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/reload_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/reload_button" />
-        </LinearLayout>
+            android:layout_height="match_parent" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -70,4 +36,9 @@
         android:layout_marginEnd="@dimen/margin_medium"
         android:layout_marginBottom="@dimen/margin_medium"
         android:src="@drawable/ic_baseline_search_24" />
+
+    <include
+        android:id="@+id/loading"
+        layout="@layout/loading_frame_layout" />
+
 </FrameLayout>

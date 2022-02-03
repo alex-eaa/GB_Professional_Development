@@ -90,7 +90,7 @@ class HistoryActivity : BaseActivity<AppState>() {
             .show(supportFragmentManager, DIALOG_FRAGMENT_TAG)
     }
 
-    fun setDataToAdapter(data: List<DataModel>) {
+    private fun setDataToAdapter(data: List<DataModel>) {
         adapter.setData(data)
     }
 
