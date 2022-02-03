@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.elchaninov.gbprofessionaldevelopment.R
@@ -87,6 +88,7 @@ class DescriptionActivity : AppCompatActivity() {
                     stopRefreshAnimationIfNeeded()
                 }
             )
+            placeholder(R.drawable.progress_animation)
             transformations(RoundedCornersTransformation(8F))
             error(R.drawable.ic_load_error_vector)
             crossfade(750)
