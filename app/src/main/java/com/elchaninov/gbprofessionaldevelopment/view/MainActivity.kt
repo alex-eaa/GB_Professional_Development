@@ -30,6 +30,8 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
     private lateinit var binding: ActivityMainBinding
     private var adapter: MainAdapter? = null
 
+    private var isEnableShowErrorIfEmpty = true
+
     private val onListItemClickListener: (DataModel) -> Unit = { data ->
         startActivity(
             DescriptionActivity.getIntent(
@@ -85,15 +87,18 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
             }
             is AppState.Empty -> {
                 showViewSuccess()
-                if (isOnline)
+                val alertDialog = if (isOnline) {
                     getAlertDialog(this, getString(R.string.dialog_title_empty),
-                        getString(R.string.empty_server_response_on_success)).show()
-                else
+                        getString(R.string.empty_server_response_on_success))
+                } else {
                     getAlertDialogWithTrayAgain(this,
                         getString(R.string.dialog_title_empty),
                         getString(R.string.empty_cash_response_on_success)) {
                         model.getData(null, isOnline)
-                    }.show()
+                    }
+                }
+
+                if (isEnableShowErrorIfEmpty) alertDialog.show()
             }
             is AppState.Loading -> {
                 showViewLoading()
@@ -140,6 +145,12 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
     }
 
     override fun onClick(searchWord: String) {
+        isEnableShowErrorIfEmpty = true
+        model.getData(searchWord, isOnline)
+    }
+
+    override fun onFlowSearch(searchWord: String) {
+        isEnableShowErrorIfEmpty = false
         model.getData(searchWord, isOnline)
     }
 
