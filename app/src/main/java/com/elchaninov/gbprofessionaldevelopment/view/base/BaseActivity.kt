@@ -1,6 +1,9 @@
 package com.elchaninov.gbprofessionaldevelopment.view.base
 
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.elchaninov.gbprofessionaldevelopment.R
+import com.elchaninov.gbprofessionaldevelopment.databinding.LoadingFrameLayoutBinding
 import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.utils.network.isOnline
 import com.elchaninov.gbprofessionaldevelopment.utils.ui.AlertDialogFragment
@@ -9,12 +12,30 @@ import com.elchaninov.gbprofessionaldevelopment.viewmodel.BaseViewModel
 
 abstract class BaseActivity<T : AppState> : AppCompatActivity() {
 
+    private lateinit var binding: LoadingFrameLayoutBinding
     abstract val model: BaseViewModel<T>
-
     abstract fun renderData(appState: T)
 
     protected val isOnline: Boolean
         get() = isOnline(applicationContext)
+
+    override fun onResume() {
+        super.onResume()
+        binding = LoadingFrameLayoutBinding.inflate(layoutInflater)
+    }
+
+    protected fun showViewSuccess() {
+        binding.loadingFrameLayout.visibility = View.GONE
+    }
+
+    protected fun showViewLoading() {
+        binding.loadingFrameLayout.visibility = View.VISIBLE
+    }
+
+    protected fun showViewError(message: String?) {
+        binding.loadingFrameLayout.visibility = View.GONE
+        showAlertDialog(getString(R.string.dialog_title_stub), message)
+    }
 
     protected fun showAlertDialog(title: String?, message: String?, buttonTitle: String? = null) {
         if (isDialogNull()) {

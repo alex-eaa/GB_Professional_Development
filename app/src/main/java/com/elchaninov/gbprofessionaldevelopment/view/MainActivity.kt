@@ -81,10 +81,12 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
         when (appState) {
             is AppState.Success -> {
                 showViewSuccess()
+                showViewMessageNoConnection(true)
                 adapter.setData(appState.data)
             }
             is AppState.Empty -> {
                 showViewSuccess()
+                showViewMessageNoConnection(true)
                 if (isEnableShowErrorIfEmpty) {
                     if (isOnline) {
                         showAlertDialog(
@@ -102,6 +104,7 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
             }
             is AppState.Loading -> {
                 showViewLoading()
+                showViewMessageNoConnection()
                 if (appState.progress != null) {
                     binding.loading.progressBarHorizontal.visibility = VISIBLE
                     binding.loading.loadingFrameLayout.visibility = GONE
@@ -112,25 +115,10 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
                 }
             }
             is AppState.Error -> {
+                showViewMessageNoConnection()
                 showViewError(appState.error.message)
             }
         }
-    }
-
-    private fun showViewSuccess() {
-        binding.loading.loadingFrameLayout.visibility = GONE
-        showViewMessageNoConnection(true)
-    }
-
-    private fun showViewLoading() {
-        binding.loading.loadingFrameLayout.visibility = VISIBLE
-        showViewMessageNoConnection()
-    }
-
-    private fun showViewError(message: String?) {
-        binding.loading.loadingFrameLayout.visibility = GONE
-        showAlertDialog(getString(R.string.dialog_title_stub), message)
-        showViewMessageNoConnection()
     }
 
     private fun showViewMessageNoConnection(isExtendedMessage: Boolean = false) {
@@ -138,7 +126,6 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
             binding.sideMessageNoConnection.text =
                 getString(R.string.message_is_offline_and_show_cache)
         }
-
         binding.sideMessageNoConnection.visibility = if (isOnline) GONE else VISIBLE
     }
 

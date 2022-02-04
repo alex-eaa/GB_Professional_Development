@@ -66,7 +66,7 @@ class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchC
         when (appState) {
             is AppState.Success -> {
                 showViewSuccess()
-                setDataToAdapter(appState.data)
+                adapter.setData(appState.data)
             }
             is AppState.Empty -> {
                 showViewSuccess()
@@ -86,23 +86,6 @@ class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchC
                 showViewError(appState.error.message)
             }
         }
-    }
-
-    private fun showViewSuccess() {
-        binding.loading.loadingFrameLayout.visibility = View.GONE
-    }
-
-    private fun showViewLoading() {
-        binding.loading.loadingFrameLayout.visibility = View.VISIBLE
-    }
-
-    private fun showViewError(message: String?) {
-        binding.loading.loadingFrameLayout.visibility = View.GONE
-        showAlertDialog(getString(R.string.dialog_title_stub), message)
-    }
-
-    private fun setDataToAdapter(data: List<DataModel>) {
-        adapter.setData(data)
     }
 
     private fun initViews() {
