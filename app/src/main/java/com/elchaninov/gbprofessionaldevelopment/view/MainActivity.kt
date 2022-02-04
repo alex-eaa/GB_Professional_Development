@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.lifecycle.Observer
@@ -88,8 +89,7 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
                     if (isOnline) {
                         showAlertDialog(
                             getString(R.string.dialog_title_empty),
-                            getString(R.string.empty_server_response_on_success),
-                            getString(R.string.dialog_button_try_again),
+                            getString(R.string.empty_server_response_on_success)
                         )
                     } else {
                         showAlertDialog(
@@ -112,10 +112,7 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
                 }
             }
             is AppState.Error -> {
-                showViewError()
-                showAlertDialog(
-                    getString(R.string.dialog_title_stub), appState.error.message
-                )
+                showViewError(appState.error.message)
             }
         }
     }
@@ -130,8 +127,9 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
         showViewMessageNoConnection()
     }
 
-    private fun showViewError() {
+    private fun showViewError(message: String?) {
         binding.loading.loadingFrameLayout.visibility = GONE
+        showAlertDialog(getString(R.string.dialog_title_stub), message)
         showViewMessageNoConnection()
     }
 

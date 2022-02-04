@@ -17,10 +17,10 @@ abstract class BaseActivity<T : AppState> : AppCompatActivity() {
         get() = isOnline(applicationContext)
 
     protected fun showAlertDialog(title: String?, message: String?, buttonTitle: String? = null) {
-//        if (isDialogNull()) {
+        if (isDialogNull()) {
             AlertDialogFragment.newInstance(title, message, buttonTitle)
                 .show(supportFragmentManager, DIALOG_FRAGMENT_TAG)
-//        }
+        }
     }
 
     private fun isDialogNull(): Boolean {
