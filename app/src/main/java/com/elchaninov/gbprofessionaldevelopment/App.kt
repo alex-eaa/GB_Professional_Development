@@ -1,6 +1,7 @@
 package com.elchaninov.gbprofessionaldevelopment
 
 import android.app.Application
+import com.elchaninov.gbprofessionaldevelopment.di.DescriptionScreen
 import com.elchaninov.gbprofessionaldevelopment.di.application
 import com.elchaninov.gbprofessionaldevelopment.di.historyScreen
 import com.elchaninov.gbprofessionaldevelopment.di.mainScreen
@@ -13,7 +14,7 @@ class App : Application() {
         super.onCreate()
         startKoin {
             androidContext ( this@App )
-            modules(listOf(application, mainScreen, historyScreen))
+            modules(listOf(application, mainScreen, historyScreen, DescriptionScreen))
         }
     }
 }

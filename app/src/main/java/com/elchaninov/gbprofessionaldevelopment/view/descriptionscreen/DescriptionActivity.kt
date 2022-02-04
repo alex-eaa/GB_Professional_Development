@@ -3,35 +3,50 @@ package com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityDescriptionBinding
 import com.elchaninov.gbprofessionaldevelopment.utils.network.isOnline
 import com.elchaninov.gbprofessionaldevelopment.utils.ui.AlertDialogFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DescriptionActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDescriptionBinding
+    private val model: DescriptionViewModel by viewModel()
+    private var menu: Menu? = null
+    private var word: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDescriptionBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setActionbarHomeButtonAsUp()
-        binding.descriptionScreenSwipeRefreshLayout.setOnRefreshListener { startLoadingOrShowError() }
         setData()
+        binding.descriptionScreenSwipeRefreshLayout.setOnRefreshListener { startLoadingOrShowError() }
+        model.liveDataForViewToObserve.observe(this@DescriptionActivity) { updateIconOnMenu(it) }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.description_menu, menu)
+        this.menu = menu
+        word?.let { model.getTranslationFavorite(it) }
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
+                true
+            }
+            R.id.menu_favorite -> {
+                model.toggleEntityTranslation(word)
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -44,8 +59,16 @@ class DescriptionActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    private fun updateIconOnMenu(isFavorite: Boolean) {
+        menu?.findItem(R.id.menu_favorite)?.let {
+            if (isFavorite) it.setIcon(R.drawable.ic_baseline_grade_24)
+            else it.setIcon(R.drawable.ic_outline_grade_24)
+        }
+    }
+
     private fun setData() {
         val bundle = intent.extras
+        word = bundle?.getString(WORD_EXTRA)
         binding.descriptionHeader.text = bundle?.getString(WORD_EXTRA)
         binding.descriptionTextview.text = bundle?.getString(DESCRIPTION_EXTRA)
 
@@ -106,7 +129,7 @@ class DescriptionActivity : AppCompatActivity() {
             context: Context,
             word: String,
             description: String,
-            url: String?
+            url: String?,
         ): Intent = Intent(context, DescriptionActivity::class.java).apply {
             putExtra(WORD_EXTRA, word)
             putExtra(DESCRIPTION_EXTRA, description)
