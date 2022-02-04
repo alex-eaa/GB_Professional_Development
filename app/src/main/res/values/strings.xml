@@ -25,4 +25,5 @@
     <string name="title_description_activity">Описание</string>
     <string name="title_main_activity">Переводчик</string>
     <string name="title_history_activity">История поиска</string>
+    <string name="to_favorite">В избранные</string>
 </resources>

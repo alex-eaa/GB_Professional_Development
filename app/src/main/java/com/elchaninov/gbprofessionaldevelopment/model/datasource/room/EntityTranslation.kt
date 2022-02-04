@@ -13,4 +13,7 @@ data class EntityTranslation(
 
     @ColumnInfo(name = "text")
     val text: String?,
+
+    @ColumnInfo(name = "favorite")
+    val favorite: Boolean = false,
 )

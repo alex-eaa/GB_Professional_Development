@@ -3,7 +3,9 @@ package com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
@@ -11,27 +13,44 @@ import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityDescriptionBinding
+import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.utils.network.isOnline
 import com.elchaninov.gbprofessionaldevelopment.utils.ui.AlertDialogFragment
+import com.elchaninov.gbprofessionaldevelopment.view.MainViewModel
+import com.elchaninov.gbprofessionaldevelopment.view.base.BaseActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DescriptionActivity : AppCompatActivity() {
+class DescriptionActivity : BaseActivity<AppState>() {
 
     private lateinit var binding: ActivityDescriptionBinding
+
+    override val model: DescriptionViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDescriptionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        model.liveDataForViewToObserve.observe(this@DescriptionActivity) { renderData(it) }
+
         setActionbarHomeButtonAsUp()
         binding.descriptionScreenSwipeRefreshLayout.setOnRefreshListener { startLoadingOrShowError() }
         setData()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.description_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
+                true
+            }
+            R.id.menu_favorite -> {
+                intent.extras?.getString(WORD_EXTRA)?.let { model.toggleEntityTranslation(it) }
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -42,6 +61,17 @@ class DescriptionActivity : AppCompatActivity() {
         supportActionBar?.title = getString(R.string.title_description_activity)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun renderData(appState: AppState) {
+        when (appState) {
+            is AppState.SuccessEntity -> {
+
+            }
+            is AppState.Error -> {
+                showViewError(appState.error.message)
+            }
+        }
     }
 
     private fun setData() {
@@ -106,7 +136,7 @@ class DescriptionActivity : AppCompatActivity() {
             context: Context,
             word: String,
             description: String,
-            url: String?
+            url: String?,
         ): Intent = Intent(context, DescriptionActivity::class.java).apply {
             putExtra(WORD_EXTRA, word)
             putExtra(DESCRIPTION_EXTRA, description)
