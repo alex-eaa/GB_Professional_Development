@@ -2,7 +2,6 @@ package com.elchaninov.gbprofessionaldevelopment.model.datasource
 
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.EntityMeaning
-import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.EntityTranslation
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.TranslationDao
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.map
 
@@ -15,17 +14,13 @@ class RoomDataBaseImplementation(private val translationDao: TranslationDao) :
         }
 
     override suspend fun saveData(list: List<DataModel>) {
-        translationDao.saveTranslation(list.map { map(it) })
-
+        val listForSave: MutableList<EntityMeaning> = mutableListOf()
         list.map { dataModel ->
-            val listForSave: MutableList<EntityMeaning> = mutableListOf()
-
             dataModel.meanings?.let {
                 listForSave.addAll(it.map { meaning -> map(meaning, dataModel) })
             }
-
-            translationDao.saveMeaning(listForSave)
         }
+        translationDao.saveTranslationWhitsMeaning(list.map { map(it) }, listForSave)
     }
 
     override suspend fun getTranslationFavorite(word: String): Boolean =

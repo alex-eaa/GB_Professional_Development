@@ -15,6 +15,15 @@ interface TranslationDao {
     @Insert(onConflict = REPLACE)
     suspend fun saveMeaning(meaning: List<EntityMeaning>)
 
+    @Transaction
+    suspend fun saveTranslationWhitsMeaning(
+        translations: List<EntityTranslation>,
+        meaning: List<EntityMeaning>
+    ) {
+        saveTranslation(translations)
+        saveMeaning(meaning)
+    }
+
     @Query("SELECT * FROM TranslationTable WHERE text LIKE :word ORDER BY text ASC")
     suspend fun getTranslationWhitsMeaning(word: String): List<TranslationWhitsMeaning>
 
