@@ -57,11 +57,6 @@ class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchC
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    override fun onResume() {
-        super.onResume()
-        model.getData(null, false)
-    }
-
     override fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Success -> {

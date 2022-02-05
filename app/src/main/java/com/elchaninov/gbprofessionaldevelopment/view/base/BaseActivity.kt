@@ -1,5 +1,6 @@
 package com.elchaninov.gbprofessionaldevelopment.view.base
 
+import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.elchaninov.gbprofessionaldevelopment.R
@@ -19,8 +20,8 @@ abstract class BaseActivity<T : AppState> : AppCompatActivity() {
     protected val isOnline: Boolean
         get() = isOnline(applicationContext)
 
-    override fun onResume() {
-        super.onResume()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         binding = LoadingFrameLayoutBinding.inflate(layoutInflater)
     }
 

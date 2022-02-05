@@ -14,6 +14,10 @@ class HistoryViewModel(private val interactor: HistoryInteractor) : BaseViewMode
 
     private var searchWord: String? = ""
 
+    init {
+        getData(searchWord, false)
+    }
+
     override fun getData(word: String?, isOnline: Boolean) {
         if (word != null) searchWord = word
 
