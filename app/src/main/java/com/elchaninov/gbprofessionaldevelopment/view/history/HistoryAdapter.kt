@@ -2,7 +2,6 @@ package com.elchaninov.gbprofessionaldevelopment.view.history
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityHistoryRecyclerviewItemBinding
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel

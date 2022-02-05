@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.rx.SchedulerProvider
-import kotlinx.coroutines.*
 
 abstract class BaseViewModel<T : AppState>(
     protected val _liveDataForViewToObserve: MutableLiveData<T> = MutableLiveData(),
