@@ -59,7 +59,7 @@ class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchC
 
     override fun onResume() {
         super.onResume()
-        model.getData("", false)
+        model.getData(null, false)
     }
 
     override fun renderData(appState: AppState) {
@@ -85,6 +85,7 @@ class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchC
             is AppState.Error -> {
                 showViewError(appState.error.message)
             }
+            else -> {}
         }
     }
 

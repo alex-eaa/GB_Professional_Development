@@ -12,8 +12,12 @@ import kotlinx.coroutines.launch
 
 class HistoryViewModel(private val interactor: HistoryInteractor) : BaseViewModel<AppState>() {
 
+    private var searchWord: String? = ""
+
     override fun getData(word: String?, isOnline: Boolean) {
-        word?.let {
+        if (word != null) searchWord = word
+
+        searchWord?.let {
             _liveDataForViewToObserve.postValue(AppState.Loading(null))
             viewModelScope.launch {
                 startInteractor(it, isOnline)
