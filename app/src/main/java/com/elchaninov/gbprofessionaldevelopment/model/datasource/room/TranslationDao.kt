@@ -2,6 +2,7 @@ package com.elchaninov.gbprofessionaldevelopment.model.datasource.room
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy.IGNORE
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import androidx.room.Transaction
@@ -9,7 +10,7 @@ import androidx.room.Transaction
 @Dao
 interface TranslationDao {
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = IGNORE)
     suspend fun saveTranslation(translations: List<EntityTranslation>)
 
     @Insert(onConflict = REPLACE)
@@ -31,13 +32,13 @@ interface TranslationDao {
     @Query("SELECT favorite FROM TranslationTable WHERE text = :word")
     suspend fun getTranslationFavorite(word: String): Boolean
 
-    @Query("UPDATE TranslationTable SET favorite = :favorite")
-    suspend fun updateTranslationFavorite(favorite: Boolean)
+    @Query("UPDATE TranslationTable SET favorite = :favorite WHERE text =:word")
+    suspend fun updateTranslationFavorite(word: String, favorite: Boolean)
 
     @Transaction
     suspend fun toggleTranslationFavorite(word: String): Boolean {
         val currentFavorite = getTranslationFavorite(word)
-        updateTranslationFavorite(!currentFavorite)
+        updateTranslationFavorite(word, !currentFavorite)
         return getTranslationFavorite(word)
     }
 }
