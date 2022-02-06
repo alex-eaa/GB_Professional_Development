@@ -19,17 +19,13 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-// Для удобства создадим две переменные: в одной находятся зависимости,
-// используемые во всём приложении, во второй - зависимости конкретного экрана
 val application = module {
-
     single {
         Room.databaseBuilder(androidContext(), DBStorage::class.java, "translate.db")
             .build().getTranslationDao()
     }
     single<DataSourceLocal> { RoomDataBaseImplementation(get()) }
     single<DataSourceRemote> { RetrofitImplementation() }
-
     single { StringProvider(androidContext()) }
 }
 

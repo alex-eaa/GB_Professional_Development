@@ -34,9 +34,6 @@ interface TranslationDao {
         favorite: Boolean = true
     ): List<TranslationWhitsMeaning>
 
-//    @Query("SELECT favorite FROM TranslationTable WHERE text = :word")
-//    suspend fun getTranslationFavorite(word: String): Boolean
-
     @Query("SELECT * FROM TranslationTable WHERE text = :word")
     suspend fun getTranslationWhitsMeaningByText(word: String): TranslationWhitsMeaning
 

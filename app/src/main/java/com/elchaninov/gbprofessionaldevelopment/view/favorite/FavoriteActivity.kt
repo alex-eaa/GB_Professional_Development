@@ -16,22 +16,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class FavoriteActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClickListener {
 
     override val model: FavoriteViewModel by viewModel()
-
     private lateinit var binding: ActivityFavoriteBinding
-
     private val adapter: FavoriteAdapter by lazy {
         FavoriteAdapter(onListItemClickListener, onFavoriteClickListener)
-    }
-
-    private val onListItemClickListener: (DataModel) -> Unit = { data ->
-        startActivity(
-            DescriptionActivity.getIntent(
-                this@FavoriteActivity,
-                data.text.toString(),
-                convertMeaningsToString(data.meanings),
-                data.meanings?.get(0)?.imageUrl
-            )
-        )
     }
 
     private val onFavoriteClickListener: (DataModel) -> Unit = { dataModel ->
@@ -42,15 +29,22 @@ class FavoriteActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearch
         super.onCreate(savedInstanceState)
         binding = ActivityFavoriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         model.liveDataForViewToObserve.observe(this@FavoriteActivity) { renderData(it) }
-
         initViews()
     }
 
     override fun onResume() {
         super.onResume()
         model.getData(null, false)
+    }
+
+    private fun initViews() {
+        setActionbarHomeButtonAsUp()
+        binding.historyActivityRecyclerview.adapter = adapter
+        binding.searchFab.setOnClickListener {
+            val searchDialogFragment = SearchDialogFragment.newInstance()
+            searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -77,6 +71,10 @@ class FavoriteActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearch
             }
             is AppState.Empty -> {
                 showViewSuccess()
+                showAlertDialog(
+                    getString(R.string.dialog_title_empty),
+                    getString(R.string.empty_server_response_on_success)
+                )
             }
             is AppState.Loading -> {
                 showViewLoading()
@@ -92,15 +90,6 @@ class FavoriteActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearch
             is AppState.Error -> {
                 showViewError(appState.error.message)
             }
-        }
-    }
-
-    private fun initViews() {
-        setActionbarHomeButtonAsUp()
-        binding.historyActivityRecyclerview.adapter = adapter
-        binding.searchFab.setOnClickListener {
-            val searchDialogFragment = SearchDialogFragment.newInstance()
-            searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
         }
     }
 

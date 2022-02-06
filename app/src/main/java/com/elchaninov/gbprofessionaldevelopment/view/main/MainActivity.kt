@@ -23,30 +23,18 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
     AlertDialogFragment.OnActionButtonClickListener {
 
     override val model: MainViewModel by viewModel()
-
     private lateinit var binding: ActivityMainBinding
-    private val adapter: MainAdapter by lazy { MainAdapter(onListItemClickListener) }
+    private val adapter: MainAdapter by lazy {
+        MainAdapter(onListItemClickListener)
+    }
 
     private var isEnableShowErrorIfEmpty = true
-
-    private val onListItemClickListener: (DataModel) -> Unit = { data ->
-        startActivity(
-            DescriptionActivity.getIntent(
-                this@MainActivity,
-                data.text.toString(),
-                convertMeaningsToString(data.meanings),
-                data.meanings?.get(0)?.imageUrl
-            )
-        )
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         model.liveDataForViewToObserve.observe(this@MainActivity) { renderData(it) }
-
         initViews()
     }
 

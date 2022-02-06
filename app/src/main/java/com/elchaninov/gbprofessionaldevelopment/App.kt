@@ -10,8 +10,16 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         startKoin {
-            androidContext ( this@App )
-            modules(listOf(application, mainScreen, historyScreen, descriptionScreen, favoriteScreen))
+            androidContext(this@App)
+            modules(
+                listOf(
+                    application,
+                    mainScreen,
+                    historyScreen,
+                    descriptionScreen,
+                    favoriteScreen
+                )
+            )
         }
     }
 }

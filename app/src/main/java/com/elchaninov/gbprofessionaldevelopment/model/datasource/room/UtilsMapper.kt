@@ -25,13 +25,6 @@ fun DataModelDto.toEntityTranslation(): EntityTranslation = EntityTranslation(
     favorite = false
 )
 
-fun MeaningsDto.toEntityMeaning(dataModelDto: DataModelDto): EntityMeaning = EntityMeaning(
-    id = this.id,
-    text = dataModelDto.text,
-    imageUrl = this.imageUrl,
-    translationId = dataModelDto.id
-)
-
 fun TranslationWhitsMeaning.toDataModel(): DataModel = DataModel(
     text = this.text,
     meanings = this.meanings?.map { entityMeaning -> entityMeaning.toMeanings() },

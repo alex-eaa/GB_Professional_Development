@@ -9,16 +9,13 @@ import kotlinx.coroutines.launch
 
 class FavoriteViewModel(private val interactor: FavoriteInteractor) : BaseViewModel<AppState>() {
 
-    private var searchWord: String? = ""
+    private var searchWord: String = ""
 
     override fun getData(word: String?, isOnline: Boolean) {
         if (word != null) searchWord = word
-
-        searchWord?.let {
-            _liveDataForViewToObserve.postValue(AppState.Loading(null))
-            viewModelScope.launch(exceptionHandler) {
-                startInteractor(it, isOnline)
-            }
+        _liveDataForViewToObserve.postValue(AppState.Loading(null))
+        viewModelScope.launch(exceptionHandler) {
+            startInteractor(searchWord, isOnline)
         }
     }
 
@@ -33,7 +30,7 @@ class FavoriteViewModel(private val interactor: FavoriteInteractor) : BaseViewMo
         viewModelScope.launch(exceptionHandler) {
             dataModel.text?.let {
                 interactor.toggleTranslationFavorite(it)
-                searchWord?.let { startInteractor(it, false) }
+                startInteractor(searchWord, false)
             }
         }
     }

@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.LoadingFrameLayoutBinding
 import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
+import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
+import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.convertMeaningsToString
 import com.elchaninov.gbprofessionaldevelopment.utils.network.isOnline
 import com.elchaninov.gbprofessionaldevelopment.utils.ui.AlertDialogFragment
+import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionActivity
 import com.elchaninov.gbprofessionaldevelopment.viewmodel.BaseViewModel
-
 
 abstract class BaseActivity<T : AppState> : AppCompatActivity() {
 
@@ -19,6 +21,17 @@ abstract class BaseActivity<T : AppState> : AppCompatActivity() {
 
     protected val isOnline: Boolean
         get() = isOnline(applicationContext)
+
+    protected val onListItemClickListener: (DataModel) -> Unit = { data ->
+        startActivity(
+            DescriptionActivity.getIntent(
+                this,
+                data.text.toString(),
+                convertMeaningsToString(data.meanings),
+                data.meanings?.get(0)?.imageUrl
+            )
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

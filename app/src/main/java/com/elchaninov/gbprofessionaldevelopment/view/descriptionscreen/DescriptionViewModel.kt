@@ -7,8 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
-class DescriptionViewModel(private val interactor: DescriptionInteractor) :
-    ViewModel() {
+class DescriptionViewModel(private val interactor: DescriptionInteractor) : ViewModel() {
 
     private val _liveDataForViewToObserve: MutableLiveData<Boolean> = MutableLiveData()
     val liveDataForViewToObserve: LiveData<Boolean> get() = _liveDataForViewToObserve
