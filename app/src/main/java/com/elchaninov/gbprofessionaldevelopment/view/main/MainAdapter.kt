@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment.view.adapter
+package com.elchaninov.gbprofessionaldevelopment.view.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,8 +9,7 @@ import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 
 class MainAdapter(
     private var onListItemClickListener: (DataModel) -> Unit,
-) :
-    RecyclerView.Adapter<RecyclerItemViewHolder>() {
+) : RecyclerView.Adapter<MainAdapter.RecyclerItemViewHolder>() {
 
     private var data: List<DataModel> = arrayListOf()
 
@@ -33,5 +32,21 @@ class MainAdapter(
 
     override fun getItemCount(): Int {
         return data.size
+    }
+
+
+    inner class RecyclerItemViewHolder(private val viewBinding: ActivityMainRecyclerviewItemBinding) :
+        RecyclerView.ViewHolder(viewBinding.root) {
+
+        fun bind(dataDto: DataModel) {
+            if (layoutPosition != RecyclerView.NO_POSITION) {
+                if (layoutPosition != RecyclerView.NO_POSITION) {
+                    viewBinding.headerTextviewRecyclerItem.text = dataDto.text
+
+                    viewBinding.descriptionTextviewRecyclerItem.text =
+                        dataDto.meanings?.get(0)?.translation?.translation
+                }
+            }
+        }
     }
 }

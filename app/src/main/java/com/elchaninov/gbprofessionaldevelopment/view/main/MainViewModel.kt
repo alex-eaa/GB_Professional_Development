@@ -1,10 +1,9 @@
-package com.elchaninov.gbprofessionaldevelopment.view
+package com.elchaninov.gbprofessionaldevelopment.view.main
 
 import androidx.lifecycle.viewModelScope
 import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 import com.elchaninov.gbprofessionaldevelopment.viewmodel.BaseViewModel
-import com.elchaninov.gbprofessionaldevelopment.viewmodel.MainInteractor
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow

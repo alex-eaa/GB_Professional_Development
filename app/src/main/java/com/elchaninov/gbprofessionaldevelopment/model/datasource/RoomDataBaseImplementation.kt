@@ -1,24 +1,27 @@
 package com.elchaninov.gbprofessionaldevelopment.model.datasource
 
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
+import com.elchaninov.gbprofessionaldevelopment.model.data.DataModelDto
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.*
 
 class RoomDataBaseImplementation(private val translationDao: TranslationDao) :
-    DataSourceLocal<List<DataModel>> {
+    DataSourceLocal {
 
     override suspend fun getData(word: String): List<DataModel> =
         translationDao.getTranslationWhitsMeaning("$word%").map { translationWhitsMeaning ->
             translationWhitsMeaning.toDataModel()
         }
 
-    override suspend fun saveData(listDataModel: List<DataModel>) {
+    override suspend fun saveData(list: List<DataModelDto>) {
         val listEntityTranslation =
-            listDataModel.map { dataModel -> dataModel.toEntityTranslation() }
+            list.map { dataModelDto -> dataModelDto.toEntityTranslation() }
 
         val listEntityMeaning: MutableList<EntityMeaning> = mutableListOf()
-        listDataModel.map { dataModel ->
-            dataModel.meanings?.let { listMeaning ->
-                listEntityMeaning.addAll(listMeaning.map { meaning -> map(meaning, dataModel) })
+        list.map { dataModelDto ->
+            dataModelDto.meanings?.let { listMeaningDto ->
+                listEntityMeaning.addAll(listMeaningDto.map { meaningDto ->
+                    map(meaningDto, dataModelDto)
+                })
             }
         }
 

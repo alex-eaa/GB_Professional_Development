@@ -9,7 +9,7 @@ import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.convertMeaningsToString
 import com.elchaninov.gbprofessionaldevelopment.view.SearchDialogFragment
-import com.elchaninov.gbprofessionaldevelopment.view.base.BaseActivity
+import com.elchaninov.gbprofessionaldevelopment.view.BaseActivity
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -80,7 +80,6 @@ class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchC
             is AppState.Error -> {
                 showViewError(appState.error.message)
             }
-            else -> {}
         }
     }
 

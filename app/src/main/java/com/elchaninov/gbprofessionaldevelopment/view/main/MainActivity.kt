@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment.view
+package com.elchaninov.gbprofessionaldevelopment.view.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,8 +12,8 @@ import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.convertMeaningsToString
 import com.elchaninov.gbprofessionaldevelopment.utils.ui.AlertDialogFragment
-import com.elchaninov.gbprofessionaldevelopment.view.adapter.MainAdapter
-import com.elchaninov.gbprofessionaldevelopment.view.base.BaseActivity
+import com.elchaninov.gbprofessionaldevelopment.view.SearchDialogFragment
+import com.elchaninov.gbprofessionaldevelopment.view.BaseActivity
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionActivity
 import com.elchaninov.gbprofessionaldevelopment.view.history.HistoryActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel

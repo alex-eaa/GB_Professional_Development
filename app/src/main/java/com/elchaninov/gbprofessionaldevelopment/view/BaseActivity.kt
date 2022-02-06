@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment.view.base
+package com.elchaninov.gbprofessionaldevelopment.view
 
 import android.os.Bundle
 import android.view.View

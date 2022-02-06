@@ -2,13 +2,13 @@ package com.elchaninov.gbprofessionaldevelopment.model.data
 
 import com.google.gson.annotations.SerializedName
 
-data class DataModel(
+data class DataModelDto(
+    @SerializedName("id")
+    val id: Long,
+
     @SerializedName("text")
     val text: String?,
 
     @SerializedName("meanings")
-    val meanings: List<Meanings>?,
-
-    @SerializedName("favorite")
-    val favorite: Boolean = false
+    val meanings: List<MeaningsDto>?
 )

@@ -5,7 +5,7 @@ import com.elchaninov.gbprofessionaldevelopment.model.datasource.DataSourceLocal
 import com.elchaninov.gbprofessionaldevelopment.viewmodel.Interactor
 
 class HistoryInteractor(
-    private val localRepository: DataSourceLocal<List<DataModel>>,
+    private val localRepository: DataSourceLocal
 ) : Interactor<List<DataModel>> {
 
     override suspend fun getData(word: String, fromRemoteSource: Boolean): List<DataModel> {

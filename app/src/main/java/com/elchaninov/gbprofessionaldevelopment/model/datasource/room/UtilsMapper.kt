@@ -1,33 +1,53 @@
 package com.elchaninov.gbprofessionaldevelopment.model.datasource.room
 
-import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
-import com.elchaninov.gbprofessionaldevelopment.model.data.Meanings
-import com.elchaninov.gbprofessionaldevelopment.model.data.Translation
+import com.elchaninov.gbprofessionaldevelopment.model.data.*
 
 
-fun DataModel.toEntityTranslation(): EntityTranslation = EntityTranslation(
+fun DataModelDto.toDataModel(): DataModel = DataModel(
+    text = this.text,
+    meanings = this.meanings?.map { meaningsDto -> meaningsDto.toMeanings() }
+)
+
+fun MeaningsDto.toMeanings(): Meanings = Meanings(
+    translation = this.translation?.toTranslation(),
+    imageUrl = this.imageUrl
+)
+
+fun TranslationDto.toTranslation(): Translation = Translation(
+    translation = this.translation
+)
+
+
+
+fun DataModelDto.toEntityTranslation(): EntityTranslation = EntityTranslation(
     id = this.id,
     text = this.text
 )
 
-fun TranslationWhitsMeaning.toDataModel(): DataModel = DataModel(
+fun MeaningsDto.toEntityMeaning(dataModelDto: DataModelDto): EntityMeaning = EntityMeaning(
     id = this.id,
+    text = dataModelDto.text,
+    imageUrl = this.imageUrl,
+    translationId = dataModelDto.id
+)
+
+fun TranslationWhitsMeaning.toDataModel(): DataModel = DataModel(
     text = this.text,
     meanings = this.meanings?.map { entityMeaning -> entityMeaning.toMeanings() }
 )
 
 fun EntityMeaning.toMeanings(): Meanings = Meanings(
-    id = this.id,
-    imageUrl = this.imageUrl,
-    translation = Translation(this.text)
+    translation = Translation(this.text),
+    imageUrl = this.imageUrl
 )
 
-fun map(meanings: Meanings, dataModel: DataModel): EntityMeaning {
+
+fun map(meaningsDto: MeaningsDto, dataModelDto: DataModelDto): EntityMeaning {
     return EntityMeaning(
-        id = meanings.id,
-        text = meanings.translation?.translation,
-        imageUrl = meanings.imageUrl,
-        translationId = dataModel.id
+        id = meaningsDto.id,
+        text = meaningsDto.translation?.translation,
+        imageUrl = meaningsDto.imageUrl,
+        translationId = dataModelDto.id
     )
 }
 
