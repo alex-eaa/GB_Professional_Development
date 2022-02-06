@@ -1,6 +1,8 @@
 package com.elchaninov.gbprofessionaldevelopment.view.history
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.elchaninov.gbprofessionaldevelopment.R
@@ -11,6 +13,7 @@ import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.convertMea
 import com.elchaninov.gbprofessionaldevelopment.view.BaseActivity
 import com.elchaninov.gbprofessionaldevelopment.view.SearchDialogFragment
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionActivity
+import com.elchaninov.gbprofessionaldevelopment.view.favorite.FavoriteActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClickListener {
@@ -55,10 +58,20 @@ class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchC
         model.getData(null, false)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.history_menu, menu)
+        supportActionBar?.title = getString(R.string.title_history_activity)
+        return super.onCreateOptionsMenu(menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
+                true
+            }
+            R.id.menu_favorite -> {
+                startActivity(Intent(this, FavoriteActivity::class.java))
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -66,7 +79,6 @@ class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchC
     }
 
     private fun setActionbarHomeButtonAsUp() {
-        supportActionBar?.title = getString(R.string.title_history_activity)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
