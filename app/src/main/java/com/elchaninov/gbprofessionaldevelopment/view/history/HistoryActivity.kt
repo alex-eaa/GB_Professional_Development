@@ -41,6 +41,11 @@ class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchC
         initViews()
     }
 
+    override fun onResume() {
+        super.onResume()
+        model.getData(null, false)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {

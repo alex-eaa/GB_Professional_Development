@@ -3,6 +3,7 @@ package com.elchaninov.gbprofessionaldevelopment.view.history
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityHistoryRecyclerviewItemBinding
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 
@@ -39,6 +40,8 @@ class HistoryAdapter(
         fun bind(data: DataModel) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
                 binding.headerHistoryTextviewRecyclerItem.text = data.text
+                if(data.favorite) binding.favoriteImage.setImageResource(R.drawable.ic_baseline_grade_24)
+
             }
         }
     }
