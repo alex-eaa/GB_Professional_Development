@@ -4,10 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 import com.elchaninov.gbprofessionaldevelopment.viewmodel.BaseViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
 class HistoryViewModel(private val interactor: HistoryInteractor) : BaseViewModel<AppState>() {
@@ -19,24 +16,29 @@ class HistoryViewModel(private val interactor: HistoryInteractor) : BaseViewMode
 
         searchWord?.let {
             _liveDataForViewToObserve.postValue(AppState.Loading(null))
-            viewModelScope.launch {
+            viewModelScope.launch(exceptionHandler) {
                 startInteractor(it, isOnline)
-                    .catch { e ->
-                        handleError(e)
-                    }
-                    .collect {
-                        _liveDataForViewToObserve.postValue(it)
-                    }
             }
         }
     }
 
-    private suspend fun startInteractor(word: String, isOnline: Boolean): Flow<AppState> =
-        flow {
-            emit(
-                parseSearchResult(interactor.getData(word, isOnline))
+    private suspend fun startInteractor(word: String, isOnline: Boolean) =
+        _liveDataForViewToObserve.postValue(
+            parseSearchResult(
+                interactor.getData(word, isOnline)
             )
+        )
+
+    fun toggleEntityTranslation(dataModel: DataModel) {
+        viewModelScope.launch(exceptionHandler) {
+            interactor.toggleTranslationFavorite(dataModel)
+            searchWord?.let { startInteractor(it, false) }
         }
+    }
+
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        handleError(throwable)
+    }
 
     override fun handleError(error: Throwable) {
         _liveDataForViewToObserve.postValue(AppState.Error(error))

@@ -9,6 +9,7 @@ import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 
 class HistoryAdapter(
     private var onListItemClickListener: (DataModel) -> Unit,
+    private var onFavoriteClickListener: (DataModel) -> Unit,
 ) : RecyclerView.Adapter<HistoryAdapter.RecyclerItemViewHolder>() {
 
     private var data: List<DataModel> = arrayListOf()
@@ -26,7 +27,6 @@ class HistoryAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerItemViewHolder, position: Int) {
-        holder.itemView.setOnClickListener { onListItemClickListener(data[position]) }
         holder.bind(data[position])
     }
 
@@ -37,11 +37,16 @@ class HistoryAdapter(
     inner class RecyclerItemViewHolder(private val binding: ActivityHistoryRecyclerviewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        init {
+            binding.root.setOnClickListener { onListItemClickListener(data[layoutPosition]) }
+            binding.favoriteImage.setOnClickListener { onFavoriteClickListener(data[layoutPosition]) }
+        }
+
         fun bind(data: DataModel) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
                 binding.headerHistoryTextviewRecyclerItem.text = data.text
-                if(data.favorite) binding.favoriteImage.setImageResource(R.drawable.ic_baseline_grade_24)
-
+                if (data.favorite) binding.favoriteImage.setImageResource(R.drawable.ic_baseline_grade_24)
+                else binding.favoriteImage.setImageResource(R.drawable.ic_outline_grade_24)
             }
         }
     }

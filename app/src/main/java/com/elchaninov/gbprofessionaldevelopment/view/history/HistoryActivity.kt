@@ -18,7 +18,12 @@ class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchC
     override val model: HistoryViewModel by viewModel()
 
     private lateinit var binding: ActivityHistoryBinding
-    private val adapter: HistoryAdapter by lazy { HistoryAdapter(onListItemClickListener) }
+    private val adapter: HistoryAdapter by lazy {
+        HistoryAdapter(
+            onListItemClickListener,
+            onFavoriteClickListener
+        )
+    }
 
     private val onListItemClickListener: (DataModel) -> Unit = { data ->
         startActivity(
@@ -29,6 +34,10 @@ class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchC
                 data.meanings?.get(0)?.imageUrl
             )
         )
+    }
+
+    private val onFavoriteClickListener: (DataModel) -> Unit = { dataModel ->
+        model.toggleEntityTranslation(dataModel)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
