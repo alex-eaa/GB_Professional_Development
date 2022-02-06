@@ -21,7 +21,8 @@ fun TranslationDto.toTranslation(): Translation = Translation(
 
 fun DataModelDto.toEntityTranslation(): EntityTranslation = EntityTranslation(
     id = this.id,
-    text = this.text
+    text = this.text,
+    favorite = false
 )
 
 fun MeaningsDto.toEntityMeaning(dataModelDto: DataModelDto): EntityMeaning = EntityMeaning(
@@ -33,7 +34,8 @@ fun MeaningsDto.toEntityMeaning(dataModelDto: DataModelDto): EntityMeaning = Ent
 
 fun TranslationWhitsMeaning.toDataModel(): DataModel = DataModel(
     text = this.text,
-    meanings = this.meanings?.map { entityMeaning -> entityMeaning.toMeanings() }
+    meanings = this.meanings?.map { entityMeaning -> entityMeaning.toMeanings() },
+    favorite = this.favorite
 )
 
 fun EntityMeaning.toMeanings(): Meanings = Meanings(
