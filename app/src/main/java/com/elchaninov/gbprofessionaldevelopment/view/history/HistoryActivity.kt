@@ -9,10 +9,8 @@ import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityHistoryBinding
 import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
-import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.convertMeaningsToString
 import com.elchaninov.gbprofessionaldevelopment.view.BaseActivity
 import com.elchaninov.gbprofessionaldevelopment.view.SearchDialogFragment
-import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionActivity
 import com.elchaninov.gbprofessionaldevelopment.view.favorite.FavoriteActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

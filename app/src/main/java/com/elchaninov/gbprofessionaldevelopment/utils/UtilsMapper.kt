@@ -1,6 +1,9 @@
-package com.elchaninov.gbprofessionaldevelopment.model.datasource.room
+package com.elchaninov.gbprofessionaldevelopment.utils
 
 import com.elchaninov.gbprofessionaldevelopment.model.data.*
+import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.EntityMeaning
+import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.EntityTranslation
+import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.TranslationWhitsMeaning
 
 
 fun DataModelDto.toDataModel(): DataModel = DataModel(

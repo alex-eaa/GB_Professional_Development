@@ -3,6 +3,9 @@ package com.elchaninov.gbprofessionaldevelopment.model.datasource
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModelDto
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.*
+import com.elchaninov.gbprofessionaldevelopment.utils.map
+import com.elchaninov.gbprofessionaldevelopment.utils.toDataModel
+import com.elchaninov.gbprofessionaldevelopment.utils.toEntityTranslation
 
 class RoomDataBaseImplementation(private val translationDao: TranslationDao) :
     DataSourceLocal {

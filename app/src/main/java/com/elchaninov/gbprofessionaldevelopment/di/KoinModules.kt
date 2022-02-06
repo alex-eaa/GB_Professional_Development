@@ -6,7 +6,7 @@ import com.elchaninov.gbprofessionaldevelopment.model.datasource.DataSourceRemot
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.RetrofitImplementation
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.RoomDataBaseImplementation
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.DBStorage
-import com.elchaninov.gbprofessionaldevelopment.utils.network.StringProvider
+import com.elchaninov.gbprofessionaldevelopment.utils.StringProvider
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionInteractor
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionViewModel
 import com.elchaninov.gbprofessionaldevelopment.view.favorite.FavoriteInteractor

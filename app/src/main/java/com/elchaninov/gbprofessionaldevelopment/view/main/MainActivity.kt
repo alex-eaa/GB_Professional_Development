@@ -9,12 +9,9 @@ import android.view.View.VISIBLE
 import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityMainBinding
 import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
-import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
-import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.convertMeaningsToString
-import com.elchaninov.gbprofessionaldevelopment.utils.ui.AlertDialogFragment
+import com.elchaninov.gbprofessionaldevelopment.view.AlertDialogFragment
 import com.elchaninov.gbprofessionaldevelopment.view.BaseActivity
 import com.elchaninov.gbprofessionaldevelopment.view.SearchDialogFragment
-import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionActivity
 import com.elchaninov.gbprofessionaldevelopment.view.favorite.FavoriteActivity
 import com.elchaninov.gbprofessionaldevelopment.view.history.HistoryActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel

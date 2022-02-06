@@ -7,9 +7,8 @@ import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.LoadingFrameLayoutBinding
 import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
-import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.convertMeaningsToString
-import com.elchaninov.gbprofessionaldevelopment.utils.network.isOnline
-import com.elchaninov.gbprofessionaldevelopment.utils.ui.AlertDialogFragment
+import com.elchaninov.gbprofessionaldevelopment.utils.convertMeaningsToString
+import com.elchaninov.gbprofessionaldevelopment.utils.isOnline
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionActivity
 import com.elchaninov.gbprofessionaldevelopment.viewmodel.BaseViewModel
 

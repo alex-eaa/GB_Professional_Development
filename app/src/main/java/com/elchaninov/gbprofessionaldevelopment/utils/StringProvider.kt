@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment.utils.network
+package com.elchaninov.gbprofessionaldevelopment.utils
 
 import android.content.Context
 
