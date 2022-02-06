@@ -31,8 +31,10 @@ class FavoriteViewModel(private val interactor: FavoriteInteractor) : BaseViewMo
 
     fun toggleEntityTranslation(dataModel: DataModel) {
         viewModelScope.launch(exceptionHandler) {
-            interactor.toggleTranslationFavorite(dataModel)
-            searchWord?.let { startInteractor(it, false) }
+            dataModel.text?.let {
+                interactor.toggleTranslationFavorite(it)
+                searchWord?.let { startInteractor(it, false) }
+            }
         }
     }
 

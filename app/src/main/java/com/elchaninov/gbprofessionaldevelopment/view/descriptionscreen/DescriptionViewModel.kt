@@ -13,16 +13,16 @@ class DescriptionViewModel(private val interactor: DescriptionInteractor) :
     private val _liveDataForViewToObserve: MutableLiveData<Boolean> = MutableLiveData()
     val liveDataForViewToObserve: LiveData<Boolean> get() = _liveDataForViewToObserve
 
-    fun getTranslationFavorite(word: String) {
+    fun getData(word: String) {
         viewModelScope.launch(exceptionHandler) {
-            _liveDataForViewToObserve.postValue(interactor.getTranslationFavorite(word))
+            _liveDataForViewToObserve.postValue(interactor.getData(word, false).favorite)
         }
     }
 
     fun toggleEntityTranslation(word: String?) {
         word?.let {
             viewModelScope.launch(exceptionHandler) {
-                _liveDataForViewToObserve.postValue(interactor.toggleTranslationFavorite(word))
+                _liveDataForViewToObserve.postValue(interactor.toggleTranslationFavorite(word).favorite)
             }
         }
     }

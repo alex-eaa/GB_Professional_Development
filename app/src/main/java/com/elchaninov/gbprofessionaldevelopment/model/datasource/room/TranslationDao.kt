@@ -34,16 +34,19 @@ interface TranslationDao {
         favorite: Boolean = true
     ): List<TranslationWhitsMeaning>
 
-    @Query("SELECT favorite FROM TranslationTable WHERE text = :word")
-    suspend fun getTranslationFavorite(word: String): Boolean
+//    @Query("SELECT favorite FROM TranslationTable WHERE text = :word")
+//    suspend fun getTranslationFavorite(word: String): Boolean
+
+    @Query("SELECT * FROM TranslationTable WHERE text = :word")
+    suspend fun getTranslationWhitsMeaningByText(word: String): TranslationWhitsMeaning
 
     @Query("UPDATE TranslationTable SET favorite = :favorite WHERE text =:word")
     suspend fun updateTranslationFavorite(word: String, favorite: Boolean)
 
     @Transaction
-    suspend fun toggleTranslationFavorite(word: String): Boolean {
-        val currentFavorite = getTranslationFavorite(word)
-        updateTranslationFavorite(word, !currentFavorite)
-        return getTranslationFavorite(word)
+    suspend fun toggleTranslationFavorite(word: String): TranslationWhitsMeaning {
+        val currentFavorite = getTranslationWhitsMeaningByText(word)
+        updateTranslationFavorite(word, !currentFavorite.favorite)
+        return getTranslationWhitsMeaningByText(word)
     }
 }

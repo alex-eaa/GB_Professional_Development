@@ -35,7 +35,7 @@ class DescriptionActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.description_menu, menu)
         this.menu = menu
-        word?.let { model.getTranslationFavorite(it) }
+        word?.let { model.getData(it) }
         return super.onCreateOptionsMenu(menu)
     }
 

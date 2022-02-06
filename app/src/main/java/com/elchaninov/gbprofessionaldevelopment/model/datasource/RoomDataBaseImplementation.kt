@@ -34,9 +34,9 @@ class RoomDataBaseImplementation(private val translationDao: TranslationDao) :
         translationDao.saveTranslationWhitsMeaning(listEntityTranslation, listEntityMeaning)
     }
 
-    override suspend fun getTranslationFavorite(word: String): Boolean =
-        translationDao.getTranslationFavorite(word)
+    override suspend fun getTranslationFavorite(word: String): DataModel =
+        translationDao.getTranslationWhitsMeaningByText(word).toDataModel()
 
-    override suspend fun toggleTranslationFavorite(word: String): Boolean =
-        translationDao.toggleTranslationFavorite(word)
+    override suspend fun toggleTranslationFavorite(word: String): DataModel =
+        translationDao.toggleTranslationFavorite(word).toDataModel()
 }
