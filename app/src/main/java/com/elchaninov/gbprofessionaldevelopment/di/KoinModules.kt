@@ -9,6 +9,8 @@ import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.DBStorage
 import com.elchaninov.gbprofessionaldevelopment.utils.network.StringProvider
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionInteractor
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionViewModel
+import com.elchaninov.gbprofessionaldevelopment.view.favorite.FavoriteInteractor
+import com.elchaninov.gbprofessionaldevelopment.view.favorite.FavoriteViewModel
 import com.elchaninov.gbprofessionaldevelopment.view.history.HistoryInteractor
 import com.elchaninov.gbprofessionaldevelopment.view.history.HistoryViewModel
 import com.elchaninov.gbprofessionaldevelopment.view.main.MainInteractor
@@ -41,7 +43,12 @@ val historyScreen = module {
     viewModel { HistoryViewModel(get()) }
 }
 
-val DescriptionScreen = module {
+val descriptionScreen = module {
     factory { DescriptionInteractor(get()) }
     viewModel { DescriptionViewModel(get()) }
+}
+
+val favoriteScreen = module {
+    factory { FavoriteInteractor(get()) }
+    viewModel { FavoriteViewModel(get()) }
 }

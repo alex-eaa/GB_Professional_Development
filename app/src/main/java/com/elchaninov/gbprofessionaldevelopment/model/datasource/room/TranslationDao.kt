@@ -28,6 +28,11 @@ interface TranslationDao {
     @Query("SELECT * FROM TranslationTable WHERE text LIKE :word ORDER BY text ASC")
     suspend fun getTranslationWhitsMeaning(word: String): List<TranslationWhitsMeaning>
 
+    @Query("SELECT * FROM TranslationTable WHERE favorite=:favorite AND text LIKE :word ORDER BY text ASC")
+    suspend fun getFavoriteTranslationWhitsMeaning(
+        word: String,
+        favorite: Boolean = true
+    ): List<TranslationWhitsMeaning>
 
     @Query("SELECT favorite FROM TranslationTable WHERE text = :word")
     suspend fun getTranslationFavorite(word: String): Boolean

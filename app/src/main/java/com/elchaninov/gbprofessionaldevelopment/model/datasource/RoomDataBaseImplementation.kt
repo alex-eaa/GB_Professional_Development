@@ -12,6 +12,12 @@ class RoomDataBaseImplementation(private val translationDao: TranslationDao) :
             translationWhitsMeaning.toDataModel()
         }
 
+    override suspend fun getFavoriteData(word: String): List<DataModel> =
+        translationDao.getFavoriteTranslationWhitsMeaning("$word%").map { translationWhitsMeaning ->
+            translationWhitsMeaning.toDataModel()
+        }
+
+
     override suspend fun saveData(list: List<DataModelDto>) {
         val listEntityTranslation =
             list.map { dataModelDto -> dataModelDto.toEntityTranslation() }

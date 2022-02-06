@@ -12,9 +12,10 @@ import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.convertMeaningsToString
 import com.elchaninov.gbprofessionaldevelopment.utils.ui.AlertDialogFragment
-import com.elchaninov.gbprofessionaldevelopment.view.SearchDialogFragment
 import com.elchaninov.gbprofessionaldevelopment.view.BaseActivity
+import com.elchaninov.gbprofessionaldevelopment.view.SearchDialogFragment
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionActivity
+import com.elchaninov.gbprofessionaldevelopment.view.favorite.FavoriteActivity
 import com.elchaninov.gbprofessionaldevelopment.view.history.HistoryActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -67,6 +68,10 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
         return when (item.itemId) {
             R.id.menu_history -> {
                 startActivity(Intent(this, HistoryActivity::class.java))
+                true
+            }
+            R.id.menu_favorite -> {
+                startActivity(Intent(this, FavoriteActivity::class.java))
                 true
             }
             else -> super.onOptionsItemSelected(item)

@@ -1,10 +1,10 @@
-package com.elchaninov.gbprofessionaldevelopment.view.history
+package com.elchaninov.gbprofessionaldevelopment.view.favorite
 
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import com.elchaninov.gbprofessionaldevelopment.R
-import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityHistoryBinding
+import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityFavoriteBinding
 import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
 import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
 import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.convertMeaningsToString
@@ -13,22 +13,20 @@ import com.elchaninov.gbprofessionaldevelopment.view.SearchDialogFragment
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClickListener {
+class FavoriteActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClickListener {
 
-    override val model: HistoryViewModel by viewModel()
+    override val model: FavoriteViewModel by viewModel()
 
-    private lateinit var binding: ActivityHistoryBinding
-    private val adapter: HistoryAdapter by lazy {
-        HistoryAdapter(
-            onListItemClickListener,
-            onFavoriteClickListener
-        )
+    private lateinit var binding: ActivityFavoriteBinding
+
+    private val adapter: FavoriteAdapter by lazy {
+        FavoriteAdapter(onListItemClickListener, onFavoriteClickListener)
     }
 
     private val onListItemClickListener: (DataModel) -> Unit = { data ->
         startActivity(
             DescriptionActivity.getIntent(
-                this@HistoryActivity,
+                this@FavoriteActivity,
                 data.text.toString(),
                 convertMeaningsToString(data.meanings),
                 data.meanings?.get(0)?.imageUrl
@@ -42,10 +40,10 @@ class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchC
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityHistoryBinding.inflate(layoutInflater)
+        binding = ActivityFavoriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        model.liveDataForViewToObserve.observe(this@HistoryActivity) { renderData(it) }
+        model.liveDataForViewToObserve.observe(this@FavoriteActivity) { renderData(it) }
 
         initViews()
     }
@@ -66,7 +64,7 @@ class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchC
     }
 
     private fun setActionbarHomeButtonAsUp() {
-        supportActionBar?.title = getString(R.string.title_history_activity)
+        supportActionBar?.title = getString(R.string.title_favorite_activity)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
