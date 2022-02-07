@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
+import coil.request.Disposable
 import coil.transform.RoundedCornersTransformation
 import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityDescriptionBinding
@@ -21,6 +22,7 @@ class DescriptionActivity : AppCompatActivity() {
     private val model: DescriptionViewModel by viewModel()
     private var menu: Menu? = null
     private var word: String? = null
+    private var imageLoader: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,7 +104,7 @@ class DescriptionActivity : AppCompatActivity() {
     }
 
     private fun useCoilToLoadPhoto(imageView: ImageView, imageLink: String) {
-        imageView.load("https:$imageLink") {
+       imageLoader = imageView.load("https:$imageLink") {
             listener(
                 onSuccess = { _, _ ->
                     stopRefreshAnimationIfNeeded()
@@ -117,6 +119,11 @@ class DescriptionActivity : AppCompatActivity() {
             crossfade(750)
                 .build()
         }
+    }
+
+    override fun onDestroy() {
+        imageLoader?.dispose()
+        super.onDestroy()
     }
 
     companion object {
