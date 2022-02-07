@@ -1,11 +1,11 @@
 package com.elchaninov.gbprofessionaldevelopment.di
 
 import androidx.room.Room
-import com.elchaninov.gbprofessionaldevelopment.model.datasource.DataSourceLocal
-import com.elchaninov.gbprofessionaldevelopment.model.datasource.DataSourceRemote
-import com.elchaninov.gbprofessionaldevelopment.model.datasource.RetrofitImplementation
-import com.elchaninov.gbprofessionaldevelopment.model.datasource.RoomDataBaseImplementation
-import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.DBStorage
+import com.elchaninov.gbprofessionaldevelopment.data.DataSourceLocal
+import com.elchaninov.gbprofessionaldevelopment.data.DataSourceRemote
+import com.elchaninov.gbprofessionaldevelopment.data.RetrofitImplementation
+import com.elchaninov.gbprofessionaldevelopment.data.RoomDataBaseImplementation
+import com.elchaninov.gbprofessionaldevelopment.data.room.DBStorage
 import com.elchaninov.gbprofessionaldevelopment.utils.StringProvider
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionInteractor
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionViewModel

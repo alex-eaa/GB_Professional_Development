@@ -1,7 +1,7 @@
-package com.elchaninov.gbprofessionaldevelopment.model.datasource
+package com.elchaninov.gbprofessionaldevelopment.data
 
-import com.elchaninov.gbprofessionaldevelopment.model.api.ApiService
-import com.elchaninov.gbprofessionaldevelopment.model.data.DataModelDto
+import com.elchaninov.gbprofessionaldevelopment.data.api.ApiService
+import com.elchaninov.gbprofessionaldevelopment.model.dto.DataModelDto
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

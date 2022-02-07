@@ -3,7 +3,7 @@ package com.elchaninov.gbprofessionaldevelopment.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
+import com.elchaninov.gbprofessionaldevelopment.view.AppState
 
 abstract class BaseViewModel<T : AppState>(
     protected val _liveDataForViewToObserve: MutableLiveData<T> = MutableLiveData()

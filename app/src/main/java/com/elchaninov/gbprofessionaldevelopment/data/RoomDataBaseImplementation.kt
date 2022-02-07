@@ -1,8 +1,9 @@
-package com.elchaninov.gbprofessionaldevelopment.model.datasource
+package com.elchaninov.gbprofessionaldevelopment.data
 
-import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
-import com.elchaninov.gbprofessionaldevelopment.model.data.DataModelDto
-import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.*
+import com.elchaninov.gbprofessionaldevelopment.data.room.EntityMeaning
+import com.elchaninov.gbprofessionaldevelopment.data.room.TranslationDao
+import com.elchaninov.gbprofessionaldevelopment.model.dto.DataModelDto
+import com.elchaninov.gbprofessionaldevelopment.model.usermodel.DataModel
 import com.elchaninov.gbprofessionaldevelopment.utils.map
 import com.elchaninov.gbprofessionaldevelopment.utils.toDataModel
 import com.elchaninov.gbprofessionaldevelopment.utils.toEntityTranslation

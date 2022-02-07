@@ -1,7 +1,7 @@
 package com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen
 
-import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
-import com.elchaninov.gbprofessionaldevelopment.model.datasource.DataSourceLocal
+import com.elchaninov.gbprofessionaldevelopment.data.DataSourceLocal
+import com.elchaninov.gbprofessionaldevelopment.model.usermodel.DataModel
 import com.elchaninov.gbprofessionaldevelopment.viewmodel.Interactor
 import com.elchaninov.gbprofessionaldevelopment.viewmodel.InteractorToggleFavorite
 

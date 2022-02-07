@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment.model.data
+package com.elchaninov.gbprofessionaldevelopment.model.usermodel
 
 import com.google.gson.annotations.SerializedName
 

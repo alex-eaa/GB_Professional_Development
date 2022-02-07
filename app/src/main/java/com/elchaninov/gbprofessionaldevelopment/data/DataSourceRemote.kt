@@ -1,6 +1,6 @@
-package com.elchaninov.gbprofessionaldevelopment.model.datasource
+package com.elchaninov.gbprofessionaldevelopment.data
 
-import com.elchaninov.gbprofessionaldevelopment.model.data.DataModelDto
+import com.elchaninov.gbprofessionaldevelopment.model.dto.DataModelDto
 
 //  Источник данных для репозитория (Интернет, БД и т. п.)
 interface DataSourceRemote {
