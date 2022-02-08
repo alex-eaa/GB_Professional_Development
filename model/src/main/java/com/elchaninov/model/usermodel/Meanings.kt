@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment.model.usermodel
+package com.elchaninov.model.usermodel
 
 data class Meanings(
     val translation: Translation?,

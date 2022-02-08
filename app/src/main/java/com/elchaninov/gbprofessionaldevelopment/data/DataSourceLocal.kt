@@ -1,7 +1,7 @@
 package com.elchaninov.gbprofessionaldevelopment.data
 
-import com.elchaninov.gbprofessionaldevelopment.model.dto.DataModelDto
-import com.elchaninov.gbprofessionaldevelopment.model.usermodel.DataModel
+import com.elchaninov.model.dto.DataModelDto
+import com.elchaninov.model.usermodel.DataModel
 
 interface DataSourceLocal {
     suspend fun getData(word: String): List<DataModel>

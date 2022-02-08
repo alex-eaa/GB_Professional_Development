@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityFavoriteRecyclerviewItemBinding
-import com.elchaninov.gbprofessionaldevelopment.model.usermodel.DataModel
+import com.elchaninov.model.usermodel.DataModel
 
 class FavoriteAdapter(
     private var onListItemClickListener: (DataModel) -> Unit,

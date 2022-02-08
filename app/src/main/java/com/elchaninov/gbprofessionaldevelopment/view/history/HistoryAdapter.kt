@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityHistoryRecyclerviewItemBinding
-import com.elchaninov.gbprofessionaldevelopment.model.usermodel.DataModel
+import com.elchaninov.model.usermodel.DataModel
 
 class HistoryAdapter(
     private var onListItemClickListener: (DataModel) -> Unit,

@@ -1,6 +1,6 @@
 package com.elchaninov.gbprofessionaldevelopment.data.api
 
-import com.elchaninov.gbprofessionaldevelopment.model.dto.DataModelDto
+import com.elchaninov.model.dto.DataModelDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 

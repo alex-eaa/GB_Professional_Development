@@ -1,12 +1,12 @@
 package com.elchaninov.gbprofessionaldevelopment.data
 
-import com.elchaninov.gbprofessionaldevelopment.model.room.EntityMeaning
+import com.elchaninov.model.room.EntityMeaning
 import com.elchaninov.gbprofessionaldevelopment.data.room.TranslationDao
-import com.elchaninov.gbprofessionaldevelopment.model.dto.DataModelDto
-import com.elchaninov.gbprofessionaldevelopment.model.usermodel.DataModel
-import com.elchaninov.gbprofessionaldevelopment.model.map
-import com.elchaninov.gbprofessionaldevelopment.model.toDataModel
-import com.elchaninov.gbprofessionaldevelopment.model.toEntityTranslation
+import com.elchaninov.model.dto.DataModelDto
+import com.elchaninov.model.usermodel.DataModel
+import com.elchaninov.model.map
+import com.elchaninov.model.toDataModel
+import com.elchaninov.model.toEntityTranslation
 
 class RoomDataBaseImplementation(private val translationDao: TranslationDao) :
     DataSourceLocal {

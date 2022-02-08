@@ -30,6 +30,8 @@ android {
 
 dependencies {
 
+    implementation project(Modules.model)
+
     // Design
     implementation Design.appcompat
     implementation Design.material
@@ -44,6 +46,7 @@ dependencies {
 
     // TestImpl
     implementation TestImpl.junit
+    androidTestImplementation TestImpl.ext_junit
     androidTestImplementation TestImpl.espresso
 
     // Retrofit 2

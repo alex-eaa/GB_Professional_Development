@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment.model.usermodel
+package com.elchaninov.model.usermodel
 
 data class DataModel(
     val text: String?,

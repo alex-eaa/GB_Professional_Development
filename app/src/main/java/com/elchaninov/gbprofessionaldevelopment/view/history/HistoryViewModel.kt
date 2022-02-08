@@ -1,7 +1,7 @@
 package com.elchaninov.gbprofessionaldevelopment.view.history
 
 import androidx.lifecycle.viewModelScope
-import com.elchaninov.gbprofessionaldevelopment.model.usermodel.DataModel
+import com.elchaninov.model.usermodel.DataModel
 import com.elchaninov.gbprofessionaldevelopment.view.AppState
 import com.elchaninov.gbprofessionaldevelopment.viewmodel.BaseViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler

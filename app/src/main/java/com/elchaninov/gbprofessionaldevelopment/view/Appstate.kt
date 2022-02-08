@@ -1,6 +1,6 @@
 package com.elchaninov.gbprofessionaldevelopment.view
 
-import com.elchaninov.gbprofessionaldevelopment.model.usermodel.DataModel
+import com.elchaninov.model.usermodel.DataModel
 
 sealed class AppState {
     data class Success(val data: List<DataModel>) : AppState()

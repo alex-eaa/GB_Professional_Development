@@ -1,6 +1,6 @@
 package com.elchaninov.gbprofessionaldevelopment.utils
 
-import com.elchaninov.gbprofessionaldevelopment.model.usermodel.Meanings
+import com.elchaninov.model.usermodel.Meanings
 
 
 fun convertMeaningsToString(meanings: List<Meanings>?): String {

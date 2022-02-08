@@ -2,8 +2,8 @@ package com.elchaninov.gbprofessionaldevelopment.view.main
 
 import com.elchaninov.gbprofessionaldevelopment.data.DataSourceLocal
 import com.elchaninov.gbprofessionaldevelopment.data.DataSourceRemote
-import com.elchaninov.gbprofessionaldevelopment.model.usermodel.DataModel
-import com.elchaninov.gbprofessionaldevelopment.model.toDataModel
+import com.elchaninov.model.usermodel.DataModel
+import com.elchaninov.model.toDataModel
 import com.elchaninov.gbprofessionaldevelopment.viewmodel.Interactor
 
 class MainInteractor(

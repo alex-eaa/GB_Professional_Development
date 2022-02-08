@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment.model.dto
+package com.elchaninov.model.dto
 
 import com.google.gson.annotations.SerializedName
 

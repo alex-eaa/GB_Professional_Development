@@ -1,14 +1,14 @@
-package com.elchaninov.gbprofessionaldevelopment.model
+package com.elchaninov.model
 
-import com.elchaninov.gbprofessionaldevelopment.model.dto.DataModelDto
-import com.elchaninov.gbprofessionaldevelopment.model.dto.MeaningsDto
-import com.elchaninov.gbprofessionaldevelopment.model.dto.TranslationDto
-import com.elchaninov.gbprofessionaldevelopment.model.room.EntityMeaning
-import com.elchaninov.gbprofessionaldevelopment.model.room.EntityTranslation
-import com.elchaninov.gbprofessionaldevelopment.model.room.EntityTranslationWhitsMeaning
-import com.elchaninov.gbprofessionaldevelopment.model.usermodel.DataModel
-import com.elchaninov.gbprofessionaldevelopment.model.usermodel.Meanings
-import com.elchaninov.gbprofessionaldevelopment.model.usermodel.Translation
+import com.elchaninov.model.dto.DataModelDto
+import com.elchaninov.model.dto.MeaningsDto
+import com.elchaninov.model.dto.TranslationDto
+import com.elchaninov.model.room.EntityMeaning
+import com.elchaninov.model.room.EntityTranslation
+import com.elchaninov.model.room.EntityTranslationWhitsMeaning
+import com.elchaninov.model.usermodel.DataModel
+import com.elchaninov.model.usermodel.Meanings
+import com.elchaninov.model.usermodel.Translation
 
 fun DataModelDto.toDataModel(): DataModel = DataModel(
     text = this.text,

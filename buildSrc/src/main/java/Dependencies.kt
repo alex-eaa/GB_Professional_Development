@@ -16,7 +16,7 @@ object Releases {
 object Modules {
     const val app = ":app"
 //    const val core = ":core"
-//    const val model = ":model"
+    const val model = ":model"
 //    const val repository = ":repository"
 //    const val utils = ":utils"
 
@@ -57,6 +57,7 @@ object Versions {
 
     //Test
     const val jUnit = "4.13.2"
+    const val ext_junit = "1.1.3"
     const val espressoCore = "3.4.0"
 }
 
@@ -101,5 +102,6 @@ object Room {
 
 object TestImpl {
     const val junit = "junit:junit:${Versions.jUnit}"
+    const val ext_junit = "androidx.test.ext:junit:${Versions.ext_junit}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
 }

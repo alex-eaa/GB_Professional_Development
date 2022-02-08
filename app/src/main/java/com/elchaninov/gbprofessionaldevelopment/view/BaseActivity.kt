@@ -5,7 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.LoadingFrameLayoutBinding
-import com.elchaninov.gbprofessionaldevelopment.model.usermodel.DataModel
+import com.elchaninov.model.usermodel.DataModel
 import com.elchaninov.gbprofessionaldevelopment.utils.convertMeaningsToString
 import com.elchaninov.gbprofessionaldevelopment.utils.isOnline
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionActivity

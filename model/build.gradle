@@ -1,0 +1,21 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+dependencies {
+
+    // Kotlin
+    implementation Kotlin.core
+    implementation Kotlin.stdlib
+
+    // TestImpl
+    implementation TestImpl.junit
+    androidTestImplementation TestImpl.ext_junit
+    androidTestImplementation TestImpl.espresso
+
+    // Retrofit 2
+    implementation Retrofit.converter_gson
+
+    // Room
+    implementation Room.runtime
+}

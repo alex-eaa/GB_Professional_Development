@@ -6,9 +6,9 @@ import androidx.room.OnConflictStrategy.IGNORE
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import androidx.room.Transaction
-import com.elchaninov.gbprofessionaldevelopment.model.room.EntityMeaning
-import com.elchaninov.gbprofessionaldevelopment.model.room.EntityTranslation
-import com.elchaninov.gbprofessionaldevelopment.model.room.EntityTranslationWhitsMeaning
+import com.elchaninov.model.room.EntityMeaning
+import com.elchaninov.model.room.EntityTranslation
+import com.elchaninov.model.room.EntityTranslationWhitsMeaning
 
 @Dao
 interface TranslationDao {
