@@ -1,11 +1,6 @@
 package com.elchaninov.gbprofessionaldevelopment.di
 
 import androidx.room.Room
-import com.elchaninov.gbprofessionaldevelopment.data.DataSourceLocal
-import com.elchaninov.gbprofessionaldevelopment.data.DataSourceRemote
-import com.elchaninov.gbprofessionaldevelopment.data.RetrofitImplementation
-import com.elchaninov.gbprofessionaldevelopment.data.RoomDataBaseImplementation
-import com.elchaninov.gbprofessionaldevelopment.data.room.DBStorage
 import com.elchaninov.gbprofessionaldevelopment.utils.StringProvider
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionInteractor
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionViewModel
@@ -21,11 +16,15 @@ import org.koin.dsl.module
 
 val application = module {
     single {
-        Room.databaseBuilder(androidContext(), DBStorage::class.java, "translate.db")
+        Room.databaseBuilder(androidContext(), com.elchaninov.repository.room.DBStorage::class.java, "translate.db")
             .build().getTranslationDao()
     }
-    single<DataSourceLocal> { RoomDataBaseImplementation(get()) }
-    single<DataSourceRemote> { RetrofitImplementation() }
+    single<com.elchaninov.repository.DataSourceLocal> {
+        com.elchaninov.repository.RoomDataBaseImplementation(
+            get()
+        )
+    }
+    single<com.elchaninov.repository.DataSourceRemote> { com.elchaninov.repository.RetrofitImplementation() }
     single { StringProvider(androidContext()) }
 }
 

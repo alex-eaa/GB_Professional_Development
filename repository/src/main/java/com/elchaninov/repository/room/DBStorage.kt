@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment.data.room
+package com.elchaninov.repository.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment.data
+package com.elchaninov.repository
 
 import okhttp3.Interceptor
 import okhttp3.Response

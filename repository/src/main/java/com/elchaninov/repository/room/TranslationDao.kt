@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment.data.room
+package com.elchaninov.repository.room
 
 import androidx.room.Dao
 import androidx.room.Insert

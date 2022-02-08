@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment
+package com.elchaninov.repository
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

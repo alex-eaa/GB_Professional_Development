@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment.data
+package com.elchaninov.repository
 
 import com.elchaninov.model.dto.DataModelDto
 

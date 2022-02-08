@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment.data.api
+package com.elchaninov.repository.api
 
 import com.elchaninov.model.dto.DataModelDto
 import retrofit2.http.GET

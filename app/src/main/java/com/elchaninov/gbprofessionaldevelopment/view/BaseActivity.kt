@@ -5,11 +5,11 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.LoadingFrameLayoutBinding
-import com.elchaninov.model.usermodel.DataModel
 import com.elchaninov.gbprofessionaldevelopment.utils.convertMeaningsToString
 import com.elchaninov.gbprofessionaldevelopment.utils.isOnline
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionActivity
 import com.elchaninov.gbprofessionaldevelopment.viewmodel.BaseViewModel
+import com.elchaninov.model.usermodel.DataModel
 
 abstract class BaseActivity<T : AppState> : AppCompatActivity() {
 

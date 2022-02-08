@@ -5,10 +5,10 @@ import android.view.MenuItem
 import android.view.View
 import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityFavoriteBinding
-import com.elchaninov.model.usermodel.DataModel
 import com.elchaninov.gbprofessionaldevelopment.view.AppState
 import com.elchaninov.gbprofessionaldevelopment.view.BaseActivity
 import com.elchaninov.gbprofessionaldevelopment.view.SearchDialogFragment
+import com.elchaninov.model.usermodel.DataModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoriteActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClickListener {
