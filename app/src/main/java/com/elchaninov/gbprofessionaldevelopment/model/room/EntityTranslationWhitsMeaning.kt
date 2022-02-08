@@ -1,9 +1,9 @@
-package com.elchaninov.gbprofessionaldevelopment.data.room
+package com.elchaninov.gbprofessionaldevelopment.model.room
 
 import androidx.room.ColumnInfo
 import androidx.room.Relation
 
-data class TranslationWhitsMeaning(
+data class EntityTranslationWhitsMeaning(
     @ColumnInfo(name = "id")
     val id: Long,
 

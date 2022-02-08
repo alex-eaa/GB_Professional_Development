@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment.data.room
+package com.elchaninov.gbprofessionaldevelopment.model.room
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
