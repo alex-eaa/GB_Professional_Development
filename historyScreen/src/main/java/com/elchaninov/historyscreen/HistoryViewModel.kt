@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment.view.history
+package com.elchaninov.historyscreen
 
 import androidx.lifecycle.viewModelScope
 import com.elchaninov.model.usermodel.DataModel

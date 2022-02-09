@@ -1,10 +1,9 @@
-package com.elchaninov.gbprofessionaldevelopment.view.history
+package com.elchaninov.historyscreen
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.elchaninov.gbprofessionaldevelopment.R
-import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityHistoryRecyclerviewItemBinding
+import com.elchaninov.historyscreen.databinding.ActivityHistoryRecyclerviewItemBinding
 import com.elchaninov.model.usermodel.DataModel
 
 class HistoryAdapter(

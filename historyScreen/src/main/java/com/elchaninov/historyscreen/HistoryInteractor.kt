@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment.view.history
+package com.elchaninov.historyscreen
 
 import com.example.core.viewmodel.Interactor
 import com.example.core.viewmodel.InteractorToggleFavorite

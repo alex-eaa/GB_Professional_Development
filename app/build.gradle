@@ -35,6 +35,7 @@ dependencies {
     implementation project(Modules.core)
     implementation project(Modules.utils)
     implementation project(Modules.favoriteScreen)
+    implementation project(Modules.historyScreen)
 
     // Design
     implementation Design.appcompat

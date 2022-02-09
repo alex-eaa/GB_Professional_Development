@@ -1,16 +1,15 @@
-package com.elchaninov.gbprofessionaldevelopment.view.history
+package com.elchaninov.historyscreen
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import com.elchaninov.gbprofessionaldevelopment.R
-import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityHistoryBinding
-import com.example.core.view.SearchDialogFragment
 import com.elchaninov.favorite.favorite.FavoriteActivity
+import com.elchaninov.historyscreen.databinding.ActivityHistoryBinding
 import com.elchaninov.model.usermodel.DataModel
 import com.example.core.AppState
+import com.example.core.view.SearchDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HistoryActivity : com.example.core.BaseActivity<AppState>() {

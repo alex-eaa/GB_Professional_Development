@@ -5,8 +5,8 @@ import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.Descripti
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionViewModel
 import com.elchaninov.favorite.favorite.FavoriteInteractor
 import com.elchaninov.favorite.favorite.FavoriteViewModel
-import com.elchaninov.gbprofessionaldevelopment.view.history.HistoryInteractor
-import com.elchaninov.gbprofessionaldevelopment.view.history.HistoryViewModel
+import com.elchaninov.historyscreen.HistoryInteractor
+import com.elchaninov.historyscreen.HistoryViewModel
 import com.elchaninov.gbprofessionaldevelopment.view.main.MainInteractor
 import com.elchaninov.gbprofessionaldevelopment.view.main.MainViewModel
 import org.koin.android.ext.koin.androidContext
