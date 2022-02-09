@@ -8,15 +8,10 @@ dependencies {
     implementation project(Modules.repository)
     implementation project(Modules.core)
     implementation project(Modules.utils)
-//
-//    implementation project(Modules.favoriteScreen)
-//    implementation project(Modules.historyScreen)
-//    implementation project(Modules.descriptionScreen)
 
     // Design
     implementation Design.appcompat
     implementation Design.material
-//    implementation Design.constraintlayout
     implementation Design.swiperefreshlayout
 
     // Kotlin
@@ -29,11 +24,6 @@ dependencies {
     implementation TestImpl.junit
     androidTestImplementation TestImpl.ext_junit
     androidTestImplementation TestImpl.espresso
-
-    // Retrofit 2
-//    implementation Retrofit.retrofit
-//    implementation Retrofit.converter_gson
-//    implementation Retrofit.logging_interceptor
 
     // Room
     implementation Room.runtime

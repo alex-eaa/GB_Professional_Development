@@ -15,8 +15,6 @@ dependencies {
 
     implementation(Design.appcompat)
     implementation(Design.material)
-    implementation(Design.constraintlayout)
-    implementation(Design.swiperefreshlayout)
 
     implementation(Kotlin.core)
     implementation(Kotlin.stdlib)

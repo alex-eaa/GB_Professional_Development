@@ -42,8 +42,6 @@ dependencies {
     // Design
     implementation Design.appcompat
     implementation Design.material
-    implementation Design.constraintlayout
-    implementation Design.swiperefreshlayout
 
     // Kotlin
     implementation Kotlin.core
@@ -56,11 +54,6 @@ dependencies {
     androidTestImplementation TestImpl.ext_junit
     androidTestImplementation TestImpl.espresso
 
-    // Retrofit 2
-    implementation Retrofit.retrofit
-    implementation Retrofit.converter_gson
-    implementation Retrofit.logging_interceptor
-
     // Room
     implementation Room.runtime
     kapt Room.compiler
@@ -70,7 +63,4 @@ dependencies {
     implementation Koin.core
     implementation Koin.android
     implementation Koin.android_compat
-
-    // Coil
-    implementation Coil.coil
 }
