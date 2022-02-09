@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment.view.favorite
+package com.elchaninov.favorite.favorite
 
 import androidx.lifecycle.viewModelScope
 import com.elchaninov.model.usermodel.DataModel

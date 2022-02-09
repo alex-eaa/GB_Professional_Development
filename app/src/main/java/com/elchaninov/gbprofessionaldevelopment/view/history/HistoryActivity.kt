@@ -8,7 +8,7 @@ import android.view.View
 import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityHistoryBinding
 import com.example.core.view.SearchDialogFragment
-import com.elchaninov.gbprofessionaldevelopment.view.favorite.FavoriteActivity
+import com.elchaninov.favorite.favorite.FavoriteActivity
 import com.elchaninov.model.usermodel.DataModel
 import com.example.core.AppState
 import org.koin.androidx.viewmodel.ext.android.viewModel

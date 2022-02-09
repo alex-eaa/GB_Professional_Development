@@ -9,7 +9,7 @@ import android.view.View.VISIBLE
 import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityMainBinding
 import com.example.core.view.SearchDialogFragment
-import com.elchaninov.gbprofessionaldevelopment.view.favorite.FavoriteActivity
+import com.elchaninov.favorite.favorite.FavoriteActivity
 import com.elchaninov.gbprofessionaldevelopment.view.history.HistoryActivity
 import com.example.core.AppState
 import org.koin.androidx.viewmodel.ext.android.viewModel

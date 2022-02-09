@@ -1,13 +1,13 @@
-package com.elchaninov.gbprofessionaldevelopment.view.favorite
+package com.elchaninov.favorite.favorite
 
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import com.elchaninov.gbprofessionaldevelopment.R
-import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityFavoriteBinding
-import com.example.core.view.SearchDialogFragment
+import com.elchaninov.favorite.R
+import com.elchaninov.favorite.databinding.ActivityFavoriteBinding
 import com.elchaninov.model.usermodel.DataModel
 import com.example.core.AppState
+import com.example.core.view.SearchDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoriteActivity : com.example.core.BaseActivity<AppState>() {

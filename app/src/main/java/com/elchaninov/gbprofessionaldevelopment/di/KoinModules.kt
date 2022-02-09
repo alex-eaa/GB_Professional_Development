@@ -1,11 +1,10 @@
 package com.elchaninov.gbprofessionaldevelopment.di
 
 import androidx.room.Room
-import com.elchaninov.utils.StringProvider
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionInteractor
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionViewModel
-import com.elchaninov.gbprofessionaldevelopment.view.favorite.FavoriteInteractor
-import com.elchaninov.gbprofessionaldevelopment.view.favorite.FavoriteViewModel
+import com.elchaninov.favorite.favorite.FavoriteInteractor
+import com.elchaninov.favorite.favorite.FavoriteViewModel
 import com.elchaninov.gbprofessionaldevelopment.view.history.HistoryInteractor
 import com.elchaninov.gbprofessionaldevelopment.view.history.HistoryViewModel
 import com.elchaninov.gbprofessionaldevelopment.view.main.MainInteractor

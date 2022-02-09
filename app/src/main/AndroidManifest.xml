@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.elchaninov.gbprofessionaldevelopment">
 
-<!--    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />-->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -24,7 +23,7 @@
         </activity>
         <activity android:name=".view.descriptionscreen.DescriptionActivity" />
         <activity android:name=".view.history.HistoryActivity" />
-        <activity android:name=".view.favorite.FavoriteActivity" />
+
     </application>
 
 </manifest>

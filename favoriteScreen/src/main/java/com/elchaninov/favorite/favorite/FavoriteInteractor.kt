@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment.view.favorite
+package com.elchaninov.favorite.favorite
 
 import com.example.core.viewmodel.Interactor
 import com.example.core.viewmodel.InteractorToggleFavorite

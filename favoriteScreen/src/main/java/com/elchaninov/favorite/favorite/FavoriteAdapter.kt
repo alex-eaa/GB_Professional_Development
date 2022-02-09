@@ -1,9 +1,9 @@
-package com.elchaninov.gbprofessionaldevelopment.view.favorite
+package com.elchaninov.favorite.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityFavoriteRecyclerviewItemBinding
+import com.elchaninov.favorite.databinding.ActivityFavoriteRecyclerviewItemBinding
 import com.elchaninov.model.usermodel.DataModel
 
 class FavoriteAdapter(
