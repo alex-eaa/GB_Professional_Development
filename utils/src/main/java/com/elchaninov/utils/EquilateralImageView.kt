@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment.utils
+package com.elchaninov.utils
 
 import android.content.Context
 import android.util.AttributeSet

@@ -13,9 +13,9 @@
     <string name="message_is_offline_and_show_cache">Отсутствует интернет-соединение. Показаны данные из кеша.</string>
 
     <string name="image_stub">image</string>
-    <string name="dialog_button_cancel">Отмена</string>
+<!--    <string name="dialog_button_cancel">Отмена</string>-->
     <string name="dialog_button_try_again">Повторить</string>
-    <string name="dialog_title_stub">Ошибка</string>
+<!--    <string name="dialog_title_stub">Ошибка</string>-->
     <string name="dialog_title_empty">Неудача</string>
     <string name="dialog_title_device_is_offline">Отсутствует интернет-соединение.</string>
     <string name="dialog_message_device_is_offline">Вы не можете использовать приложение без подключения к Интернету. Пожалуйста, проверьте интернет-соединение.</string>

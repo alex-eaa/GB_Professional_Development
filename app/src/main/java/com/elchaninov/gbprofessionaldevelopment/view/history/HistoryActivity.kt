@@ -7,14 +7,13 @@ import android.view.MenuItem
 import android.view.View
 import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityHistoryBinding
-import com.elchaninov.gbprofessionaldevelopment.view.AppState
-import com.elchaninov.gbprofessionaldevelopment.view.BaseActivity
 import com.elchaninov.gbprofessionaldevelopment.view.SearchDialogFragment
 import com.elchaninov.gbprofessionaldevelopment.view.favorite.FavoriteActivity
 import com.elchaninov.model.usermodel.DataModel
+import com.example.core.AppState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClickListener {
+class HistoryActivity : com.example.core.BaseActivity<AppState>(), SearchDialogFragment.OnSearchClickListener {
 
     override val model: HistoryViewModel by viewModel()
     private lateinit var binding: ActivityHistoryBinding
@@ -91,7 +90,7 @@ class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchC
                 if (appState.progress != null) {
                     binding.loading.progressBarHorizontal.visibility = View.VISIBLE
                     binding.loading.loadingFrameLayout.visibility = View.GONE
-                    binding.loading.progressBarHorizontal.progress = appState.progress
+                    binding.loading.progressBarHorizontal.progress = appState.progress!!
                 } else {
                     binding.loading.progressBarHorizontal.visibility = View.GONE
                     binding.loading.progressBarRound.visibility = View.VISIBLE

@@ -8,16 +8,14 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityMainBinding
-import com.elchaninov.gbprofessionaldevelopment.view.AlertDialogFragment
-import com.elchaninov.gbprofessionaldevelopment.view.AppState
-import com.elchaninov.gbprofessionaldevelopment.view.BaseActivity
 import com.elchaninov.gbprofessionaldevelopment.view.SearchDialogFragment
 import com.elchaninov.gbprofessionaldevelopment.view.favorite.FavoriteActivity
 import com.elchaninov.gbprofessionaldevelopment.view.history.HistoryActivity
+import com.example.core.AppState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClickListener,
-    AlertDialogFragment.OnActionButtonClickListener {
+class MainActivity : com.example.core.BaseActivity<AppState>(), SearchDialogFragment.OnSearchClickListener,
+    com.elchaninov.utils.AlertDialogFragment.OnActionButtonClickListener {
 
     override val model: MainViewModel by viewModel()
     private lateinit var binding: ActivityMainBinding
@@ -94,7 +92,7 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
                 if (appState.progress != null) {
                     binding.loading.progressBarHorizontal.visibility = VISIBLE
                     binding.loading.loadingFrameLayout.visibility = GONE
-                    binding.loading.progressBarHorizontal.progress = appState.progress
+                    binding.loading.progressBarHorizontal.progress = appState.progress!!
                 } else {
                     binding.loading.progressBarHorizontal.visibility = GONE
                     binding.loading.progressBarRound.visibility = VISIBLE

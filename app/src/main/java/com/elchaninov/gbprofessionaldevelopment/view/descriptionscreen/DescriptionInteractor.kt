@@ -1,7 +1,7 @@
 package com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen
 
-import com.elchaninov.gbprofessionaldevelopment.viewmodel.Interactor
-import com.elchaninov.gbprofessionaldevelopment.viewmodel.InteractorToggleFavorite
+import com.example.core.viewmodel.Interactor
+import com.example.core.viewmodel.InteractorToggleFavorite
 import com.elchaninov.model.usermodel.DataModel
 
 class DescriptionInteractor(

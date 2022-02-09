@@ -1,7 +1,7 @@
 package com.elchaninov.gbprofessionaldevelopment.di
 
 import androidx.room.Room
-import com.elchaninov.gbprofessionaldevelopment.utils.StringProvider
+import com.elchaninov.utils.StringProvider
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionInteractor
 import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionViewModel
 import com.elchaninov.gbprofessionaldevelopment.view.favorite.FavoriteInteractor
@@ -25,7 +25,7 @@ val application = module {
         )
     }
     single<com.elchaninov.repository.DataSourceRemote> { com.elchaninov.repository.RetrofitImplementation() }
-    single { StringProvider(androidContext()) }
+    single { com.elchaninov.utils.StringProvider(androidContext()) }
 }
 
 val mainScreen = module {

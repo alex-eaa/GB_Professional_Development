@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment.viewmodel
+package com.example.core.viewmodel
 
 
 //  Ещё выше стоит интерактор. Здесь уже чистая бизнес-логика

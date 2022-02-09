@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment.view
+package com.example.core
 
 import com.elchaninov.model.usermodel.DataModel
 

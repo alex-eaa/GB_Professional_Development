@@ -1,6 +1,6 @@
 package com.elchaninov.gbprofessionaldevelopment.view.main
 
-import com.elchaninov.gbprofessionaldevelopment.viewmodel.Interactor
+import com.example.core.viewmodel.Interactor
 import com.elchaninov.model.toDataModel
 import com.elchaninov.model.usermodel.DataModel
 

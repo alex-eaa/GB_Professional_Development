@@ -12,8 +12,8 @@ import coil.request.Disposable
 import coil.transform.RoundedCornersTransformation
 import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityDescriptionBinding
-import com.elchaninov.gbprofessionaldevelopment.utils.isOnline
-import com.elchaninov.gbprofessionaldevelopment.view.AlertDialogFragment
+import com.elchaninov.utils.isOnline
+import com.elchaninov.utils.AlertDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DescriptionActivity : AppCompatActivity() {
@@ -83,10 +83,10 @@ class DescriptionActivity : AppCompatActivity() {
     }
 
     private fun startLoadingOrShowError() {
-        if (isOnline(applicationContext)) {
+        if (com.elchaninov.utils.isOnline(applicationContext)) {
             setData()
         } else {
-            AlertDialogFragment.newInstance(
+            com.elchaninov.utils.AlertDialogFragment.newInstance(
                 getString(R.string.dialog_title_device_is_offline),
                 getString(R.string.dialog_message_device_is_offline)
             ).show(

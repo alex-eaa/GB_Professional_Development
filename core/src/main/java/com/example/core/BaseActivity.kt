@@ -1,15 +1,14 @@
-package com.elchaninov.gbprofessionaldevelopment.view
+package com.example.core
 
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.elchaninov.gbprofessionaldevelopment.R
-import com.elchaninov.gbprofessionaldevelopment.databinding.LoadingFrameLayoutBinding
-import com.elchaninov.gbprofessionaldevelopment.utils.convertMeaningsToString
-import com.elchaninov.gbprofessionaldevelopment.utils.isOnline
-import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionActivity
-import com.elchaninov.gbprofessionaldevelopment.viewmodel.BaseViewModel
 import com.elchaninov.model.usermodel.DataModel
+import com.elchaninov.utils.AlertDialogFragment
+import com.elchaninov.utils.convertMeaningsToString
+import com.elchaninov.utils.isOnline
+import com.example.core.databinding.LoadingFrameLayoutBinding
+import com.example.core.viewmodel.BaseViewModel
 
 abstract class BaseActivity<T : AppState> : AppCompatActivity() {
 
@@ -21,14 +20,15 @@ abstract class BaseActivity<T : AppState> : AppCompatActivity() {
         get() = isOnline(applicationContext)
 
     protected val onListItemClickListener: (DataModel) -> Unit = { data ->
-        startActivity(
-            DescriptionActivity.getIntent(
-                this,
-                data.text.toString(),
-                convertMeaningsToString(data.meanings),
-                data.meanings?.get(0)?.imageUrl
-            )
-        )
+        TODO()
+        //        startActivity(
+//            DescriptionActivity.getIntent(
+//                this,
+//                data.text.toString(),
+//                convertMeaningsToString(data.meanings),
+//                data.meanings?.get(0)?.imageUrl
+//            )
+//        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
