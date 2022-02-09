@@ -3,15 +3,14 @@ package com.example.core
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.elchaninov.model.usermodel.DataModel
 import com.elchaninov.utils.AlertDialogFragment
-import com.elchaninov.utils.convertMeaningsToString
 import com.elchaninov.utils.isOnline
 import com.example.core.databinding.LoadingFrameLayoutBinding
 import com.example.core.view.SearchDialogFragment
 import com.example.core.viewmodel.BaseViewModel
 
-abstract class BaseActivity<T : AppState> : AppCompatActivity(), SearchDialogFragment.OnSearchClickListener {
+abstract class BaseActivity<T : AppState> : AppCompatActivity(),
+    SearchDialogFragment.OnSearchClickListener {
 
     private lateinit var binding: LoadingFrameLayoutBinding
     abstract val model: BaseViewModel<T>
@@ -21,18 +20,6 @@ abstract class BaseActivity<T : AppState> : AppCompatActivity(), SearchDialogFra
 
     protected val isOnline: Boolean
         get() = isOnline(applicationContext)
-
-    protected val onListItemClickListener: (DataModel) -> Unit = { data ->
-        TODO()
-        //        startActivity(
-//            DescriptionActivity.getIntent(
-//                this,
-//                data.text.toString(),
-//                convertMeaningsToString(data.meanings),
-//                data.meanings?.get(0)?.imageUrl
-//            )
-//        )
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

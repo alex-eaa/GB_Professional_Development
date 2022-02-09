@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen
+package com.elchaninov.descriptionScreen
 
 import android.content.Context
 import android.content.Intent
@@ -10,10 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import coil.request.Disposable
 import coil.transform.RoundedCornersTransformation
-import com.elchaninov.gbprofessionaldevelopment.R
-import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityDescriptionBinding
-import com.elchaninov.utils.isOnline
-import com.elchaninov.utils.AlertDialogFragment
+import com.elchaninov.descriptionScreen.databinding.ActivityDescriptionBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DescriptionActivity : AppCompatActivity() {

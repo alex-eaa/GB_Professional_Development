@@ -10,6 +10,8 @@ dependencies {
     implementation(project(Modules.model))
     implementation(project(Modules.repository))
     implementation(project(Modules.favoriteScreen))
+    implementation(project(Modules.descriptionScreen))
+    implementation(project(Modules.utils))
 
     implementation(Design.appcompat)
     implementation(Design.material)

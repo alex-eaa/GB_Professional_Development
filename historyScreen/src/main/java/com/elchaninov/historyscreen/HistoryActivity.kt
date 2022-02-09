@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.elchaninov.descriptionScreen.DescriptionActivity
 import com.elchaninov.favorite.favorite.FavoriteActivity
 import com.elchaninov.historyscreen.databinding.ActivityHistoryBinding
 import com.elchaninov.model.usermodel.DataModel
+import com.elchaninov.utils.convertMeaningsToString
 import com.example.core.AppState
 import com.example.core.view.SearchDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -22,6 +24,17 @@ class HistoryActivity : com.example.core.BaseActivity<AppState>() {
 
     private val onFavoriteClickListener: (DataModel) -> Unit = { dataModel ->
         model.toggleEntityTranslation(dataModel)
+    }
+
+    private val onListItemClickListener: (DataModel) -> Unit = { data ->
+        startActivity(
+            DescriptionActivity.getIntent(
+                this,
+                data.text.toString(),
+                convertMeaningsToString(data.meanings),
+                data.meanings?.get(0)?.imageUrl
+            )
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

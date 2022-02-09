@@ -23,6 +23,7 @@ object Modules {
     //Features
     const val favoriteScreen = ":favoriteScreen"
     const val historyScreen = ":historyScreen"
+    const val descriptionScreen = ":descriptionScreen"
 }
 
 object Versions {

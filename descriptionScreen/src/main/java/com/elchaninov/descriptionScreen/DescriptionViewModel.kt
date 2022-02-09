@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen
+package com.elchaninov.descriptionScreen
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

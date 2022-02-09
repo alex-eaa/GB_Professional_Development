@@ -1,0 +1,50 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+dependencies {
+
+    implementation project(Modules.model)
+    implementation project(Modules.repository)
+    implementation project(Modules.core)
+    implementation project(Modules.utils)
+//
+//    implementation project(Modules.favoriteScreen)
+//    implementation project(Modules.historyScreen)
+//    implementation project(Modules.descriptionScreen)
+
+    // Design
+    implementation Design.appcompat
+    implementation Design.material
+//    implementation Design.constraintlayout
+    implementation Design.swiperefreshlayout
+
+    // Kotlin
+    implementation Kotlin.core
+    implementation Kotlin.stdlib
+    implementation Kotlin.livedata_ktx
+    implementation Kotlin.viewmodel_ktx
+
+    // TestImpl
+    implementation TestImpl.junit
+    androidTestImplementation TestImpl.ext_junit
+    androidTestImplementation TestImpl.espresso
+
+    // Retrofit 2
+//    implementation Retrofit.retrofit
+//    implementation Retrofit.converter_gson
+//    implementation Retrofit.logging_interceptor
+
+    // Room
+    implementation Room.runtime
+    kapt Room.compiler
+    implementation Room.room_ktx
+
+    // Koin
+    implementation Koin.core
+    implementation Koin.android
+    implementation Koin.android_compat
+
+    // Coil
+    implementation Coil.coil
+}

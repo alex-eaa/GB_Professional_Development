@@ -1,8 +1,8 @@
 package com.elchaninov.gbprofessionaldevelopment.di
 
 import androidx.room.Room
-import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionInteractor
-import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionViewModel
+import com.elchaninov.descriptionScreen.DescriptionInteractor
+import com.elchaninov.descriptionScreen.DescriptionViewModel
 import com.elchaninov.favorite.favorite.FavoriteInteractor
 import com.elchaninov.favorite.favorite.FavoriteViewModel
 import com.elchaninov.historyscreen.HistoryInteractor

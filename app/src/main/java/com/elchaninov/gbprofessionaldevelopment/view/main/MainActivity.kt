@@ -6,11 +6,14 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import com.elchaninov.descriptionScreen.DescriptionActivity
 import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityMainBinding
 import com.example.core.view.SearchDialogFragment
 import com.elchaninov.favorite.favorite.FavoriteActivity
 import com.elchaninov.historyscreen.HistoryActivity
+import com.elchaninov.model.usermodel.DataModel
+import com.elchaninov.utils.convertMeaningsToString
 import com.example.core.AppState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -21,6 +24,17 @@ class MainActivity : com.example.core.BaseActivity<AppState>(),
     private lateinit var binding: ActivityMainBinding
     private val adapter: MainAdapter by lazy {
         MainAdapter(onListItemClickListener)
+    }
+
+    private val onListItemClickListener: (DataModel) -> Unit = { data ->
+        startActivity(
+            DescriptionActivity.getIntent(
+                this,
+                data.text.toString(),
+                convertMeaningsToString(data.meanings),
+                data.meanings?.get(0)?.imageUrl
+            )
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
