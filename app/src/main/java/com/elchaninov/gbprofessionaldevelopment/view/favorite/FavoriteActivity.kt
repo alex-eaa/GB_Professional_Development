@@ -5,7 +5,7 @@ import android.view.MenuItem
 import android.view.View
 import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityFavoriteBinding
-import com.elchaninov.gbprofessionaldevelopment.view.SearchDialogFragment
+import com.example.core.view.SearchDialogFragment
 import com.elchaninov.model.usermodel.DataModel
 import com.example.core.AppState
 import org.koin.androidx.viewmodel.ext.android.viewModel

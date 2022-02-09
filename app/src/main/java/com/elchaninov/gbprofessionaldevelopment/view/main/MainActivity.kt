@@ -8,7 +8,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityMainBinding
-import com.elchaninov.gbprofessionaldevelopment.view.SearchDialogFragment
+import com.example.core.view.SearchDialogFragment
 import com.elchaninov.gbprofessionaldevelopment.view.favorite.FavoriteActivity
 import com.elchaninov.gbprofessionaldevelopment.view.history.HistoryActivity
 import com.example.core.AppState

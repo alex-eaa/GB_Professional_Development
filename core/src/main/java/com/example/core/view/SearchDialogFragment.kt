@@ -1,4 +1,4 @@
-package com.elchaninov.gbprofessionaldevelopment.view
+package com.example.core.view
 
 import android.content.Context
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.core.widget.doOnTextChanged
-import com.elchaninov.gbprofessionaldevelopment.databinding.BottomSheetDialogLayoutBinding
+import com.example.core.databinding.BottomSheetDialogLayoutBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
