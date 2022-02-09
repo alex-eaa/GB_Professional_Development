@@ -10,7 +10,7 @@ import com.elchaninov.model.usermodel.DataModel
 import com.example.core.AppState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FavoriteActivity : com.example.core.BaseActivity<AppState>(), SearchDialogFragment.OnSearchClickListener {
+class FavoriteActivity : com.example.core.BaseActivity<AppState>() {
 
     override val model: FavoriteViewModel by viewModel()
     private lateinit var binding: ActivityFavoriteBinding
@@ -88,14 +88,6 @@ class FavoriteActivity : com.example.core.BaseActivity<AppState>(), SearchDialog
                 showViewError(appState.error.message)
             }
         }
-    }
-
-    override fun onClick(searchWord: String) {
-        model.getData(searchWord, isOnline)
-    }
-
-    override fun onFlowSearch(searchWord: String) {
-        model.getData(searchWord, isOnline)
     }
 
     companion object {

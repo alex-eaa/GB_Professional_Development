@@ -14,7 +14,7 @@ import com.elchaninov.gbprofessionaldevelopment.view.history.HistoryActivity
 import com.example.core.AppState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : com.example.core.BaseActivity<AppState>(), SearchDialogFragment.OnSearchClickListener,
+class MainActivity : com.example.core.BaseActivity<AppState>(),
     com.elchaninov.utils.AlertDialogFragment.OnActionButtonClickListener {
 
     override val model: MainViewModel by viewModel()
@@ -22,8 +22,6 @@ class MainActivity : com.example.core.BaseActivity<AppState>(), SearchDialogFrag
     private val adapter: MainAdapter by lazy {
         MainAdapter(onListItemClickListener)
     }
-
-    private var isEnableShowErrorIfEmpty = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,19 +69,17 @@ class MainActivity : com.example.core.BaseActivity<AppState>(), SearchDialogFrag
             is AppState.Empty -> {
                 showViewSuccess()
                 showViewMessageNoConnection(true)
-                if (isEnableShowErrorIfEmpty) {
-                    if (isOnline) {
-                        showAlertDialog(
-                            getString(R.string.dialog_title_empty),
-                            getString(R.string.empty_server_response_on_success)
-                        )
-                    } else {
-                        showAlertDialog(
-                            getString(R.string.dialog_title_empty),
-                            getString(R.string.empty_cash_response_on_success),
-                            getString(R.string.dialog_button_try_again),
-                        )
-                    }
+                if (isOnline) {
+                    showAlertDialog(
+                        getString(R.string.dialog_title_empty),
+                        getString(R.string.empty_server_response_on_success)
+                    )
+                } else {
+                    showAlertDialog(
+                        getString(R.string.dialog_title_empty),
+                        getString(R.string.empty_cash_response_on_success),
+                        getString(R.string.dialog_button_try_again),
+                    )
                 }
             }
             is AppState.Loading -> {
@@ -111,16 +107,6 @@ class MainActivity : com.example.core.BaseActivity<AppState>(), SearchDialogFrag
                 getString(R.string.message_is_offline_and_show_cache)
         }
         binding.sideMessageNoConnection.visibility = if (isOnline) GONE else VISIBLE
-    }
-
-    override fun onClick(searchWord: String) {
-        isEnableShowErrorIfEmpty = true
-        model.getData(searchWord, isOnline)
-    }
-
-    override fun onFlowSearch(searchWord: String) {
-        isEnableShowErrorIfEmpty = false
-        model.getData(searchWord, isOnline)
     }
 
     override fun onClickActionButton() {

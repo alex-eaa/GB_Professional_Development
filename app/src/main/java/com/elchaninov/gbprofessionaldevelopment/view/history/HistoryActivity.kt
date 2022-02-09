@@ -13,7 +13,7 @@ import com.elchaninov.model.usermodel.DataModel
 import com.example.core.AppState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HistoryActivity : com.example.core.BaseActivity<AppState>(), SearchDialogFragment.OnSearchClickListener {
+class HistoryActivity : com.example.core.BaseActivity<AppState>() {
 
     override val model: HistoryViewModel by viewModel()
     private lateinit var binding: ActivityHistoryBinding
@@ -100,14 +100,6 @@ class HistoryActivity : com.example.core.BaseActivity<AppState>(), SearchDialogF
                 showViewError(appState.error.message)
             }
         }
-    }
-
-    override fun onClick(searchWord: String) {
-        model.getData(searchWord, isOnline)
-    }
-
-    override fun onFlowSearch(searchWord: String) {
-        model.getData(searchWord, isOnline)
     }
 
     companion object {
