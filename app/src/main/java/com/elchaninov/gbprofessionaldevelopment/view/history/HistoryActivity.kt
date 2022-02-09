@@ -14,7 +14,7 @@ import com.elchaninov.gbprofessionaldevelopment.view.SearchDialogFragment
 import com.elchaninov.gbprofessionaldevelopment.view.favorite.FavoriteActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClickListener {
+class HistoryActivity : BaseActivity<AppState>() {
 
     override val model: HistoryViewModel by viewModel()
     private lateinit var binding: ActivityHistoryBinding
@@ -32,6 +32,7 @@ class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchC
         setContentView(binding.root)
         model.liveDataForViewToObserve.observe(this@HistoryActivity) { renderData(it) }
         initViews()
+        setActionbarHomeButtonAsUp()
     }
 
     override fun onResume() {
@@ -101,14 +102,6 @@ class HistoryActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchC
                 showViewError(appState.error.message)
             }
         }
-    }
-
-    override fun onClick(searchWord: String) {
-        model.getData(searchWord, isOnline)
-    }
-
-    override fun onFlowSearch(searchWord: String) {
-        model.getData(searchWord, isOnline)
     }
 
     companion object {

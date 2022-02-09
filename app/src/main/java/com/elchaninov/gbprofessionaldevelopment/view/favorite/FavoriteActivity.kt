@@ -11,7 +11,7 @@ import com.elchaninov.gbprofessionaldevelopment.view.BaseActivity
 import com.elchaninov.gbprofessionaldevelopment.view.SearchDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FavoriteActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClickListener {
+class FavoriteActivity : BaseActivity<AppState>() {
 
     override val model: FavoriteViewModel by viewModel()
     private lateinit var binding: ActivityFavoriteBinding
@@ -29,6 +29,7 @@ class FavoriteActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearch
         setContentView(binding.root)
         model.liveDataForViewToObserve.observe(this@FavoriteActivity) { renderData(it) }
         initViews()
+        setActionbarHomeButtonAsUp()
     }
 
     override fun onResume() {
@@ -89,14 +90,6 @@ class FavoriteActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearch
                 showViewError(appState.error.message)
             }
         }
-    }
-
-    override fun onClick(searchWord: String) {
-        model.getData(searchWord, isOnline)
-    }
-
-    override fun onFlowSearch(searchWord: String) {
-        model.getData(searchWord, isOnline)
     }
 
     companion object {

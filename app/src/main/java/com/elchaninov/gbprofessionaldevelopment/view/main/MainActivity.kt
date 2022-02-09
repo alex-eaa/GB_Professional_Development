@@ -25,8 +25,6 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
         MainAdapter(onListItemClickListener)
     }
 
-    private var isEnableShowErrorIfEmpty = true
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -73,19 +71,17 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
             is AppState.Empty -> {
                 showViewSuccess()
                 showViewMessageNoConnection(true)
-                if (isEnableShowErrorIfEmpty) {
-                    if (isOnline) {
-                        showAlertDialog(
-                            getString(R.string.dialog_title_empty),
-                            getString(R.string.empty_server_response_on_success)
-                        )
-                    } else {
-                        showAlertDialog(
-                            getString(R.string.dialog_title_empty),
-                            getString(R.string.empty_cash_response_on_success),
-                            getString(R.string.dialog_button_try_again),
-                        )
-                    }
+                if (isOnline) {
+                    showAlertDialog(
+                        getString(R.string.dialog_title_empty),
+                        getString(R.string.empty_server_response_on_success)
+                    )
+                } else {
+                    showAlertDialog(
+                        getString(R.string.dialog_title_empty),
+                        getString(R.string.empty_cash_response_on_success),
+                        getString(R.string.dialog_button_try_again),
+                    )
                 }
             }
             is AppState.Loading -> {
@@ -113,16 +109,6 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
                 getString(R.string.message_is_offline_and_show_cache)
         }
         binding.sideMessageNoConnection.visibility = if (isOnline) GONE else VISIBLE
-    }
-
-    override fun onClick(searchWord: String) {
-        isEnableShowErrorIfEmpty = true
-        model.getData(searchWord, isOnline)
-    }
-
-    override fun onFlowSearch(searchWord: String) {
-        isEnableShowErrorIfEmpty = false
-        model.getData(searchWord, isOnline)
     }
 
     override fun onClickActionButton() {
