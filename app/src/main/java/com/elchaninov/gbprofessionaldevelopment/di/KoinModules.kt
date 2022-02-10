@@ -9,13 +9,16 @@ import com.elchaninov.historyscreen.HistoryInteractor
 import com.elchaninov.historyscreen.HistoryViewModel
 import com.elchaninov.gbprofessionaldevelopment.view.main.MainInteractor
 import com.elchaninov.gbprofessionaldevelopment.view.main.MainViewModel
+import com.example.core.Settings
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val application = module {
     single {
-        Room.databaseBuilder(androidContext(), com.elchaninov.repository.room.DBStorage::class.java, "translate.db")
+        Room.databaseBuilder(androidContext(),
+            com.elchaninov.repository.room.DBStorage::class.java,
+            "translate.db")
             .build().getTranslationDao()
     }
     single<com.elchaninov.repository.DataSourceLocal> {
@@ -28,6 +31,7 @@ val application = module {
 }
 
 val mainScreen = module {
+    single { Settings(get()) }
     factory { MainInteractor(get(), get()) }
     viewModel { MainViewModel(get()) }
 }

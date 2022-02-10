@@ -12,4 +12,27 @@
         android:icon="@drawable/ic_baseline_bookmark_24"
         android:title="@string/menu_title_favorite"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_theme_day_night"
+        android:orderInCategory="3"
+        android:title="@string/item_menu_theme"
+        app:showAsAction="collapseActionView">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/theme_light"
+                    android:title="@string/item_menu_light"
+                    app:showAsAction="ifRoom|withText" />
+                <item
+                    android:id="@+id/theme_dark"
+                    android:title="@string/item_menu_dark"
+                    app:showAsAction="always|withText" />
+                <item
+                    android:id="@+id/theme_auto"
+                    android:title="@string/item_menu_auto"
+                    app:showAsAction="always|withText" />
+            </group>
+        </menu>
+    </item>
 </menu>
