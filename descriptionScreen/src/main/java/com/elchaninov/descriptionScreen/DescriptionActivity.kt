@@ -6,14 +6,14 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import coil.request.Disposable
 import coil.transform.RoundedCornersTransformation
 import com.elchaninov.descriptionScreen.databinding.ActivityDescriptionBinding
+import org.koin.androidx.scope.ScopeActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DescriptionActivity : AppCompatActivity() {
+class DescriptionActivity : ScopeActivity() {
 
     private lateinit var binding: ActivityDescriptionBinding
     private val model: DescriptionViewModel by viewModel()

@@ -2,14 +2,14 @@ package com.example.core
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import com.elchaninov.utils.AlertDialogFragment
 import com.elchaninov.utils.isOnline
 import com.example.core.databinding.LoadingFrameLayoutBinding
 import com.example.core.view.SearchDialogFragment
 import com.example.core.viewmodel.BaseViewModel
+import org.koin.androidx.scope.ScopeActivity
 
-abstract class BaseActivity<T : AppState> : AppCompatActivity(),
+abstract class BaseActivity<T : AppState> : ScopeActivity(),
     SearchDialogFragment.OnSearchClickListener {
 
     private lateinit var binding: LoadingFrameLayoutBinding

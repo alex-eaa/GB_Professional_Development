@@ -1,14 +1,18 @@
 package com.elchaninov.gbprofessionaldevelopment.di
 
 import androidx.room.Room
+import com.elchaninov.descriptionScreen.DescriptionActivity
 import com.elchaninov.descriptionScreen.DescriptionInteractor
 import com.elchaninov.descriptionScreen.DescriptionViewModel
+import com.elchaninov.favorite.favorite.FavoriteActivity
 import com.elchaninov.favorite.favorite.FavoriteInteractor
 import com.elchaninov.favorite.favorite.FavoriteViewModel
+import com.elchaninov.gbprofessionaldevelopment.view.main.MainActivity
 import com.elchaninov.historyscreen.HistoryInteractor
 import com.elchaninov.historyscreen.HistoryViewModel
 import com.elchaninov.gbprofessionaldevelopment.view.main.MainInteractor
 import com.elchaninov.gbprofessionaldevelopment.view.main.MainViewModel
+import com.elchaninov.historyscreen.HistoryActivity
 import com.example.core.Settings
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -31,22 +35,30 @@ val application = module {
 }
 
 val mainScreen = module {
-    single { Settings(get()) }
-    factory { MainInteractor(get(), get()) }
-    viewModel { MainViewModel(get()) }
+    scope<MainActivity> {
+        scoped { Settings(get()) }
+        scoped { MainInteractor(get(), get()) }
+        viewModel { MainViewModel(get()) }
+    }
 }
 
 val historyScreen = module {
-    factory { HistoryInteractor(get()) }
-    viewModel { HistoryViewModel(get()) }
+    scope<HistoryActivity> {
+        scoped { HistoryInteractor(get()) }
+        viewModel { HistoryViewModel(get()) }
+    }
 }
 
 val descriptionScreen = module {
-    factory { DescriptionInteractor(get()) }
-    viewModel { DescriptionViewModel(get()) }
+    scope<DescriptionActivity> {
+        scoped { DescriptionInteractor(get()) }
+        viewModel { DescriptionViewModel(get()) }
+    }
 }
 
 val favoriteScreen = module {
-    factory { FavoriteInteractor(get()) }
-    viewModel { FavoriteViewModel(get()) }
+    scope<FavoriteActivity> {
+        scoped { FavoriteInteractor(get()) }
+        viewModel { FavoriteViewModel(get()) }
+    }
 }
