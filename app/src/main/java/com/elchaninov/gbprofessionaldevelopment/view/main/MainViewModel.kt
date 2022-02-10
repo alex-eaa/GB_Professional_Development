@@ -1,9 +1,9 @@
 package com.elchaninov.gbprofessionaldevelopment.view.main
 
 import androidx.lifecycle.viewModelScope
-import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
-import com.elchaninov.gbprofessionaldevelopment.model.data.DataModel
-import com.elchaninov.gbprofessionaldevelopment.viewmodel.BaseViewModel
+import com.elchaninov.model.usermodel.DataModel
+import com.example.core.AppState
+import com.example.core.viewmodel.BaseViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
@@ -11,22 +11,19 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(private val interactor: MainInteractor) : BaseViewModel<AppState>() {
 
-    private var searchWord: String? = null
+    override fun getData(word: String?, isOnline: Boolean?) {
+        word?.also { searchWord = it }
+        isOnline?.also { searchOnline = it }
 
-    override fun getData(word: String?, isOnline: Boolean) {
-        if (word != null) searchWord = word
-
-        searchWord?.let {
-            _liveDataForViewToObserve.postValue(AppState.Loading(null))
-            viewModelScope.launch {
-                startInteractor(it, isOnline)
-                    .catch { e ->
-                        handleError(e)
-                    }
-                    .collect {
-                        _liveDataForViewToObserve.postValue(it)
-                    }
-            }
+        _liveDataForViewToObserve.postValue(AppState.Loading(null))
+        viewModelScope.launch {
+            startInteractor(searchWord, searchOnline)
+                .catch { e ->
+                    handleError(e)
+                }
+                .collect {
+                    _liveDataForViewToObserve.postValue(it)
+                }
         }
     }
 

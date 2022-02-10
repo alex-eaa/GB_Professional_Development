@@ -6,18 +6,20 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import com.elchaninov.descriptionScreen.DescriptionActivity
 import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityMainBinding
-import com.elchaninov.gbprofessionaldevelopment.model.data.AppState
-import com.elchaninov.gbprofessionaldevelopment.view.AlertDialogFragment
-import com.elchaninov.gbprofessionaldevelopment.view.BaseActivity
-import com.elchaninov.gbprofessionaldevelopment.view.SearchDialogFragment
-import com.elchaninov.gbprofessionaldevelopment.view.favorite.FavoriteActivity
-import com.elchaninov.gbprofessionaldevelopment.view.history.HistoryActivity
+import com.elchaninov.favorite.favorite.FavoriteActivity
+import com.elchaninov.historyscreen.HistoryActivity
+import com.elchaninov.model.usermodel.DataModel
+import com.elchaninov.utils.AlertDialogFragment
+import com.elchaninov.utils.convertMeaningsToString
+import com.example.core.AppState
+import com.example.core.BaseActivity
+import com.example.core.view.SearchDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClickListener,
-    AlertDialogFragment.OnActionButtonClickListener {
+class MainActivity : BaseActivity<AppState>(), AlertDialogFragment.OnActionButtonClickListener {
 
     override val model: MainViewModel by viewModel()
     private lateinit var binding: ActivityMainBinding
@@ -25,7 +27,16 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
         MainAdapter(onListItemClickListener)
     }
 
-    private var isEnableShowErrorIfEmpty = true
+    private val onListItemClickListener: (DataModel) -> Unit = { data ->
+        startActivity(
+            DescriptionActivity.getIntent(
+                this,
+                data.text.toString(),
+                convertMeaningsToString(data.meanings),
+                data.meanings?.get(0)?.imageUrl
+            )
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,19 +84,17 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
             is AppState.Empty -> {
                 showViewSuccess()
                 showViewMessageNoConnection(true)
-                if (isEnableShowErrorIfEmpty) {
-                    if (isOnline) {
-                        showAlertDialog(
-                            getString(R.string.dialog_title_empty),
-                            getString(R.string.empty_server_response_on_success)
-                        )
-                    } else {
-                        showAlertDialog(
-                            getString(R.string.dialog_title_empty),
-                            getString(R.string.empty_cash_response_on_success),
-                            getString(R.string.dialog_button_try_again),
-                        )
-                    }
+                if (isOnline) {
+                    showAlertDialog(
+                        getString(R.string.dialog_title_empty),
+                        getString(R.string.empty_server_response_on_success)
+                    )
+                } else {
+                    showAlertDialog(
+                        getString(R.string.dialog_title_empty),
+                        getString(R.string.empty_cash_response_on_success),
+                        getString(R.string.dialog_button_try_again),
+                    )
                 }
             }
             is AppState.Loading -> {
@@ -94,7 +103,7 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
                 if (appState.progress != null) {
                     binding.loading.progressBarHorizontal.visibility = VISIBLE
                     binding.loading.loadingFrameLayout.visibility = GONE
-                    binding.loading.progressBarHorizontal.progress = appState.progress
+                    binding.loading.progressBarHorizontal.progress = appState.progress!!
                 } else {
                     binding.loading.progressBarHorizontal.visibility = GONE
                     binding.loading.progressBarRound.visibility = VISIBLE
@@ -113,16 +122,6 @@ class MainActivity : BaseActivity<AppState>(), SearchDialogFragment.OnSearchClic
                 getString(R.string.message_is_offline_and_show_cache)
         }
         binding.sideMessageNoConnection.visibility = if (isOnline) GONE else VISIBLE
-    }
-
-    override fun onClick(searchWord: String) {
-        isEnableShowErrorIfEmpty = true
-        model.getData(searchWord, isOnline)
-    }
-
-    override fun onFlowSearch(searchWord: String) {
-        isEnableShowErrorIfEmpty = false
-        model.getData(searchWord, isOnline)
     }
 
     override fun onClickActionButton() {

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_favorite_activity">Избранные слова</string>
+    <string name="dialog_title_empty">Неудача</string>
+    <string name="empty_server_response_on_success">По вашему запросу ничего не найдено. Попробуйте другое слово.</string>
+
+</resources>

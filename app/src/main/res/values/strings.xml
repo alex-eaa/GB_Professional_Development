@@ -12,20 +12,9 @@
     <string name="message_is_offline">Отсутствует интернет-соединение.</string>
     <string name="message_is_offline_and_show_cache">Отсутствует интернет-соединение. Показаны данные из кеша.</string>
 
-    <string name="image_stub">image</string>
-    <string name="dialog_button_cancel">Отмена</string>
     <string name="dialog_button_try_again">Повторить</string>
-    <string name="dialog_title_stub">Ошибка</string>
     <string name="dialog_title_empty">Неудача</string>
-    <string name="dialog_title_device_is_offline">Отсутствует интернет-соединение.</string>
-    <string name="dialog_message_device_is_offline">Вы не можете использовать приложение без подключения к Интернету. Пожалуйста, проверьте интернет-соединение.</string>
     <string name="dialog_tittle_sorry">Sorry</string>
     <string name="menu_title_history">История переводов</string>
-    <string name="menu_title_favorite">Избранные слова</string>
-
-    <string name="title_description_activity">Описание</string>
     <string name="title_main_activity">Переводчик</string>
-    <string name="title_history_activity">История поиска</string>
-    <string name="title_favorite_activity">Избранные слова</string>
-    <string name="to_favorite">В избранные</string>
 </resources>

@@ -1,18 +1,12 @@
 package com.elchaninov.gbprofessionaldevelopment.di
 
 import androidx.room.Room
-import com.elchaninov.gbprofessionaldevelopment.model.datasource.DataSourceLocal
-import com.elchaninov.gbprofessionaldevelopment.model.datasource.DataSourceRemote
-import com.elchaninov.gbprofessionaldevelopment.model.datasource.RetrofitImplementation
-import com.elchaninov.gbprofessionaldevelopment.model.datasource.RoomDataBaseImplementation
-import com.elchaninov.gbprofessionaldevelopment.model.datasource.room.DBStorage
-import com.elchaninov.gbprofessionaldevelopment.utils.StringProvider
-import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionInteractor
-import com.elchaninov.gbprofessionaldevelopment.view.descriptionscreen.DescriptionViewModel
-import com.elchaninov.gbprofessionaldevelopment.view.favorite.FavoriteInteractor
-import com.elchaninov.gbprofessionaldevelopment.view.favorite.FavoriteViewModel
-import com.elchaninov.gbprofessionaldevelopment.view.history.HistoryInteractor
-import com.elchaninov.gbprofessionaldevelopment.view.history.HistoryViewModel
+import com.elchaninov.descriptionScreen.DescriptionInteractor
+import com.elchaninov.descriptionScreen.DescriptionViewModel
+import com.elchaninov.favorite.favorite.FavoriteInteractor
+import com.elchaninov.favorite.favorite.FavoriteViewModel
+import com.elchaninov.historyscreen.HistoryInteractor
+import com.elchaninov.historyscreen.HistoryViewModel
 import com.elchaninov.gbprofessionaldevelopment.view.main.MainInteractor
 import com.elchaninov.gbprofessionaldevelopment.view.main.MainViewModel
 import org.koin.android.ext.koin.androidContext
@@ -21,12 +15,16 @@ import org.koin.dsl.module
 
 val application = module {
     single {
-        Room.databaseBuilder(androidContext(), DBStorage::class.java, "translate.db")
+        Room.databaseBuilder(androidContext(), com.elchaninov.repository.room.DBStorage::class.java, "translate.db")
             .build().getTranslationDao()
     }
-    single<DataSourceLocal> { RoomDataBaseImplementation(get()) }
-    single<DataSourceRemote> { RetrofitImplementation() }
-    single { StringProvider(androidContext()) }
+    single<com.elchaninov.repository.DataSourceLocal> {
+        com.elchaninov.repository.RoomDataBaseImplementation(
+            get()
+        )
+    }
+    single<com.elchaninov.repository.DataSourceRemote> { com.elchaninov.repository.RetrofitImplementation() }
+    single { com.elchaninov.utils.StringProvider(androidContext()) }
 }
 
 val mainScreen = module {
