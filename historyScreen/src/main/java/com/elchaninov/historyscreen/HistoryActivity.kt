@@ -11,10 +11,11 @@ import com.elchaninov.historyscreen.databinding.ActivityHistoryBinding
 import com.elchaninov.model.usermodel.DataModel
 import com.elchaninov.utils.convertMeaningsToString
 import com.example.core.AppState
+import com.example.core.BaseActivity
 import com.example.core.view.SearchDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HistoryActivity : com.example.core.BaseActivity<AppState>() {
+class HistoryActivity : BaseActivity<AppState>() {
 
     override val model: HistoryViewModel by viewModel()
     private lateinit var binding: ActivityHistoryBinding

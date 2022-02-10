@@ -9,16 +9,8 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.widget.doOnTextChanged
 import com.example.core.databinding.BottomSheetDialogLayoutBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 
 class SearchDialogFragment : BottomSheetDialogFragment() {
-
-    private val job: Job = Job()
-    private val queryStateFlow = MutableStateFlow("")
 
     private var _binding: BottomSheetDialogLayoutBinding? = null
     private val binding get() = _binding!!
@@ -45,23 +37,11 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun initView() {
-        CoroutineScope(Dispatchers.Main + job).launch {
-            queryStateFlow.debounce(500)
-                .filter { query ->
-                    return@filter query.isNotEmpty()
-                }
-                .distinctUntilChanged()
-                .map { query ->
-                    onSearchClickListener?.onFlowSearch(query)
-                }
-                .collect()
-        }
-
         binding.searchButtonTextview.isEnabled = false
         binding.searchButtonTextview.setOnClickListener { executeSearch() }
 
         binding.searchEditText.doOnTextChanged { _, _, _, _ ->
-            queryStateFlow.value = binding.searchEditText.text.toString()
+            onSearchClickListener?.updateFlowSearch(binding.searchEditText.text.toString())
 
             if (binding.searchEditText.text != null &&
                 binding.searchEditText.text.toString().isNotEmpty()
@@ -91,7 +71,6 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
 
     override fun onDestroyView() {
         onSearchClickListener = null
-        job.cancel()
         super.onDestroyView()
     }
 
@@ -104,7 +83,7 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
 
     interface OnSearchClickListener {
         fun onClick(searchWord: String)
-        fun onFlowSearch(searchWord: String)
+        fun updateFlowSearch(searchWord: String)
     }
 
     companion object {

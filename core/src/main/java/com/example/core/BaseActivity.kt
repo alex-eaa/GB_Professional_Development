@@ -16,7 +16,7 @@ abstract class BaseActivity<T : AppState> : AppCompatActivity(),
     abstract val model: BaseViewModel<T>
     abstract fun renderData(appState: T)
 
-    private var isEnableShowErrorIfEmpty = true
+    var isEnableShowErrorIfEmpty = true
 
     protected val isOnline: Boolean
         get() = isOnline(applicationContext)
@@ -55,9 +55,9 @@ abstract class BaseActivity<T : AppState> : AppCompatActivity(),
         model.getData(searchWord, isOnline)
     }
 
-    override fun onFlowSearch(searchWord: String) {
+    override fun updateFlowSearch(searchWord: String) {
         isEnableShowErrorIfEmpty = false
-        model.getData(searchWord, isOnline)
+        model.updateQueryStateFlow(searchWord, isOnline)
     }
 
     companion object {

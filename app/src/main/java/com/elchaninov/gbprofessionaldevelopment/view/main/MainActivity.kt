@@ -9,16 +9,17 @@ import android.view.View.VISIBLE
 import com.elchaninov.descriptionScreen.DescriptionActivity
 import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityMainBinding
-import com.example.core.view.SearchDialogFragment
 import com.elchaninov.favorite.favorite.FavoriteActivity
 import com.elchaninov.historyscreen.HistoryActivity
 import com.elchaninov.model.usermodel.DataModel
+import com.elchaninov.utils.AlertDialogFragment
 import com.elchaninov.utils.convertMeaningsToString
 import com.example.core.AppState
+import com.example.core.BaseActivity
+import com.example.core.view.SearchDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : com.example.core.BaseActivity<AppState>(),
-    com.elchaninov.utils.AlertDialogFragment.OnActionButtonClickListener {
+class MainActivity : BaseActivity<AppState>(), AlertDialogFragment.OnActionButtonClickListener {
 
     override val model: MainViewModel by viewModel()
     private lateinit var binding: ActivityMainBinding

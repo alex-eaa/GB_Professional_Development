@@ -9,10 +9,11 @@ import com.elchaninov.favorite.databinding.ActivityFavoriteBinding
 import com.elchaninov.model.usermodel.DataModel
 import com.elchaninov.utils.convertMeaningsToString
 import com.example.core.AppState
+import com.example.core.BaseActivity
 import com.example.core.view.SearchDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FavoriteActivity : com.example.core.BaseActivity<AppState>() {
+class FavoriteActivity : BaseActivity<AppState>() {
 
     override val model: FavoriteViewModel by viewModel()
     private lateinit var binding: ActivityFavoriteBinding
