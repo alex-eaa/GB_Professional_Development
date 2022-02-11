@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
+import androidx.recyclerview.widget.RecyclerView
 import com.elchaninov.descriptionScreen.DescriptionActivity
 import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityMainBinding
@@ -16,10 +17,12 @@ import com.elchaninov.historyscreen.HistoryActivity
 import com.elchaninov.model.usermodel.DataModel
 import com.elchaninov.utils.AlertDialogFragment
 import com.elchaninov.utils.convertMeaningsToString
+import com.elchaninov.utils.viewById
 import com.example.core.AppState
 import com.example.core.BaseActivity
 import com.example.core.Settings
 import com.example.core.view.SearchDialogFragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -31,6 +34,9 @@ class MainActivity : BaseActivity<AppState>(), AlertDialogFragment.OnActionButto
     private val adapter: MainAdapter by lazy {
         MainAdapter(onListItemClickListener)
     }
+
+    private val searchFAB by viewById<FloatingActionButton>(R.id.search_fab)
+    private val mainActivityRecyclerview by viewById<RecyclerView>(R.id.main_activity_recyclerview)
 
     private val onListItemClickListener: (DataModel) -> Unit = { data ->
         startActivity(
@@ -53,8 +59,14 @@ class MainActivity : BaseActivity<AppState>(), AlertDialogFragment.OnActionButto
     }
 
     private fun initViews() {
-        binding.mainActivityRecyclerview.adapter = adapter
-        binding.searchFab.setOnClickListener {
+//        binding.mainActivityRecyclerview.adapter = adapter
+//        binding.searchFab.setOnClickListener {
+//            val searchDialogFragment = SearchDialogFragment.newInstance()
+//            searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
+//        }
+
+        mainActivityRecyclerview.adapter = adapter
+        searchFAB.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.newInstance()
             searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
         }
