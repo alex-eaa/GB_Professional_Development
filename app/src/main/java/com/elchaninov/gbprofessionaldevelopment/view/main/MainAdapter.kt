@@ -2,9 +2,12 @@ package com.elchaninov.gbprofessionaldevelopment.view.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityMainRecyclerviewItemBinding
 import com.elchaninov.model.usermodel.DataModel
+import com.elchaninov.utils.viewById
 
 
 class MainAdapter(
@@ -26,7 +29,6 @@ class MainAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerItemViewHolder, position: Int) {
-        holder.itemView.setOnClickListener { onListItemClickListener(data[position]) }
         holder.bind(data[position])
     }
 
@@ -38,14 +40,22 @@ class MainAdapter(
     inner class RecyclerItemViewHolder(private val viewBinding: ActivityMainRecyclerviewItemBinding) :
         RecyclerView.ViewHolder(viewBinding.root) {
 
+        private val headerTextviewRecyclerItem by viewById<TextView>(R.id.header_textview_recycler_item)
+        private val descriptionTextviewRecyclerItem by viewById<TextView>(R.id.description_textview_recycler_item)
+
+        init {
+            itemView.setOnClickListener { onListItemClickListener(data[layoutPosition]) }
+        }
+
         fun bind(dataDto: DataModel) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
-                if (layoutPosition != RecyclerView.NO_POSITION) {
-                    viewBinding.headerTextviewRecyclerItem.text = dataDto.text
+//                viewBinding.headerTextviewRecyclerItem.text = dataDto.text
+//                viewBinding.descriptionTextviewRecyclerItem.text =
+//                    dataDto.meanings?.get(0)?.translation?.translation
 
-                    viewBinding.descriptionTextviewRecyclerItem.text =
-                        dataDto.meanings?.get(0)?.translation?.translation
-                }
+                headerTextviewRecyclerItem.text = dataDto.text
+                descriptionTextviewRecyclerItem.text =
+                    dataDto.meanings?.get(0)?.translation?.translation
             }
         }
     }
