@@ -10,6 +10,9 @@ data class TranslationWhitsMeaning(
     @ColumnInfo(name = "text")
     val text: String?,
 
+    @ColumnInfo(name = "favorite")
+    val favorite: Boolean,
+
     @Relation(parentColumn = "id", entityColumn = "translationId")
     val meanings: List<EntityMeaning>?
 )

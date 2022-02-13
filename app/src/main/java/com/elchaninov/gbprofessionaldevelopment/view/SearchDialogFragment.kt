@@ -26,7 +26,7 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        onSearchClickListener = context as OnSearchClickListener
+        if (context is OnSearchClickListener) onSearchClickListener = context
     }
 
     override fun onCreateView(
@@ -52,7 +52,7 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
                 }
                 .distinctUntilChanged()
                 .map { query ->
-                    onSearchClickListener?.onClick(query)
+                    onSearchClickListener?.onFlowSearch(query)
                 }
                 .collect()
         }
@@ -104,6 +104,7 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
 
     interface OnSearchClickListener {
         fun onClick(searchWord: String)
+        fun onFlowSearch(searchWord: String)
     }
 
     companion object {
