@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityMainRecyclerviewItemBinding
 import com.elchaninov.model.usermodel.DataModel
+import com.elchaninov.utils.convertMeaningsToString
 import com.elchaninov.utils.viewById
 
 
@@ -37,7 +38,7 @@ class MainAdapter(
     }
 
 
-    inner class RecyclerItemViewHolder(private val viewBinding: ActivityMainRecyclerviewItemBinding) :
+    inner class RecyclerItemViewHolder(viewBinding: ActivityMainRecyclerviewItemBinding) :
         RecyclerView.ViewHolder(viewBinding.root) {
 
         private val headerTextviewRecyclerItem by viewById<TextView>(R.id.header_textview_recycler_item)
@@ -47,15 +48,10 @@ class MainAdapter(
             itemView.setOnClickListener { onListItemClickListener(data[layoutPosition]) }
         }
 
-        fun bind(dataDto: DataModel) {
+        fun bind(data: DataModel) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
-//                viewBinding.headerTextviewRecyclerItem.text = dataDto.text
-//                viewBinding.descriptionTextviewRecyclerItem.text =
-//                    dataDto.meanings?.get(0)?.translation?.translation
-
-                headerTextviewRecyclerItem.text = dataDto.text
-                descriptionTextviewRecyclerItem.text =
-                    dataDto.meanings?.get(0)?.translation?.translation
+                headerTextviewRecyclerItem.text = data.text
+                descriptionTextviewRecyclerItem.text = convertMeaningsToString(data.meanings)
             }
         }
     }

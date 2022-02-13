@@ -18,7 +18,7 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnSearchClickListener) onSearchClickListener = context
+        onSearchClickListener = context as? OnSearchClickListener
     }
 
     override fun onCreateView(

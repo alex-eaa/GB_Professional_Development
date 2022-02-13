@@ -33,9 +33,9 @@ class HistoryActivity : BaseActivity<AppState>() {
         startActivity(
             DescriptionActivity.getIntent(
                 this,
-                data.text.toString(),
+                data.text,
                 convertMeaningsToString(data.meanings),
-                data.meanings?.get(0)?.imageUrl
+                data.meanings[0].imageUrl
             )
         )
     }
@@ -84,8 +84,10 @@ class HistoryActivity : BaseActivity<AppState>() {
     }
 
     private fun setActionbarHomeButtonAsUp() {
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.let {
+            it.setHomeButtonEnabled(true)
+            it.setDisplayHomeAsUpEnabled(true)
+        }
     }
 
     override fun renderData(appState: AppState) {

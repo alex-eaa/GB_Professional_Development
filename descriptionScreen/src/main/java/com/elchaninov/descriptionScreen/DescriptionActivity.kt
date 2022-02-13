@@ -57,9 +57,11 @@ class DescriptionActivity : ScopeActivity() {
     }
 
     private fun setActionbarHomeButtonAsUp() {
-        supportActionBar?.title = getString(R.string.title_description_activity)
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.let {
+            it.title = getString(R.string.title_description_activity)
+            it.setHomeButtonEnabled(true)
+            it.setDisplayHomeAsUpEnabled(true)
+        }
     }
 
     private fun updateIconOnMenu(isFavorite: Boolean) {
@@ -123,7 +125,8 @@ class DescriptionActivity : ScopeActivity() {
     }
 
     private fun subscribeToNetworkChange() {
-        OnlineLiveData(this).observe(this) { isOnline = it
+        OnlineLiveData(this).observe(this) {
+            isOnline = it
             startLoadingOrShowError()
         }
     }

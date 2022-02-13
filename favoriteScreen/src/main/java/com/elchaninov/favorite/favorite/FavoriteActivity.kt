@@ -31,9 +31,9 @@ class FavoriteActivity : BaseActivity<AppState>() {
         startActivity(
             DescriptionActivity.getIntent(
                 this,
-                data.text.toString(),
+                data.text,
                 convertMeaningsToString(data.meanings),
-                data.meanings?.get(0)?.imageUrl
+                data.meanings[0].imageUrl
             )
         )
     }
@@ -72,9 +72,11 @@ class FavoriteActivity : BaseActivity<AppState>() {
     }
 
     private fun setActionbarHomeButtonAsUp() {
-        supportActionBar?.title = getString(R.string.title_favorite_activity)
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.let {
+            it.title = getString(R.string.title_favorite_activity)
+            it.setHomeButtonEnabled(true)
+            it.setDisplayHomeAsUpEnabled(true)
+        }
     }
 
     override fun renderData(appState: AppState) {

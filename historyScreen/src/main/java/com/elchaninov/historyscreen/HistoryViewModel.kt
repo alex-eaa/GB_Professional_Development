@@ -28,7 +28,7 @@ class HistoryViewModel(private val interactor: HistoryInteractor) : BaseViewMode
 
     fun toggleEntityTranslation(dataModel: DataModel) {
         viewModelScope.launch(exceptionHandler) {
-            dataModel.text?.let {
+            dataModel.text.let {
                 interactor.toggleTranslationFavorite(it)
                 startInteractor(searchWord, false)
             }
@@ -45,6 +45,6 @@ class HistoryViewModel(private val interactor: HistoryInteractor) : BaseViewMode
 
     private fun parseSearchResult(dataModel: List<DataModel>): AppState =
         if (dataModel.isNullOrEmpty()) AppState.Empty
-        else if (dataModel[0].text.isNullOrEmpty() || dataModel[0].meanings.isNullOrEmpty()) AppState.Empty
+        else if (dataModel[0].text.isEmpty() || dataModel[0].meanings.isNullOrEmpty()) AppState.Empty
         else AppState.Success(dataModel)
 }

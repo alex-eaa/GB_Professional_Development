@@ -22,4 +22,5 @@
     <string name="item_menu_light">Светлая</string>
     <string name="item_menu_dark">Темная</string>
     <string name="item_menu_auto">Авто</string>
+    <string name="fab_description">Искать слово</string>
 </resources>

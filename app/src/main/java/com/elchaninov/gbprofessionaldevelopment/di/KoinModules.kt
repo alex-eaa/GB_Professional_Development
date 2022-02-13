@@ -13,7 +13,13 @@ import com.elchaninov.gbprofessionaldevelopment.view.main.MainViewModel
 import com.elchaninov.historyscreen.HistoryActivity
 import com.elchaninov.historyscreen.HistoryInteractor
 import com.elchaninov.historyscreen.HistoryViewModel
+import com.elchaninov.repository.DataSourceLocal
+import com.elchaninov.repository.DataSourceRemote
+import com.elchaninov.repository.RetrofitImplementation
+import com.elchaninov.repository.RoomDataBaseImplementation
+import com.elchaninov.repository.room.DBStorage
 import com.elchaninov.utils.OnlineLiveData
+import com.elchaninov.utils.StringProvider
 import com.example.core.Settings
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -21,18 +27,12 @@ import org.koin.dsl.module
 
 val application = module {
     single {
-        Room.databaseBuilder(androidContext(),
-            com.elchaninov.repository.room.DBStorage::class.java,
-            "translate.db")
+        Room.databaseBuilder(androidContext(), DBStorage::class.java, "translate.db")
             .build().getTranslationDao()
     }
-    single<com.elchaninov.repository.DataSourceLocal> {
-        com.elchaninov.repository.RoomDataBaseImplementation(
-            get()
-        )
-    }
-    single<com.elchaninov.repository.DataSourceRemote> { com.elchaninov.repository.RetrofitImplementation() }
-    single { com.elchaninov.utils.StringProvider(androidContext()) }
+    single<DataSourceLocal> { RoomDataBaseImplementation(get()) }
+    single<DataSourceRemote> { RetrofitImplementation() }
+    single { StringProvider(androidContext()) }
     single { OnlineLiveData(androidContext()) }
 }
 

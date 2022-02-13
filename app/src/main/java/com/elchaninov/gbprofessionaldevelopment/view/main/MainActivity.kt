@@ -9,10 +9,9 @@ import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
 import androidx.recyclerview.widget.RecyclerView
 import com.elchaninov.descriptionScreen.DescriptionActivity
+import com.elchaninov.favorite.favorite.FavoriteActivity
 import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityMainBinding
-import com.elchaninov.favorite.favorite.FavoriteActivity
-import com.example.core.Theme
 import com.elchaninov.historyscreen.HistoryActivity
 import com.elchaninov.model.usermodel.DataModel
 import com.elchaninov.utils.AlertDialogFragment
@@ -21,6 +20,7 @@ import com.elchaninov.utils.viewById
 import com.example.core.AppState
 import com.example.core.BaseActivity
 import com.example.core.Settings
+import com.example.core.Theme
 import com.example.core.view.SearchDialogFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -44,9 +44,9 @@ class MainActivity : BaseActivity<AppState>(), AlertDialogFragment.OnActionButto
         startActivity(
             DescriptionActivity.getIntent(
                 this,
-                data.text.toString(),
+                data.text,
                 convertMeaningsToString(data.meanings),
-                data.meanings?.get(0)?.imageUrl
+                data.meanings[0].imageUrl
             )
         )
     }
