@@ -11,17 +11,17 @@ import com.elchaninov.model.usermodel.Meanings
 import com.elchaninov.model.usermodel.Translation
 
 fun DataModelDto.toDataModel(): DataModel = DataModel(
-    text = this.text,
-    meanings = this.meanings?.map { meaningsDto -> meaningsDto.toMeanings() }
+    text = this.text ?: "",
+    meanings = this.meanings?.map { meaningsDto -> meaningsDto.toMeanings() } ?: listOf()
 )
 
 fun MeaningsDto.toMeanings(): Meanings = Meanings(
-    translation = this.translation?.toTranslation(),
-    imageUrl = this.imageUrl
+    translation = this.translation?.toTranslation() ?: Translation(),
+    imageUrl = this.imageUrl ?: ""
 )
 
 fun TranslationDto.toTranslation(): Translation = Translation(
-    translation = this.translation
+    translation = this.translation ?: ""
 )
 
 fun DataModelDto.toEntityTranslation(): EntityTranslation = EntityTranslation(
@@ -31,14 +31,14 @@ fun DataModelDto.toEntityTranslation(): EntityTranslation = EntityTranslation(
 )
 
 fun EntityTranslationWhitsMeaning.toDataModel(): DataModel = DataModel(
-    text = this.text,
-    meanings = this.meanings?.map { entityMeaning -> entityMeaning.toMeanings() },
+    text = this.text ?: "",
+    meanings = this.meanings?.map { entityMeaning -> entityMeaning.toMeanings() } ?: listOf(),
     favorite = this.favorite
 )
 
 fun EntityMeaning.toMeanings(): Meanings = Meanings(
-    translation = Translation(this.text),
-    imageUrl = this.imageUrl
+    translation = Translation(this.text ?: ""),
+    imageUrl = this.imageUrl ?: ""
 )
 
 fun map(meaningsDto: MeaningsDto, dataModelDto: DataModelDto): EntityMeaning {
