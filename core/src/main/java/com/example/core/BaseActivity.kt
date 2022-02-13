@@ -3,10 +3,12 @@ package com.example.core
 import android.os.Bundle
 import android.view.View
 import com.elchaninov.utils.AlertDialogFragment
-import com.elchaninov.utils.isOnline
+import com.elchaninov.utils.OnlineLiveData
 import com.example.core.databinding.LoadingFrameLayoutBinding
 import com.example.core.view.SearchDialogFragment
 import com.example.core.viewmodel.BaseViewModel
+import com.google.android.material.snackbar.Snackbar
+import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.ScopeActivity
 
 abstract class BaseActivity<T : AppState> : ScopeActivity(),
@@ -18,12 +20,18 @@ abstract class BaseActivity<T : AppState> : ScopeActivity(),
 
     var isEnableShowErrorIfEmpty = true
 
-    protected val isOnline: Boolean
-        get() = isOnline(applicationContext)
+    private val onlineLiveData: OnlineLiveData by inject()
+    protected var isOnline: Boolean = false
+    abstract var snackbar: Snackbar?
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = LoadingFrameLayoutBinding.inflate(layoutInflater)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        subscribeToNetworkChange()
     }
 
     protected fun showViewSuccess() {
@@ -46,6 +54,11 @@ abstract class BaseActivity<T : AppState> : ScopeActivity(),
         }
     }
 
+    protected fun getSnackbar(view: View): Snackbar = Snackbar.make(
+        view, getString(R.string.message_device_is_offline),
+        Snackbar.LENGTH_INDEFINITE
+    )
+
     private fun isDialogNull(): Boolean {
         return supportFragmentManager.findFragmentByTag(DIALOG_FRAGMENT_TAG) == null
     }
@@ -58,6 +71,16 @@ abstract class BaseActivity<T : AppState> : ScopeActivity(),
     override fun updateFlowSearch(searchWord: String) {
         isEnableShowErrorIfEmpty = false
         model.updateQueryStateFlow(searchWord, isOnline)
+    }
+
+    private fun subscribeToNetworkChange() {
+        onlineLiveData.observe(
+            this@BaseActivity
+        ) {
+            isOnline = it
+            if (isOnline) snackbar?.dismiss()
+            else snackbar?.show()
+        }
     }
 
     companion object {

@@ -23,6 +23,7 @@ import com.example.core.BaseActivity
 import com.example.core.Settings
 import com.example.core.view.SearchDialogFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -37,6 +38,7 @@ class MainActivity : BaseActivity<AppState>(), AlertDialogFragment.OnActionButto
 
     private val searchFAB by viewById<FloatingActionButton>(R.id.search_fab)
     private val mainActivityRecyclerview by viewById<RecyclerView>(R.id.main_activity_recyclerview)
+    override var snackbar: Snackbar? = null
 
     private val onListItemClickListener: (DataModel) -> Unit = { data ->
         startActivity(
@@ -54,17 +56,12 @@ class MainActivity : BaseActivity<AppState>(), AlertDialogFragment.OnActionButto
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        snackbar = getSnackbar(binding.root)
         model.liveDataForViewToObserve.observe(this@MainActivity) { renderData(it) }
         initViews()
     }
 
     private fun initViews() {
-//        binding.mainActivityRecyclerview.adapter = adapter
-//        binding.searchFab.setOnClickListener {
-//            val searchDialogFragment = SearchDialogFragment.newInstance()
-//            searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
-//        }
-
         mainActivityRecyclerview.adapter = adapter
         searchFAB.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.newInstance()

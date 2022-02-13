@@ -13,6 +13,7 @@ import com.elchaninov.utils.convertMeaningsToString
 import com.example.core.AppState
 import com.example.core.BaseActivity
 import com.example.core.view.SearchDialogFragment
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HistoryActivity : BaseActivity<AppState>() {
@@ -22,6 +23,7 @@ class HistoryActivity : BaseActivity<AppState>() {
     private val adapter: HistoryAdapter by lazy {
         HistoryAdapter(onListItemClickListener, onFavoriteClickListener)
     }
+    override var snackbar: Snackbar? = null
 
     private val onFavoriteClickListener: (DataModel) -> Unit = { dataModel ->
         model.toggleEntityTranslation(dataModel)
@@ -42,6 +44,7 @@ class HistoryActivity : BaseActivity<AppState>() {
         super.onCreate(savedInstanceState)
         binding = ActivityHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        snackbar = getSnackbar(binding.root)
         model.liveDataForViewToObserve.observe(this@HistoryActivity) { renderData(it) }
         initViews()
     }

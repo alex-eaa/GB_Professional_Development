@@ -8,11 +8,12 @@ import com.elchaninov.favorite.favorite.FavoriteActivity
 import com.elchaninov.favorite.favorite.FavoriteInteractor
 import com.elchaninov.favorite.favorite.FavoriteViewModel
 import com.elchaninov.gbprofessionaldevelopment.view.main.MainActivity
-import com.elchaninov.historyscreen.HistoryInteractor
-import com.elchaninov.historyscreen.HistoryViewModel
 import com.elchaninov.gbprofessionaldevelopment.view.main.MainInteractor
 import com.elchaninov.gbprofessionaldevelopment.view.main.MainViewModel
 import com.elchaninov.historyscreen.HistoryActivity
+import com.elchaninov.historyscreen.HistoryInteractor
+import com.elchaninov.historyscreen.HistoryViewModel
+import com.elchaninov.utils.OnlineLiveData
 import com.example.core.Settings
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -32,6 +33,7 @@ val application = module {
     }
     single<com.elchaninov.repository.DataSourceRemote> { com.elchaninov.repository.RetrofitImplementation() }
     single { com.elchaninov.utils.StringProvider(androidContext()) }
+    single { OnlineLiveData(androidContext()) }
 }
 
 val mainScreen = module {

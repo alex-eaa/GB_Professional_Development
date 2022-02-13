@@ -11,6 +11,7 @@ import com.elchaninov.utils.convertMeaningsToString
 import com.example.core.AppState
 import com.example.core.BaseActivity
 import com.example.core.view.SearchDialogFragment
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoriteActivity : BaseActivity<AppState>() {
@@ -20,6 +21,7 @@ class FavoriteActivity : BaseActivity<AppState>() {
     private val adapter: FavoriteAdapter by lazy {
         FavoriteAdapter(onListItemClickListener, onFavoriteClickListener)
     }
+    override var snackbar: Snackbar? = null
 
     private val onFavoriteClickListener: (DataModel) -> Unit = { dataModel ->
         model.toggleEntityTranslation(dataModel)
@@ -40,6 +42,7 @@ class FavoriteActivity : BaseActivity<AppState>() {
         super.onCreate(savedInstanceState)
         binding = ActivityFavoriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        snackbar = getSnackbar(binding.root)
         model.liveDataForViewToObserve.observe(this@FavoriteActivity) { renderData(it) }
         initViews()
     }

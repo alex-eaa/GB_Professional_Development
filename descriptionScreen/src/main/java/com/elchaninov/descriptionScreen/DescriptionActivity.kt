@@ -10,6 +10,8 @@ import coil.load
 import coil.request.Disposable
 import coil.transform.RoundedCornersTransformation
 import com.elchaninov.descriptionScreen.databinding.ActivityDescriptionBinding
+import com.elchaninov.utils.AlertDialogFragment
+import com.elchaninov.utils.OnlineLiveData
 import org.koin.androidx.scope.ScopeActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -20,6 +22,7 @@ class DescriptionActivity : ScopeActivity() {
     private var menu: Menu? = null
     private var word: String? = null
     private var imageLoader: Disposable? = null
+    private var isOnline: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +32,7 @@ class DescriptionActivity : ScopeActivity() {
         setData()
         binding.descriptionScreenSwipeRefreshLayout.setOnRefreshListener { startLoadingOrShowError() }
         model.liveDataForViewToObserve.observe(this@DescriptionActivity) { updateIconOnMenu(it) }
+        subscribeToNetworkChange()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -80,10 +84,10 @@ class DescriptionActivity : ScopeActivity() {
     }
 
     private fun startLoadingOrShowError() {
-        if (com.elchaninov.utils.isOnline(applicationContext)) {
+        if (isOnline) {
             setData()
         } else {
-            com.elchaninov.utils.AlertDialogFragment.newInstance(
+            AlertDialogFragment.newInstance(
                 getString(R.string.dialog_title_device_is_offline),
                 getString(R.string.dialog_message_device_is_offline)
             ).show(
@@ -101,7 +105,7 @@ class DescriptionActivity : ScopeActivity() {
     }
 
     private fun useCoilToLoadPhoto(imageView: ImageView, imageLink: String) {
-       imageLoader = imageView.load("https:$imageLink") {
+        imageLoader = imageView.load("https:$imageLink") {
             listener(
                 onSuccess = { _, _ ->
                     stopRefreshAnimationIfNeeded()
@@ -115,6 +119,12 @@ class DescriptionActivity : ScopeActivity() {
             error(R.drawable.ic_load_error_vector)
             crossfade(750)
                 .build()
+        }
+    }
+
+    private fun subscribeToNetworkChange() {
+        OnlineLiveData(this).observe(this) { isOnline = it
+            startLoadingOrShowError()
         }
     }
 
