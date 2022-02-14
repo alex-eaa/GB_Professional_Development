@@ -6,49 +6,64 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
+import androidx.recyclerview.widget.RecyclerView
 import com.elchaninov.descriptionScreen.DescriptionActivity
+import com.elchaninov.favorite.favorite.FavoriteActivity
 import com.elchaninov.gbprofessionaldevelopment.R
 import com.elchaninov.gbprofessionaldevelopment.databinding.ActivityMainBinding
-import com.elchaninov.favorite.favorite.FavoriteActivity
 import com.elchaninov.historyscreen.HistoryActivity
 import com.elchaninov.model.usermodel.DataModel
 import com.elchaninov.utils.AlertDialogFragment
 import com.elchaninov.utils.convertMeaningsToString
+import com.elchaninov.utils.viewById
 import com.example.core.AppState
 import com.example.core.BaseActivity
+import com.example.core.Settings
+import com.example.core.Theme
 import com.example.core.view.SearchDialogFragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<AppState>(), AlertDialogFragment.OnActionButtonClickListener {
 
     override val model: MainViewModel by viewModel()
+    private val settings: Settings by inject()
     private lateinit var binding: ActivityMainBinding
     private val adapter: MainAdapter by lazy {
         MainAdapter(onListItemClickListener)
     }
 
+    private val searchFAB by viewById<FloatingActionButton>(R.id.search_fab)
+    private val mainActivityRecyclerview by viewById<RecyclerView>(R.id.main_activity_recyclerview)
+    override var snackbar: Snackbar? = null
+
     private val onListItemClickListener: (DataModel) -> Unit = { data ->
         startActivity(
             DescriptionActivity.getIntent(
                 this,
-                data.text.toString(),
+                data.text,
                 convertMeaningsToString(data.meanings),
-                data.meanings?.get(0)?.imageUrl
+                data.meanings[0].imageUrl
             )
         )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        settings.nightTheme?.let { setDefaultNightMode(it.value) }
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        snackbar = getSnackbar(binding.root)
         model.liveDataForViewToObserve.observe(this@MainActivity) { renderData(it) }
         initViews()
     }
 
     private fun initViews() {
-        binding.mainActivityRecyclerview.adapter = adapter
-        binding.searchFab.setOnClickListener {
+        mainActivityRecyclerview.adapter = adapter
+        searchFAB.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.newInstance()
             searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
         }
@@ -57,6 +72,14 @@ class MainActivity : BaseActivity<AppState>(), AlertDialogFragment.OnActionButto
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.action_bar_menu, menu)
         supportActionBar?.title = getString(R.string.title_main_activity)
+
+        menu?.let {
+            when (settings.nightTheme) {
+                Theme.DARK -> it.findItem(R.id.theme_dark).isChecked = true
+                Theme.LIGHT -> it.findItem(R.id.theme_light).isChecked = true
+                else -> it.findItem(R.id.theme_auto).isChecked = true
+            }
+        }
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -68,6 +91,21 @@ class MainActivity : BaseActivity<AppState>(), AlertDialogFragment.OnActionButto
             }
             R.id.menu_favorite -> {
                 startActivity(Intent(this, FavoriteActivity::class.java))
+                true
+            }
+            R.id.theme_dark -> {
+                settings.nightTheme = Theme.DARK
+                this.recreate()
+                true
+            }
+            R.id.theme_light -> {
+                settings.nightTheme = Theme.LIGHT
+                this.recreate()
+                true
+            }
+            R.id.theme_auto -> {
+                settings.nightTheme = Theme.AUTO
+                this.recreate()
                 true
             }
             else -> super.onOptionsItemSelected(item)

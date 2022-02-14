@@ -1,6 +1,6 @@
 package com.elchaninov.model.usermodel
 
 data class Meanings(
-    val translation: Translation?,
-    val imageUrl: String?
+    val translation: Translation = Translation(),
+    val imageUrl: String = ""
 )

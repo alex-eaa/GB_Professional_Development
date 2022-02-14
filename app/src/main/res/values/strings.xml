@@ -17,4 +17,10 @@
     <string name="dialog_tittle_sorry">Sorry</string>
     <string name="menu_title_history">История переводов</string>
     <string name="title_main_activity">Переводчик</string>
+
+    <string name="item_menu_theme">Темная тема</string>
+    <string name="item_menu_light">Светлая</string>
+    <string name="item_menu_dark">Темная</string>
+    <string name="item_menu_auto">Авто</string>
+    <string name="fab_description">Искать слово</string>
 </resources>

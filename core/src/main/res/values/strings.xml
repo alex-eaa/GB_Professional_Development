@@ -2,4 +2,5 @@
     <string name="button_search">ИСКАТЬ</string>
     <string name="search_hint">Введите слово</string>
     <string name="delete_description">X</string>
+    <string name="message_device_is_offline">Интернет-связь отсутствует</string>
 </resources>

@@ -40,7 +40,7 @@ class MainViewModel(private val interactor: MainInteractor) : BaseViewModel<AppS
 
     private fun parseSearchResult(dataModel: List<DataModel>): AppState =
         if (dataModel.isNullOrEmpty()) AppState.Empty
-        else if (dataModel[0].text.isNullOrEmpty() || dataModel[0].meanings.isNullOrEmpty()) AppState.Empty
+        else if (dataModel[0].text.isEmpty() || dataModel[0].meanings.isNullOrEmpty()) AppState.Empty
         else AppState.Success(dataModel)
 
 }

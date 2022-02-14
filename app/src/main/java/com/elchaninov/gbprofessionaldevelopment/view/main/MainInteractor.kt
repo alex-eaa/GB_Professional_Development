@@ -1,8 +1,8 @@
 package com.elchaninov.gbprofessionaldevelopment.view.main
 
-import com.example.core.viewmodel.Interactor
 import com.elchaninov.model.toDataModel
 import com.elchaninov.model.usermodel.DataModel
+import com.example.core.viewmodel.Interactor
 
 class MainInteractor(
     private val remoteRepository: com.elchaninov.repository.DataSourceRemote,

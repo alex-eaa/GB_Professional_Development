@@ -6,20 +6,23 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import coil.request.Disposable
 import coil.transform.RoundedCornersTransformation
 import com.elchaninov.descriptionScreen.databinding.ActivityDescriptionBinding
+import com.elchaninov.utils.AlertDialogFragment
+import com.elchaninov.utils.OnlineLiveData
+import org.koin.androidx.scope.ScopeActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DescriptionActivity : AppCompatActivity() {
+class DescriptionActivity : ScopeActivity() {
 
     private lateinit var binding: ActivityDescriptionBinding
     private val model: DescriptionViewModel by viewModel()
     private var menu: Menu? = null
     private var word: String? = null
     private var imageLoader: Disposable? = null
+    private var isOnline: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +32,7 @@ class DescriptionActivity : AppCompatActivity() {
         setData()
         binding.descriptionScreenSwipeRefreshLayout.setOnRefreshListener { startLoadingOrShowError() }
         model.liveDataForViewToObserve.observe(this@DescriptionActivity) { updateIconOnMenu(it) }
+        subscribeToNetworkChange()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -53,9 +57,11 @@ class DescriptionActivity : AppCompatActivity() {
     }
 
     private fun setActionbarHomeButtonAsUp() {
-        supportActionBar?.title = getString(R.string.title_description_activity)
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.let {
+            it.title = getString(R.string.title_description_activity)
+            it.setHomeButtonEnabled(true)
+            it.setDisplayHomeAsUpEnabled(true)
+        }
     }
 
     private fun updateIconOnMenu(isFavorite: Boolean) {
@@ -80,10 +86,10 @@ class DescriptionActivity : AppCompatActivity() {
     }
 
     private fun startLoadingOrShowError() {
-        if (com.elchaninov.utils.isOnline(applicationContext)) {
+        if (isOnline) {
             setData()
         } else {
-            com.elchaninov.utils.AlertDialogFragment.newInstance(
+            AlertDialogFragment.newInstance(
                 getString(R.string.dialog_title_device_is_offline),
                 getString(R.string.dialog_message_device_is_offline)
             ).show(
@@ -101,7 +107,7 @@ class DescriptionActivity : AppCompatActivity() {
     }
 
     private fun useCoilToLoadPhoto(imageView: ImageView, imageLink: String) {
-       imageLoader = imageView.load("https:$imageLink") {
+        imageLoader = imageView.load("https:$imageLink") {
             listener(
                 onSuccess = { _, _ ->
                     stopRefreshAnimationIfNeeded()
@@ -115,6 +121,13 @@ class DescriptionActivity : AppCompatActivity() {
             error(R.drawable.ic_load_error_vector)
             crossfade(750)
                 .build()
+        }
+    }
+
+    private fun subscribeToNetworkChange() {
+        OnlineLiveData(this).observe(this) {
+            isOnline = it
+            startLoadingOrShowError()
         }
     }
 
