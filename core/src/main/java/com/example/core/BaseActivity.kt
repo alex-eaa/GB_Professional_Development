@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import com.elchaninov.utils.AlertDialogFragment
 import com.elchaninov.utils.OnlineLiveData
+import com.elchaninov.utils.disableBlurEffect
+import com.elchaninov.utils.enableBlurEffect
 import com.example.core.databinding.LoadingFrameLayoutBinding
 import com.example.core.view.SearchDialogFragment
 import com.example.core.viewmodel.BaseViewModel
@@ -12,7 +14,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.ScopeActivity
 
 abstract class BaseActivity<T : AppState> : ScopeActivity(),
-    SearchDialogFragment.OnSearchClickListener {
+    SearchDialogFragment.OnSearchClickListener, AlertDialogFragment.OnBlurEffectDisable {
 
     private lateinit var binding: LoadingFrameLayoutBinding
     abstract val model: BaseViewModel<T>
@@ -23,6 +25,7 @@ abstract class BaseActivity<T : AppState> : ScopeActivity(),
     private val onlineLiveData: OnlineLiveData by inject()
     protected var isOnline: Boolean = false
     abstract var snackbar: Snackbar?
+    protected var viewForBlurEffect: View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +54,8 @@ abstract class BaseActivity<T : AppState> : ScopeActivity(),
         if (isDialogNull() && isEnableShowErrorIfEmpty) {
             AlertDialogFragment.newInstance(title, message, buttonTitle)
                 .show(supportFragmentManager, DIALOG_FRAGMENT_TAG)
+
+            viewForBlurEffect?.enableBlurEffect()
         }
     }
 
@@ -81,6 +86,10 @@ abstract class BaseActivity<T : AppState> : ScopeActivity(),
             if (isOnline) snackbar?.dismiss()
             else snackbar?.show()
         }
+    }
+
+    override fun disableBlurEffect() {
+        viewForBlurEffect?.disableBlurEffect()
     }
 
     companion object {

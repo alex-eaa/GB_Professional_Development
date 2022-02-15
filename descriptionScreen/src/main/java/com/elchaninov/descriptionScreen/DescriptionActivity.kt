@@ -12,10 +12,12 @@ import coil.transform.RoundedCornersTransformation
 import com.elchaninov.descriptionScreen.databinding.ActivityDescriptionBinding
 import com.elchaninov.utils.AlertDialogFragment
 import com.elchaninov.utils.OnlineLiveData
+import com.elchaninov.utils.disableBlurEffect
+import com.elchaninov.utils.enableBlurEffect
 import org.koin.androidx.scope.ScopeActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DescriptionActivity : ScopeActivity() {
+class DescriptionActivity : ScopeActivity(), AlertDialogFragment.OnBlurEffectDisable {
 
     private lateinit var binding: ActivityDescriptionBinding
     private val model: DescriptionViewModel by viewModel()
@@ -97,6 +99,7 @@ class DescriptionActivity : ScopeActivity() {
                 DIALOG_FRAGMENT_TAG
             )
             stopRefreshAnimationIfNeeded()
+            binding.root.enableBlurEffect()
         }
     }
 
@@ -134,6 +137,10 @@ class DescriptionActivity : ScopeActivity() {
     override fun onDestroy() {
         imageLoader?.dispose()
         super.onDestroy()
+    }
+
+    override fun disableBlurEffect() {
+        binding.root.disableBlurEffect()
     }
 
     companion object {

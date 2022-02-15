@@ -9,11 +9,13 @@ import androidx.appcompat.app.AppCompatDialogFragment
 class AlertDialogFragment : AppCompatDialogFragment() {
 
     private var onActionButtonClickListener: OnActionButtonClickListener? = null
+    private var onBlurEffectDisable: OnBlurEffectDisable? = null
     private var allowAction = false
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnActionButtonClickListener) onActionButtonClickListener = context
+        onActionButtonClickListener = context as? OnActionButtonClickListener
+        onBlurEffectDisable = context as? OnBlurEffectDisable
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -53,18 +55,24 @@ class AlertDialogFragment : AppCompatDialogFragment() {
             }
         }
         builder.setNegativeButton(R.string.dialog_button_cancel) { dialog, _ -> dialog.dismiss() }
-        builder.setCancelable(true)
+        builder.setCancelable(false)
         return builder.create()
     }
 
     override fun onDetach() {
+        onBlurEffectDisable?.disableBlurEffect()
         if (allowAction) onActionButtonClickListener?.onClickActionButton()
         onActionButtonClickListener = null
+        onBlurEffectDisable = null
         super.onDetach()
     }
 
     interface OnActionButtonClickListener {
         fun onClickActionButton()
+    }
+
+    interface OnBlurEffectDisable {
+        fun disableBlurEffect()
     }
 
     companion object {

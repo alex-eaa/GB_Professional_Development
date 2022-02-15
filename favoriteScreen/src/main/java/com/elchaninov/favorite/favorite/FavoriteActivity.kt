@@ -43,6 +43,7 @@ class FavoriteActivity : BaseActivity<AppState>() {
         binding = ActivityFavoriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
         snackbar = getSnackbar(binding.root)
+        viewForBlurEffect = binding.root
         model.liveDataForViewToObserve.observe(this@FavoriteActivity) { renderData(it) }
         initViews()
     }

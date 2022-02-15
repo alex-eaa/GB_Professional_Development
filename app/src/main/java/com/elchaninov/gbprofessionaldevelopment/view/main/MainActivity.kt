@@ -57,6 +57,7 @@ class MainActivity : BaseActivity<AppState>(), AlertDialogFragment.OnActionButto
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         snackbar = getSnackbar(binding.root)
+        viewForBlurEffect = binding.root
         model.liveDataForViewToObserve.observe(this@MainActivity) { renderData(it) }
         initViews()
     }

@@ -45,6 +45,7 @@ class HistoryActivity : BaseActivity<AppState>() {
         binding = ActivityHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
         snackbar = getSnackbar(binding.root)
+        viewForBlurEffect = binding.root
         model.liveDataForViewToObserve.observe(this@HistoryActivity) { renderData(it) }
         initViews()
     }
