@@ -23,7 +23,6 @@ import com.example.core.Settings
 import com.example.core.Theme
 import com.example.core.view.SearchDialogFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -38,7 +37,6 @@ class MainActivity : BaseActivity<AppState>(), AlertDialogFragment.OnActionButto
 
     private val searchFAB by viewById<FloatingActionButton>(R.id.search_fab)
     private val mainActivityRecyclerview by viewById<RecyclerView>(R.id.main_activity_recyclerview)
-    override var snackbar: Snackbar? = null
 
     private val onListItemClickListener: (DataModel) -> Unit = { data ->
         startActivity(
@@ -53,11 +51,10 @@ class MainActivity : BaseActivity<AppState>(), AlertDialogFragment.OnActionButto
 
     override fun onCreate(savedInstanceState: Bundle?) {
         settings.nightTheme?.let { setDefaultNightMode(it.value) }
-        super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        rootView = binding.root
+        super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        snackbar = getSnackbar(binding.root)
-        viewForBlurEffect = binding.root
         model.liveDataForViewToObserve.observe(this@MainActivity) { renderData(it) }
         initViews()
     }

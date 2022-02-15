@@ -24,11 +24,12 @@ abstract class BaseActivity<T : AppState> : ScopeActivity(),
 
     private val onlineLiveData: OnlineLiveData by inject()
     protected var isOnline: Boolean = false
-    abstract var snackbar: Snackbar?
-    protected var viewForBlurEffect: View? = null
+    private var snackbar: Snackbar? = null
+    protected var rootView: View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        snackbar = rootView?.let { getSnackbar(it) }
         binding = LoadingFrameLayoutBinding.inflate(layoutInflater)
     }
 
@@ -55,7 +56,7 @@ abstract class BaseActivity<T : AppState> : ScopeActivity(),
             AlertDialogFragment.newInstance(title, message, buttonTitle)
                 .show(supportFragmentManager, DIALOG_FRAGMENT_TAG)
 
-            viewForBlurEffect?.enableBlurEffect()
+            rootView?.enableBlurEffect()
         }
     }
 
@@ -89,7 +90,7 @@ abstract class BaseActivity<T : AppState> : ScopeActivity(),
     }
 
     override fun disableBlurEffect() {
-        viewForBlurEffect?.disableBlurEffect()
+        rootView?.disableBlurEffect()
     }
 
     companion object {
