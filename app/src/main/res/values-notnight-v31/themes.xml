@@ -1,0 +1,9 @@
+<resources>
+
+    <style name="AppTheme" parent="AppTheme.Day">
+        <item name="android:windowSplashScreenBackground">@color/material_on_primary_emphasis_high_type</item>
+<!--        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_</item>-->
+<!--        <item name="android:windowSplashScreenIconBackgroundColor">@drawable/ic_android</item>-->
+        <item name="android:windowSplashScreenBrandingImage">@drawable/image</item>
+    </style>
+</resources>
